@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bwy/utils/resource.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter/material.dart';
 import 'package:retrofit/retrofit.dart';
@@ -19,23 +20,26 @@ abstract class RestClient {
     return RestClient(dio);
   }
 
-  // @GET('/codeocean/getdata.php')
-  // @Headers(<String, dynamic>{
-  //   "Content-Type": "application/json",
-  // })
-  // Future<List<UserModel>> getData();
-
   @GET('/codeocean/getdata.php')
   @Headers(<String, dynamic>{
     "Content-Type": "application/json",
+    "charset": "utf-8",
   })
-  Future<List<UserModel>> fetchData();
+  Future<List<UserModel>> getData();
 
-  // @POST('/codeocean/adddata.php')
-  // @Headers(<String, dynamic>{
-  //   "Content-Type": "application/json",
-  // })
-  // Future<UserModel> createUser(@Body() Map<String, dynamic> user);
+  @POST('/codeocean/register.php')
+  @Headers(<String, dynamic>{
+    "Content-Type": "application/json",
+    "charset": "utf-8",
+  })
+  Future<Resource<UserModel>> signup(@Body() Map<String, dynamic> user);
+
+  @POST('/codeocean/login.php')
+  @Headers(<String, dynamic>{
+    "Content-Type": "application/json",
+    "charset": "utf-8",
+  })
+  Future<Resource<UserModel>> login(@Body() Map<String, dynamic> user);
 
   static void debugHttpInterceptors(Dio dio) {
     dio.interceptors.add(InterceptorsWrapper(

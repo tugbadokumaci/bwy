@@ -14,6 +14,12 @@ class Constants {
 }
 
 const String homeRoute = '/home';
+const String welcomeRoute = '/welcome';
+const String loginRoute = '/logIn';
+const String signupRoute = '/signUp';
+const String bwyRoute = '/bwy';
+const String servicesRoute = '/services';
+const String profileRoute = '/profile';
 
 class ApiConstants {
   ApiConstants._();

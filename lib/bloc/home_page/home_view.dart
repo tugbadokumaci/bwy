@@ -3,7 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../BottomNavBar.dart';
+import '../../Navbar.dart';
 import '../../models/user_model.dart';
+import '../../utils/custom_colors.dart';
 import 'home_cubit.dart';
 import 'home_state.dart';
 
@@ -22,15 +25,26 @@ class HomeView extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Bursa Web Yazılım'),
       ),
+      backgroundColor: Colors.black,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.black,
+          onPressed: () {
+            Navigator.pushNamed(context, '/bwy');
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(.5),
+            child: Image.asset('assets/images/bwy_logo.png'),
+          )),
+      // drawer: const Navbar(),
+      bottomNavigationBar: CustomBottomNavBar(),
       body: SingleChildScrollView(
           child: BlocConsumer<HomeCubit, HomeState>(
         listener: ((context, state) {}),
         builder: (context, state) {
           debugPrint('Home View State is : $state');
           if (state is HomeInitial) {
-            viewModel.fetchData();
-            // viewModel.getData();
-            // viewModel.createUser();
+            viewModel.getData();
           } else if (state is HomeLoading) {
             return _buildLoading();
           } else if (state is HomeSuccess) {
@@ -59,17 +73,7 @@ class HomeView extends StatelessWidget {
         itemCount: users!.length,
         itemBuilder: (context, index) {
           final user = users[index];
-          return Container(
-              width: 120,
-              margin: const EdgeInsets.symmetric(horizontal: 8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25),
-                border: Border.all(
-                  color: Colors.white,
-                  width: 2,
-                ),
-              ),
-              child: Text(user.userName));
+          return Text(user.userName);
         },
       ),
     );

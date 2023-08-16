@@ -17,42 +17,41 @@ class HomeCubit extends Cubit<HomeState> {
   })  : _repo = repo,
         super(HomeInitial());
 
-  // Future<void> getData() async {
-  //   emit(HomeLoading());
-  //   userResource = await _repo.getData();
-  //   // debugPrint('Home Cubit : ${userResource.data}');
-  //   debugPrint('HOME REPO RETURNED ${userResource.status} STATUS');
-  //   if (userResource.status == Status.SUCCESS) {
-  //     emit(HomeSuccess(userResource: userResource));
-  //   } else {
-  //     debugPrint('Error while fetching get user data');
-  //     emit(HomeError());
-  //   }
-  // }
-
-  Future<void> fetchData() async {
+  Future<void> getData() async {
     emit(HomeLoading());
-    fetchResource = await _repo.fetchData();
-    if (fetchResource.status == Status.SUCCESS) {
-      emit(HomeSuccess(fetchResource: fetchResource));
+    userResource = await _repo.getData();
+    if (userResource.status == Status.SUCCESS) {
+      emit(HomeSuccess(fetchResource: userResource));
+      debugPrint('get data success');
     } else {
       debugPrint('Error while fetching get user data');
       emit(HomeError());
     }
   }
 
+  // Future<void> fetchData() async {
+  //   emit(HomeLoading());
+  //   fetchResource = await _repo.fetchData();
+  //   if (fetchResource.status == Status.SUCCESS) {
+  //     emit(HomeSuccess(fetchResource: fetchResource));
+  //   } else {
+  //     debugPrint('Error while fetching get user data');
+  //     emit(HomeError());
+  //   }
+  // }
+
   // Future<void> createUser() async {
-  //   createResource = await _repo.createUser(
-  //     "tugba",
-  //     "tugba",
+  //   createResource = await _repo.register(
+  //     "flutter",
+  //     "flutter",
   //     666,
-  //     "tugba",
-  //     "tugba",
+  //     "flutter",
+  //     "flutter",
   //   );
   //   if (createResource.status == Status.SUCCESS) {
-  //     debugPrint('CREATE USER ::::::::::::  ');
+  //     debugPrint('createUser success');
   //   } else {
-  //     debugPrint('Error while CREATE USER ');
+  //     debugPrint('createUser error');
   //   }
   // }
 }
