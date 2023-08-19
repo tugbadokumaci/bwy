@@ -25,6 +25,8 @@ class Box extends StatelessWidget {
         }
       default: // HOR;IZONTAL
         switch (size) {
+          case BoxSize.EXTRASMALL:
+            return const SizedBox(width: 10);
           case BoxSize.SMALL:
             return const SizedBox(width: 20);
           case BoxSize.MEDIUM:

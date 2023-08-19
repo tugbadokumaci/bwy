@@ -67,7 +67,7 @@ class Navbar extends StatelessWidget {
             leading: const Icon(Icons.person_outlined, color: Colors.white),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, '/home', arguments: Constants.USER.userId);
+              Navigator.pushReplacementNamed(context, '/home', arguments: Constants.USER.userId);
             },
           ),
           ListTile(
@@ -88,7 +88,7 @@ class Navbar extends StatelessWidget {
             title: Text('İletişim', style: Theme.of(context).textTheme.titleMedium),
             leading: const Icon(Icons.phone_outlined, color: Colors.white),
             onTap: () {
-              // Navigator.pushNamed(context, )
+              // Navigator.pushReplacementNamed(context, )
               Navigator.pop(context);
             },
           ),
@@ -135,7 +135,7 @@ class Navbar extends StatelessWidget {
                 ),
                 onTap: () {
                   SharedPreferencesService.clearLocalStorage();
-                  Navigator.pushNamed(context, '/welcome');
+                  Navigator.pushReplacementNamed(context, '/welcome');
                 },
               )
             ],

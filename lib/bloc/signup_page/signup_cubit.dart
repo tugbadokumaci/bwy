@@ -62,7 +62,7 @@ class SignupCubit extends Cubit<SignupState> {
           backgroundColor: Colors.green,
           gravity: ToastGravity.TOP,
         );
-        Navigator.pushNamed(context, homeRoute);
+        Navigator.pushReplacementNamed(context, homeRoute);
       } else {
         Utils.showCustomDialog(
           context: context,
@@ -70,7 +70,7 @@ class SignupCubit extends Cubit<SignupState> {
           content: resource.errorMessage ?? '',
           onTap: () {
             Navigator.of(context).pop();
-            Navigator.pushNamed(context, '/signUp');
+            Navigator.pushReplacementNamed(context, '/signUp');
           },
         );
       }

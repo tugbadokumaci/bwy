@@ -9,6 +9,6 @@ Future<void> navigateToNewRoute(
   debugPrint(currentRoute); // null
   debugPrint(newRouteName);
   if (currentRoute != newRouteName) {
-    await Navigator.pushNamed(context, newRouteName, arguments: arguments);
+    await Navigator.pushReplacementNamed(context, newRouteName, arguments: arguments);
   }
 }

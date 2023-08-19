@@ -12,6 +12,9 @@ import 'bloc/home_page/home_cubit.dart';
 import 'bloc/home_page/home_repository.dart';
 import 'bloc/home_page/home_view.dart';
 import 'bloc/login_page/login_view.dart';
+import 'bloc/profile_page/profile_cubit.dart';
+import 'bloc/profile_page/profile_repository.dart';
+import 'bloc/profile_page/profile_view.dart';
 import 'bloc/services_page/services_cubit.dart';
 import 'bloc/services_page/services_repository.dart';
 import 'bloc/services_page/services_view.dart';
@@ -47,6 +50,10 @@ class RouteGenerator {
         return MaterialPageRoute(
             settings: settings,
             builder: (_) => ServicesView(viewModel: ServicesCubit(repo: locator.get<ServicesRepository>())));
+      case profileRoute:
+        return MaterialPageRoute(
+            settings: settings,
+            builder: (_) => ProfileView(viewModel: ProfileCubit(repo: locator.get<ProfileRepository>())));
 
       default:
         return MaterialPageRoute(

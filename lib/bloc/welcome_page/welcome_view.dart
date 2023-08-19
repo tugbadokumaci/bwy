@@ -143,7 +143,7 @@ class WelcomeView extends StatelessWidget {
                 width: 350,
                 content: Text('Hesap oluştur', style: CustomTextStyles.buttonTextStyle(context, Colors.white)),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/signUp');
+                  Navigator.pushReplacementNamed(context, '/signUp');
                 },
                 buttonColor: CustomColors.bwyRed,
               ),
@@ -166,7 +166,7 @@ class WelcomeView extends StatelessWidget {
                 width: 350,
                 content: Text('Giriş yap', style: CustomTextStyles.buttonTextStyle(context, Colors.black)),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/logIn');
+                  Navigator.pushReplacementNamed(context, '/logIn');
                 },
                 buttonColor: Colors.white,
                 // borderColor: Colors.wite,

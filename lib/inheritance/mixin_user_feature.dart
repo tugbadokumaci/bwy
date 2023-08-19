@@ -1,6 +1,5 @@
+import 'package:bwy/utils/constants.dart';
 import 'package:bwy/utils/generator.dart';
-import 'package:flutter/material.dart';
-
 import '../models/user_model.dart';
 import '../service_locator.dart';
 import '../utils/resource.dart';
@@ -22,6 +21,7 @@ mixin MixinUserFeature {
     final restClient = RestClient.create();
     Resource<UserModel> value = await restClient.login({"userEmail": email, "userPassword": password});
     if (value.status == Status.SUCCESS) {
+      Constants.USER = value.data!;
       return Resource.success(value.data!);
     } else {
       return Resource.error(value.errorMessage!);

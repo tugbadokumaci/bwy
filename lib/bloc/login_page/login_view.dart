@@ -28,7 +28,7 @@ class LoginView extends StatelessWidget {
           // title: const FaIcon(FontAwesomeIcons.twitter, color: Colors.white),
           leading: IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/welcome');
+                Navigator.pushReplacementNamed(context, '/welcome');
               },
               icon: const Icon(Icons.close)),
         ),
@@ -36,7 +36,7 @@ class LoginView extends StatelessWidget {
         body: BlocConsumer<LoginCubit, LoginState>(
           listener: (context, state) {
             if (state is LoginSuccess) {
-              Navigator.pushNamed(context, '/home');
+              Navigator.pushReplacementNamed(context, '/home');
             }
           },
           builder: ((context, state) {
@@ -127,7 +127,7 @@ class LoginView extends StatelessWidget {
                 TextButton(
                   child: Text('Kaydol',
                       style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.bwyRed)),
-                  onPressed: () => Navigator.pushNamed(context, '/signUp'),
+                  onPressed: () => Navigator.pushReplacementNamed(context, '/signUp'),
                 )
               ],
             )

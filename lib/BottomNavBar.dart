@@ -21,7 +21,7 @@ class CustomBottomNavBar extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.home, color: Colors.black),
               onPressed: () {
-                // Navigator.pushNamed(context, '/search');
+                // Navigator.pushReplacementNamed(context, '/search');
                 navigateToNewRoute(context, '/home', null);
               },
               iconSize: 34,
@@ -29,7 +29,7 @@ class CustomBottomNavBar extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.dashboard, color: Colors.black),
               onPressed: () {
-                // Navigator.pushNamed(context, '/search');
+                // Navigator.pushReplacementNamed(context, '/search');
                 navigateToNewRoute(context, '/home', null);
               },
               iconSize: 34,
@@ -38,8 +38,8 @@ class CustomBottomNavBar extends StatelessWidget {
               icon: Icon(Icons.person, color: Colors.black),
               onPressed: () {
                 navigateToNewRoute(context, '/logIn', null);
-                // Navigator.pushNamed(context, '/logIn');
-                // Navigator.pushNamed(context, '/settings');
+                // Navigator.pushReplacementNamed(context, '/logIn');
+                // Navigator.pushReplacementNamed(context, '/settings');
               },
               iconSize: 34,
             ),
@@ -47,8 +47,8 @@ class CustomBottomNavBar extends StatelessWidget {
               icon: Icon(Icons.settings, color: Colors.black),
               onPressed: () {
                 navigateToNewRoute(context, '/logIn', null);
-                // Navigator.pushNamed(context, '/logIn');
-                // Navigator.pushNamed(context, '/settings');
+                // Navigator.pushReplacementNamed(context, '/logIn');
+                // Navigator.pushReplacementNamed(context, '/settings');
               },
               iconSize: 34,
             ),
@@ -61,13 +61,13 @@ class CustomBottomNavBar extends StatelessWidget {
       //   unselectedItemColor: Colors.grey,
       //   onTap: (int index) {
       //     if (index == Pages.home.index) {
-      //       Navigator.pushNamed(context, '/');
+      //       Navigator.pushReplacementNamed(context, '/');
       //     } else if (index == Pages.search.index) {
-      //       Navigator.pushNamed(context, '/search');
+      //       Navigator.pushReplacementNamed(context, '/search');
       //     } else if (index == Pages.favorites.index) {
-      //       Navigator.pushNamed(context, '/favorites');
+      //       Navigator.pushReplacementNamed(context, '/favorites');
       //     } else {
-      //       Navigator.pushNamed(context, '/settings');
+      //       Navigator.pushReplacementNamed(context, '/settings');
       //     }
       //   },
       //   items: const [

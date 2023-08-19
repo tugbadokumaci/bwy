@@ -8,5 +8,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     required ProfileRepository repo,
   })  : _repo = repo,
         super(ProfileInitial());
-  Future<void> getProfile() async {}
+  Future<void> getProfile() async {
+    return emit(ProfileSuccess());
+  }
 }

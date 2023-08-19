@@ -142,6 +142,55 @@ class _RestClient implements RestClient {
     }
   }
 
+  @override
+  Future<Resource<List<ServiceModel>>> getServices(Map<String, dynamic> user) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json', r'charset': 'utf-8'};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(user);
+
+    try {
+      Response<String> _result = await _dio.fetch<String>(
+        _setStreamType<String>(
+          Options(
+            method: 'POST',
+            headers: _headers,
+            extra: _extra,
+            contentType: 'application/json',
+          )
+              .compose(
+                _dio.options,
+                '/codeocean/getservices.php',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl),
+        ),
+      );
+      // Dönüştürülen JSON dizesini JSON nesnesine dönüştür
+      final dynamic jsonData = json.decode(_result.data ?? '');
+
+      // JSON nesnesini User Model'e dönüştür
+      final List<ServiceModel> value =
+          (jsonData as List<dynamic>).map((dynamic i) => ServiceModel.fromJson(i as Map<String, dynamic>)).toList();
+
+      return Resource.success(value);
+    } catch (e) {
+      print(e);
+      if (e is DioException) {
+        if (e.response?.statusCode == 401) {
+          return Resource.error(e.response?.statusMessage ?? 'UNAUTHORIZAİED');
+        } else if (e.response?.statusCode == 400) {
+          return Resource.error(e.response?.statusMessage ?? ' WRONG METHOD');
+        }
+      }
+      // Hata durumunda boş bir ServiceModel döndürebilirsiniz veya isteğe göre yönetebilirsiniz.
+      return Resource.error('NOT DioException ERROR !!!!');
+    }
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes || requestOptions.responseType == ResponseType.stream)) {

@@ -23,7 +23,7 @@ class SignupView extends StatelessWidget {
     return BlocConsumer<SignupCubit, SignupState>(
       listener: (context, state) {
         if (state is SignupSuccess) {
-          Navigator.pushNamed(context, '/home');
+          Navigator.pushReplacementNamed(context, '/home');
         }
       },
       builder: (context, state) {
@@ -46,7 +46,7 @@ class SignupView extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/welcome');
+              Navigator.pushReplacementNamed(context, '/welcome');
             },
             icon: const Icon(Icons.close, color: Colors.white)),
         // title: const Text('Merhaba'),

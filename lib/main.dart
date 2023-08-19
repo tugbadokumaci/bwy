@@ -23,9 +23,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
-        appBarTheme: const AppBarTheme(centerTitle: true, backgroundColor: Colors.transparent, elevation: 0.0),
-        primaryTextTheme: Typography(platform: TargetPlatform.iOS).white,
-        textTheme: Typography(platform: TargetPlatform.iOS).white,
+        appBarTheme: const AppBarTheme(
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+        ),
+        // primaryTextTheme: Typography(platform: TargetPlatform.iOS).white,
+        // textTheme: Typography(platform: TargetPlatform.iOS).white,
         // textTheme: Typography.whiteCupertino,
         // colorScheme: const ColorScheme.light().copyWith(primary: Colors.red),
         bottomAppBarTheme: const BottomAppBarTheme(shape: CircularNotchedRectangle()),
