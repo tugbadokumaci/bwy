@@ -64,7 +64,7 @@ class Navbar extends StatelessWidget {
           ),
           ListTile(
             title: Text('Benim Sayfam', style: Theme.of(context).textTheme.titleMedium),
-            leading: const Icon(Icons.person_outlined, color: Colors.white),
+            leading: const Icon(Icons.person_outlined),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushReplacementNamed(context, '/home', arguments: Constants.USER.userId);
@@ -72,21 +72,27 @@ class Navbar extends StatelessWidget {
           ),
           ListTile(
             title: Text('Ödemelerim', style: Theme.of(context).textTheme.titleMedium),
-            leading: const Icon(Icons.wallet_outlined, color: Colors.white),
+            leading: const Icon(
+              Icons.wallet_outlined,
+            ),
             onTap: () {
               Navigator.pop(context);
             },
           ),
           ListTile(
             title: Text('Hesap Ayarlarım', style: Theme.of(context).textTheme.titleMedium),
-            leading: const Icon(Icons.settings, color: Colors.white),
+            leading: const Icon(
+              Icons.settings,
+            ),
             onTap: () {
               Navigator.pop(context);
             },
           ),
           ListTile(
             title: Text('İletişim', style: Theme.of(context).textTheme.titleMedium),
-            leading: const Icon(Icons.phone_outlined, color: Colors.white),
+            leading: const Icon(
+              Icons.phone_outlined,
+            ),
             onTap: () {
               // Navigator.pushReplacementNamed(context, )
               Navigator.pop(context);

@@ -1,27 +1,25 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:bwy/bloc/bwy_page/bwy_view.dart';
-import 'package:bwy/bloc/login_page/login_cubit.dart';
-import 'package:bwy/bloc/login_page/login_repository.dart';
-import 'package:bwy/bloc/welcome_page/welcome_repository.dart';
 import 'package:bwy/service_locator.dart';
 import 'package:bwy/utils/constants.dart';
 import 'package:flutter/material.dart';
 
+import 'bloc/bwy_page/bwy_view.dart';
+import 'bloc/contact_page/contact_view.dart';
 import 'bloc/home_page/home_cubit.dart';
 import 'bloc/home_page/home_repository.dart';
 import 'bloc/home_page/home_view.dart';
+import 'bloc/login_page/login_cubit.dart';
+import 'bloc/login_page/login_repository.dart';
 import 'bloc/login_page/login_view.dart';
 import 'bloc/profile_page/profile_cubit.dart';
 import 'bloc/profile_page/profile_repository.dart';
 import 'bloc/profile_page/profile_view.dart';
-import 'bloc/services_page/services_cubit.dart';
-import 'bloc/services_page/services_repository.dart';
-import 'bloc/services_page/services_view.dart';
 import 'bloc/signup_page/signup_cubit.dart';
 import 'bloc/signup_page/signup_repository.dart';
 import 'bloc/signup_page/signup_view.dart';
 import 'bloc/welcome_page/welcome_cubit.dart';
+import 'bloc/welcome_page/welcome_repository.dart';
 import 'bloc/welcome_page/welcome_view.dart';
 
 class RouteGenerator {
@@ -46,10 +44,8 @@ class RouteGenerator {
             builder: (_) => SignupView(viewModel: SignupCubit(repo: locator.get<SignupRepository>())));
       case bwyRoute:
         return MaterialPageRoute(settings: settings, builder: (_) => BwyView());
-      case servicesRoute:
-        return MaterialPageRoute(
-            settings: settings,
-            builder: (_) => ServicesView(viewModel: ServicesCubit(repo: locator.get<ServicesRepository>())));
+      case contactRoute:
+        return MaterialPageRoute(settings: settings, builder: (_) => ContactView());
       case profileRoute:
         return MaterialPageRoute(
             settings: settings,

@@ -5,7 +5,6 @@ import 'package:get_it/get_it.dart';
 import 'bloc/home_page/home_repository.dart';
 import 'bloc/login_page/login_repository.dart';
 import 'bloc/profile_page/profile_repository.dart';
-import 'bloc/services_page/services_repository.dart';
 import 'bloc/signup_page/signup_repository.dart';
 import 'bloc/welcome_page/welcome_repository.dart';
 
@@ -24,6 +23,5 @@ class DependencyInjection {
     locator.registerFactory<LoginRepository>(() => LoginRepository(locator<RestClient>()));
     locator.registerFactory<SignupRepository>(() => SignupRepository(locator<RestClient>()));
     locator.registerFactory<ProfileRepository>(() => ProfileRepository());
-    locator.registerFactory<ServicesRepository>(() => ServicesRepository());
   }
 }

@@ -141,7 +141,7 @@ class WelcomeView extends StatelessWidget {
                 context: context,
                 height: 50,
                 width: 350,
-                content: Text('Hesap oluştur', style: CustomTextStyles.buttonTextStyle(context, Colors.white)),
+                content: Text('Hesap oluştur', style: CustomTextStyles2.buttonTextStyle(context, Colors.white)),
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, '/signUp');
                 },
@@ -164,7 +164,7 @@ class WelcomeView extends StatelessWidget {
                 context: context,
                 height: 50,
                 width: 350,
-                content: Text('Giriş yap', style: CustomTextStyles.buttonTextStyle(context, Colors.black)),
+                content: Text('Giriş yap', style: CustomTextStyles2.buttonTextStyle(context, Colors.black)),
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, '/logIn');
                 },

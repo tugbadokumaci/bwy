@@ -1,4 +1,3 @@
-import 'package:bwy/BottomNavBar.dart';
 import 'package:bwy/bloc/profile_page/profile_cubit.dart';
 import 'package:bwy/bloc/profile_page/profile_state.dart';
 import 'package:bwy/utils/constants.dart';
@@ -9,10 +8,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 
 import '../../size_config.dart';
 import '../../utils/box_constants.dart';
-import '../../utils/custom_colors.dart';
-import '../../utils/navigator_utils.dart';
 import '../../widget/box.dart';
-import '../home_page/home_cubit.dart';
 import '../home_page/home_view.dart';
 
 class ProfileView extends StatefulWidget {
@@ -28,22 +24,10 @@ class _ProfileViewState extends State<ProfileView> {
   int _selectedIndex = Pages.PROFILE.index;
   static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.w600, color: Colors.white);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Likes',
-      style: optionStyle,
-    ),
-    Text(
-      'Search',
-      style: optionStyle,
-    ),
-    Text(
-      'Profile',
-      style: optionStyle,
-    ),
+    Text('Ana Sayfa', style: optionStyle),
+    Text('Hakkımızda', style: optionStyle),
+    Text('İletişim', style: optionStyle),
+    Text('Hesabım', style: optionStyle),
   ];
 
   @override
@@ -56,9 +40,12 @@ class _ProfileViewState extends State<ProfileView> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Text('Profilim',
-            style:
-                TextStyle(color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold)),
+        title: Text('Hesabım',
+            style: TextStyle(
+                fontFamily: 'REM',
+                color: Colors.white,
+                fontSize: SizeConfig.defaultSize! * 2.4,
+                fontWeight: FontWeight.bold)),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
@@ -85,7 +72,6 @@ class _ProfileViewState extends State<ProfileView> {
           // else if (state is ProfileError) {
           //   return _buildError();
           // }
-          return Container();
         },
       )),
       bottomNavigationBar: Container(
@@ -107,22 +93,22 @@ class _ProfileViewState extends State<ProfileView> {
               gap: 8,
               activeColor: Colors.white,
               iconSize: 24,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              duration: Duration(milliseconds: 400),
-              tabBackgroundColor: Color(0xff222023),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              duration: const Duration(milliseconds: 400),
+              tabBackgroundColor: const Color(0xff222023),
               color: Colors.grey,
-              tabs: [
+              tabs: const [
                 GButton(
                   icon: Icons.dashboard_outlined,
                   text: 'Panelim',
                 ),
                 GButton(
-                  icon: Icons.favorite_outline,
+                  icon: Icons.computer_outlined,
                   text: 'Likes',
                 ),
                 GButton(
-                  icon: Icons.search_outlined,
-                  text: 'Search',
+                  icon: Icons.phone_outlined,
+                  text: 'İLetişim',
                 ),
                 GButton(
                   icon: Icons.person_outline,
@@ -138,9 +124,9 @@ class _ProfileViewState extends State<ProfileView> {
                   case 0:
                     Navigator.pushNamed(context, '/home');
                   case 1:
-                  // Navigator.pushNamed(context, '/home');
+                    Navigator.pushNamed(context, '/bwy');
                   case 2:
-                  // Navigator.pushNamed(context, '/home');
+                    Navigator.pushNamed(context, '/contact');
                   case 3:
                     Navigator.pushNamed(context, '/profile');
                 }
@@ -165,102 +151,108 @@ class _ProfileViewState extends State<ProfileView> {
   }
 
   Widget _buildSuccess(context, state) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-            decoration: BoxDecoration(color: Color(0xff222023), borderRadius: BorderRadius.circular(10)),
-            child: ListTile(
-              title: Text('${Constants.USER.userName} ${Constants.USER.userSurname}',
-                  style: TextStyle(
-                      color: Colors.white, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.bold)),
-              subtitle: Text('${Constants.USER.userEmail}',
-                  style: TextStyle(
-                      color: Colors.grey[400], fontSize: SizeConfig.defaultSize! * 1.5, fontWeight: FontWeight.bold)),
-              trailing: IconButton(onPressed: () {}, icon: Icon(Icons.edit, color: Colors.white)),
-              leading: CircleAvatar(
-                backgroundColor: Colors.black,
-                child: Image.asset('assets/images/default_person.png'),
-                radius: 20,
-              ),
-            )),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
-          child: Row(
-            children: [
-              Icon(Icons.settings, color: Colors.white),
-              Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
-              Text('Hesap Ayarlarım',
-                  style: TextStyle(
-                      color: Colors.white, fontSize: SizeConfig.defaultSize! * 1.8, fontWeight: FontWeight.bold)),
-            ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+              decoration: BoxDecoration(color: const Color(0xff222023), borderRadius: BorderRadius.circular(10)),
+              child: ListTile(
+                title: Text('${Constants.USER.userName} ${Constants.USER.userSurname}',
+                    style: TextStyle(
+                        color: Colors.white, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.bold)),
+                subtitle: Text('${Constants.USER.userEmail}',
+                    style: TextStyle(
+                        color: Colors.grey[400], fontSize: SizeConfig.defaultSize! * 1.5, fontWeight: FontWeight.bold)),
+                trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.edit, color: Colors.white)),
+                leading: CircleAvatar(
+                  backgroundColor: Colors.blueGrey,
+                  child: Image.asset('assets/images/default_person.png', scale: 15),
+                  radius: 20,
+                ),
+              )),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+            child: Row(
+              children: [
+                const Icon(Icons.settings, color: Colors.white),
+                const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
+                Text('Hesap Ayarlarım',
+                    style: TextStyle(
+                        color: Colors.white, fontSize: SizeConfig.defaultSize! * 1.8, fontWeight: FontWeight.bold)),
+              ],
+            ),
           ),
-        ),
-        Container(
-            decoration: BoxDecoration(color: Color(0xff222023), borderRadius: BorderRadius.circular(10)),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Icon(Icons.phonelink_lock_outlined, color: Colors.white),
-                  Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
-                  Text('Şifremi değiştir',
-                      style: TextStyle(
-                          color: Colors.white, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.bold)),
-                  Spacer(),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white)),
-                ],
-              ),
-            )),
-        Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
-        Container(
-            decoration: BoxDecoration(color: Color(0xff222023), borderRadius: BorderRadius.circular(10)),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Icon(Icons.translate_outlined, color: Colors.white),
-                  Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
-                  Text('Uygulama dilini değiştir',
-                      style: TextStyle(
-                          color: Colors.white, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.bold)),
-                  Spacer(),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white)),
-                ],
-              ),
-            )),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
-          child: Row(
-            children: [
-              Icon(Icons.notifications, color: Colors.white),
-              Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
-              Text('Bildirimlerim',
-                  style: TextStyle(
-                      color: Colors.white, fontSize: SizeConfig.defaultSize! * 1.8, fontWeight: FontWeight.bold)),
-            ],
+          Container(
+              decoration: BoxDecoration(color: const Color(0xff222023), borderRadius: BorderRadius.circular(10)),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    const Icon(Icons.phonelink_lock_outlined),
+                    const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
+                    Text('Şifremi değiştir',
+                        style: TextStyle(
+                            color: Colors.white, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.bold)),
+                    const Spacer(),
+                    IconButton(
+                        onPressed: () {}, icon: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.white)),
+                  ],
+                ),
+              )),
+          const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
+          Container(
+              decoration: BoxDecoration(color: const Color(0xff222023), borderRadius: BorderRadius.circular(10)),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.translate_outlined,
+                    ),
+                    const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
+                    Text('Uygulama dilini değiştir',
+                        style: TextStyle(
+                            color: Colors.white, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.bold)),
+                    const Spacer(),
+                    IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_forward_ios_rounded)),
+                  ],
+                ),
+              )),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+            child: Row(
+              children: [
+                const Icon(Icons.notifications),
+                const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
+                Text('Bildirimlerim',
+                    style: TextStyle(
+                        color: Colors.white, fontSize: SizeConfig.defaultSize! * 1.8, fontWeight: FontWeight.bold)),
+              ],
+            ),
           ),
-        ),
-        notificationContainer('Hizmet Bildirimleri'),
-        Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
-        notificationContainer('Haber Bildirimleri'),
-      ],
+          notificationContainer('Hizmet Bildirimleri'),
+          const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
+          notificationContainer('Haber Bildirimleri'),
+        ],
+      ),
     );
   }
 
   Container notificationContainer(String title) {
     return Container(
-        decoration: BoxDecoration(color: Color(0xff222023), borderRadius: BorderRadius.circular(10)),
+        decoration: BoxDecoration(color: const Color(0xff222023), borderRadius: BorderRadius.circular(10)),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              Icon(Icons.notifications_active, color: Colors.white),
-              Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
+              const Icon(Icons.notifications_active, color: Colors.white),
+              const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
               Text(title,
                   style: TextStyle(
                       color: Colors.white, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.bold)),
-              Spacer(),
+              const Spacer(),
               CupertinoSwitch(
                   value: _isNotificationsActive,
                   onChanged: ((value) {

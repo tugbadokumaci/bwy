@@ -76,7 +76,7 @@ class SignupView extends StatelessWidget {
               context: context,
               height: 50,
               width: 350,
-              content: Text('Kayıt ol', style: CustomTextStyles.buttonTextStyle(context, Colors.black)),
+              content: Text('Kayıt ol', style: CustomTextStyles2.buttonTextStyle(context, Colors.black)),
               onPressed: () {
                 viewModel.signup(context);
               },
