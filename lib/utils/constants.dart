@@ -27,5 +27,5 @@ class ApiConstants {
 }
 
 const String phoneNumber = '+902244083848';
-const String officeAddress = 'Beşevler Konak Mh Burgaz Sk. No:2-A D: 2, Yıldız Plaza Nilüfer / BURSA';
+const String officeAddress = 'Beşevler Konak Mh. Burgaz Sk. No:2-A Nilüfer / BURSA';
 const String emailAddress = 'info@bursawebyazilim.com';

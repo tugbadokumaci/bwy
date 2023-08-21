@@ -1,6 +1,5 @@
 import 'package:bwy/utils/box_constants.dart';
 import 'package:bwy/utils/custom_colors.dart';
-import 'package:bwy/utils/custom_text_styles.dart';
 import 'package:bwy/widget/box.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -209,12 +208,12 @@ class _BwyViewState extends State<BwyView> {
         Positioned(
           top: 24,
           left: 24,
-          child: Container(width: 280, child: _headerTitle),
+          child: Container(width: 290, child: _headerTitle),
         ),
         Positioned(
           left: 24,
           bottom: 120,
-          child: Container(width: 280, child: _headerSubTitle),
+          child: Container(width: 290, child: _headerSubTitle),
         ),
         Positioned(
             bottom: 50,

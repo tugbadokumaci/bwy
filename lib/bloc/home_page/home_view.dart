@@ -220,7 +220,11 @@ class _HomeViewState extends State<HomeView> {
         Positioned(
             bottom: 8,
             right: 24,
-            child: IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_circle_right, size: 40))),
+            child: IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/bwy');
+                },
+                icon: const Icon(Icons.arrow_circle_right, size: 40))),
       ],
     );
   }
