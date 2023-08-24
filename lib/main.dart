@@ -1,7 +1,7 @@
 import 'package:bwy/routes.dart';
 import 'package:bwy/service_locator.dart';
 import 'package:bwy/shared_preferences_service.dart';
-import 'package:bwy/utils/constants.dart';
+import 'package:bwy/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 void main() async {

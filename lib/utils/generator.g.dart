@@ -132,7 +132,7 @@ class _RestClient implements RestClient {
       print(e);
       if (e is DioException) {
         if (e.response?.statusCode == 401) {
-          return Resource.error(e.response?.statusMessage ?? 'UNAUTHORIZAİED');
+          return Resource.error('Email veya şifreniz hatalı');
         } else if (e.response?.statusCode == 400) {
           return Resource.error(e.response?.statusMessage ?? ' WRONG METHOD');
         }
@@ -184,6 +184,49 @@ class _RestClient implements RestClient {
           return Resource.error(e.response?.statusMessage ?? 'UNAUTHORIZAİED');
         } else if (e.response?.statusCode == 400) {
           return Resource.error(e.response?.statusMessage ?? ' WRONG METHOD');
+        }
+      }
+      // Hata durumunda boş bir ServiceModel döndürebilirsiniz veya isteğe göre yönetebilirsiniz.
+      return Resource.error('NOT DioException ERROR !!!!');
+    }
+  }
+
+  @override
+  Future<Resource<bool>> changePassword(Map<String, dynamic> newPassword) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json', r'charset': 'utf-8'};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(newPassword);
+
+    try {
+      Response<String> _result = await _dio.fetch<String>(
+        _setStreamType<String>(
+          Options(
+            method: 'POST',
+            headers: _headers,
+            extra: _extra,
+            contentType: 'application/json',
+          )
+              .compose(
+                _dio.options,
+                '/codeocean/changepassword.php',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl),
+        ),
+      );
+
+      return Resource.success(true);
+    } catch (e) {
+      print(e);
+      if (e is DioException) {
+        if (e.response?.statusCode == 405) {
+          return Resource.error(e.response?.statusMessage ?? 'Geçersiz istek metodu');
+        } else if (e.response?.statusCode == 400) {
+          return Resource.error(e.response?.statusMessage ?? ' Eksik veya hatalı veri gönderildi');
         }
       }
       // Hata durumunda boş bir ServiceModel döndürebilirsiniz veya isteğe göre yönetebilirsiniz.

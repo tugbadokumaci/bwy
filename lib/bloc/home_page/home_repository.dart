@@ -1,6 +1,6 @@
 import '../../inheritance/mixin_user_feature.dart';
 import '../../models/service_model.dart';
-import '../../utils/constants.dart';
+import '../../constants/constants.dart';
 import '../../utils/generator.dart';
 import '../../utils/resource.dart';
 

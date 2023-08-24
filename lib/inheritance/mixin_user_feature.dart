@@ -1,4 +1,4 @@
-import 'package:bwy/utils/constants.dart';
+import 'package:bwy/constants/constants.dart';
 import 'package:bwy/utils/generator.dart';
 import '../models/user_model.dart';
 import '../service_locator.dart';

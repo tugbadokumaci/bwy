@@ -4,6 +4,7 @@ import 'package:bwy/widget/box.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
+import '../../constants/strings.dart';
 import '../../size_config.dart';
 import '../../widget/container.dart';
 import '../../widget/fabs.dart';
@@ -17,7 +18,7 @@ class BwyView extends StatefulWidget {
 }
 
 class _BwyViewState extends State<BwyView> {
-  List<bool> expansionStates = List.generate(3, (index) => false);
+  List<bool> expansionStates = List.generate(5, (index) => false);
   int _selectedIndex = Pages.ABOUTUS.index;
   static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.w600, color: Colors.white);
   static const List<Widget> _widgetOptions = <Widget>[
@@ -60,10 +61,12 @@ class _BwyViewState extends State<BwyView> {
 
   @override
   Widget build(BuildContext context) {
-    return _buildScaffold(context);
+    final int focusIndex = ModalRoute.of(context)!.settings.arguments as int;
+
+    return _buildScaffold(context, focusIndex);
   }
 
-  SafeArea _buildScaffold(BuildContext context) {
+  SafeArea _buildScaffold(BuildContext context, int focusIndex) {
     SizeConfig().init(context);
     return SafeArea(
         child: Scaffold(
@@ -81,7 +84,7 @@ class _BwyViewState extends State<BwyView> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FABs.buildMessageFab(context),
       body: SingleChildScrollView(
-        child: _buildBody(context),
+        child: _buildBody(context, focusIndex),
       ),
       bottomNavigationBar: _bottomNavigationBar(context),
     ));
@@ -138,7 +141,7 @@ class _BwyViewState extends State<BwyView> {
                 case 0:
                   Navigator.pushNamed(context, '/home');
                 case 1:
-                  Navigator.pushNamed(context, '/bwy');
+                  Navigator.pushNamed(context, '/bwy', arguments: -1);
                 case 2:
                   Navigator.pushNamed(context, '/contact');
                 case 3:
@@ -151,7 +154,7 @@ class _BwyViewState extends State<BwyView> {
     );
   }
 
-  Widget _buildBody(BuildContext context) {
+  Widget _buildBody(BuildContext context, int focusIndex) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Column(
@@ -164,31 +167,53 @@ class _BwyViewState extends State<BwyView> {
               child: Text('Hizmetlerimiz',
                   style: TextStyle(
                       color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold))),
-          serviceExpansionTile('Hosting', 'Bu bir hosting hizmetidir.', 0, CustomColors.bwyYellowPastel),
+          serviceExpansionTile(
+              Strings.service1Title, Strings.service1Description, 0, 0 == focusIndex, Color(0xff88B14B)),
           Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
-          serviceExpansionTile('Domain', 'Bu bir domain hizmetidir.', 1, CustomColors.bwyRedPastel),
+          serviceExpansionTile(
+              Strings.service2Title, Strings.service2Description, 1, 1 == focusIndex, Color(0xff88B14B)),
           Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
-          serviceExpansionTile('Tasarım', 'Bu bir tasarım hizmetidir.', 2, CustomColors.bwyGreenPastel),
+          serviceExpansionTile(
+              Strings.service3Title, Strings.service3Description, 2, 2 == focusIndex, Color(0xff88B14B)),
+          Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
+          serviceExpansionTile(
+              Strings.service4Title, Strings.service4Description, 3, 3 == focusIndex, Color(0xff88B14B)),
+          Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
+          serviceExpansionTile(
+              Strings.service5Title, Strings.service5Description, 4, 4 == focusIndex, Color(0xff88B14B)),
         ],
       ),
     );
   }
 
-  Widget serviceExpansionTile(String title, String description, int index, Color activeColor) {
+  Widget serviceExpansionTile(
+      String title, String description, int index, bool isInitiallyExpanded, Color activeColor) {
     return MyContainer(
-      // backgroundColor: expansionStates[index] ? activeColor : null,
+      // backgroundColor: expansionStates[index] ? activeColor : Color(0xff005329),
+      backgroundColor: Color(0xff222023),
       child: ExpansionTile(
-        title: Text(title,
-            style: TextStyle(
-                color: expansionStates[index] ? activeColor : Colors.white,
-                fontSize: SizeConfig.defaultSize! * 2,
-                fontWeight: FontWeight.bold)),
+        initiallyExpanded: isInitiallyExpanded,
+        title: Text(
+          title,
+          style: TextStyle(
+              // color: expansionStates[index] ? activeColor : Colors.white,
+              color: Colors.white,
+              fontSize: SizeConfig.defaultSize! * 2,
+              fontWeight: FontWeight.bold),
+        ),
         children: [
           ListTile(
-              title: Text(description,
-                  style: TextStyle(
-                      color: Colors.white, fontSize: SizeConfig.defaultSize! * 1.8, fontWeight: FontWeight.bold)))
+              title: Text(
+            description,
+            style: TextStyle(
+                // color: Color(0xffa6a6a6),
+                fontSize: SizeConfig.defaultSize! * 1.7,
+                fontWeight: FontWeight.bold),
+          ))
         ],
+        trailing: expansionStates[index]
+            ? Icon(Icons.keyboard_arrow_up_rounded, color: Colors.grey)
+            : Icon(Icons.keyboard_arrow_down_rounded, color: Colors.grey),
         onExpansionChanged: (bool expanded) {
           setState(() {
             expansionStates[index] = expanded;
@@ -226,12 +251,22 @@ class _BwyViewState extends State<BwyView> {
                 child: Row(
                   children: [
                     SizedBox(width: 3),
-                    Text('Bizimle Bugün Başlayın',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: SizeConfig.defaultSize! * 1.8,
-                          fontWeight: FontWeight.bold,
-                        )),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/contact');
+                      },
+                      child: Text('Bizimle Bugün Başlayın',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: SizeConfig.defaultSize! * 1.8,
+                            fontWeight: FontWeight.bold,
+                          )),
+                      style: TextButton.styleFrom(
+                        minimumSize: Size.zero,
+                        padding: EdgeInsets.zero,
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+                    ),
                     SizedBox(width: 3),
                     Icon(Icons.arrow_circle_right, size: 30, color: Colors.white)
                   ],

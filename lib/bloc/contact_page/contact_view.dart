@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:bwy/utils/constants.dart';
+import 'package:bwy/constants/constants.dart';
 import 'package:bwy/utils/custom_text_styles.dart';
 import 'package:bwy/widget/container.dart';
 import 'package:flutter/material.dart';
@@ -77,6 +77,8 @@ class _ContactViewState extends State<ContactView> {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Column(
         children: [
+          Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
+
           _headerContainer(),
           Box(size: BoxSize.EXTRASMALL, type: BoxType.VERTICAL),
           // Padding(
@@ -215,7 +217,7 @@ class _ContactViewState extends State<ContactView> {
                 case 0:
                   Navigator.pushNamed(context, '/home');
                 case 1:
-                  Navigator.pushNamed(context, '/bwy');
+                  Navigator.pushNamed(context, '/bwy', arguments: -1);
                 case 2:
                   Navigator.pushNamed(context, '/contact');
                 case 3:

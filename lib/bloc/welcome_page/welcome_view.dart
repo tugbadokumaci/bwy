@@ -79,7 +79,7 @@ class WelcomeView extends StatelessWidget {
               //       .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
               // ),
               const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
-              Text('20 yıldır sizler için sunduğumuz hizmetimiz şimdi cepte.',
+              Text('25 yıldır sizler için sunduğumuz hizmetimiz şimdi cepte.',
                   style: Theme.of(context)
                       .textTheme
                       .headlineMedium!

@@ -1,14 +1,18 @@
 import 'package:bwy/bloc/profile_page/profile_cubit.dart';
 import 'package:bwy/bloc/profile_page/profile_state.dart';
-import 'package:bwy/utils/constants.dart';
+import 'package:bwy/constants/constants.dart';
+import 'package:bwy/utils/custom_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../size_config.dart';
 import '../../utils/box_constants.dart';
 import '../../widget/box.dart';
+import '../../widget/button.dart';
+import '../../widget/text_fields.dart';
 import '../home_page/home_view.dart';
 
 class ProfileView extends StatefulWidget {
@@ -32,6 +36,7 @@ class _ProfileViewState extends State<ProfileView> {
 
   @override
   Widget build(BuildContext context) {
+    widget.viewModel.getProfile();
     return BlocProvider<ProfileCubit>(create: (_) => widget.viewModel, child: _buildScaffold(context));
   }
 
@@ -50,28 +55,24 @@ class _ProfileViewState extends State<ProfileView> {
         automaticallyImplyLeading: false,
       ),
       backgroundColor: Colors.black,
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // floatingActionButton: FloatingActionButton(backgroundColor: Colors.black, onPressed: () {}),
-      // // drawer: const Navbar(),
-      // bottomNavigationBar: CustomBottomNavBar(),
       body: SingleChildScrollView(
           child: BlocConsumer<ProfileCubit, ProfileState>(
-        listener: ((context, state) {
-          if (state is ProfileInitial) {
-            // widget.viewModel.getProfile();
-          }
-        }),
+        listener: ((context, state) {}),
         builder: (context, state) {
           debugPrint('Profile View State is : $state');
-          // if (state is ProfileLoading) {
-          //   return _buildLoading();
-          // } else if (state is ProfileSuccess) {
-          //   debugPrint('Now success is building');
-          return _buildSuccess(context, state);
+          // if (state is ProfileInitial) {
+          //   return Container(color: Colors.red, height: 400, width: 400);
           // }
-          // else if (state is ProfileError) {
-          //   return _buildError();
-          // }
+          if (state is ProfileLoading) {
+            return _buildLoading();
+          } else if (state is ProfileSuccess) {
+            debugPrint('Success is building');
+            return _buildSuccess(context, state);
+          } else if (state is ProfilePasswordChange) {
+            return _buildPasswordChange();
+          }
+          debugPrint('OUTSIDE');
+          return _buildError(context);
         },
       )),
       bottomNavigationBar: Container(
@@ -124,7 +125,7 @@ class _ProfileViewState extends State<ProfileView> {
                   case 0:
                     Navigator.pushNamed(context, '/home');
                   case 1:
-                    Navigator.pushNamed(context, '/bwy');
+                    Navigator.pushNamed(context, '/bwy', arguments: -1);
                   case 2:
                     Navigator.pushNamed(context, '/contact');
                   case 3:
@@ -136,6 +137,96 @@ class _ProfileViewState extends State<ProfileView> {
         ),
       ),
     ));
+  }
+
+  Center _buildError(BuildContext context) {
+    return Center(
+        child: Container(
+            color: Colors.black,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Align(
+              alignment: Alignment.center,
+              child: Lottie.asset(
+                'animations/error_animation.json',
+                height: 200,
+                reverse: false,
+                // repeat: true,
+                // fit: BoxFit.cover,
+              ),
+            )));
+  }
+
+  Widget _buildPasswordChange() {
+    return Padding(
+      padding: const EdgeInsets.all(50.0),
+      child: Column(
+        children: [
+          Text('Şifremi Değiştir',
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineMedium!
+                  .copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+          const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
+          Text('Lütfen aşağıdaki bilgileri eksiksiz doldurun.'),
+          const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
+          MyTextFieldWidget(
+              validatorCallback: ((value) {
+                if (value!.isEmpty) {
+                  return "new password can't be null";
+                } else {}
+                return null;
+              }),
+              controller: widget.viewModel.passwordController,
+              labelText: 'Yeni şifre',
+              isSecure: true),
+          const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
+          MyTextFieldWidget(
+            validatorCallback: ((value) {
+              if (value!.isEmpty) {
+                return "new password can't be null";
+              } else {}
+              return null;
+            }),
+            controller: widget.viewModel.passwordAgainController,
+            labelText: 'Yeni şifre Tekrar',
+            isSecure: true,
+          ),
+          const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
+          MyButtonWidget(
+              context: context,
+              height: 50,
+              width: 350,
+              buttonColor: Colors.white,
+              content: Text('Değişiklikleri Kaydet',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(fontWeight: FontWeight.bold, color: Colors.black)),
+              onPressed: () {
+                widget.viewModel.changePassword(context);
+                widget.viewModel.passwordAgainController.text = '';
+              }),
+          const Box(
+            size: BoxSize.SMALL,
+            type: BoxType.VERTICAL,
+          ),
+          MyButtonWidget(
+            context: context,
+            height: 50,
+            width: 350,
+            buttonColor: Colors.black,
+            content: const Text('Vazgeç'),
+            onPressed: () {
+              widget.viewModel.passwordAgainController.text = '';
+              widget.viewModel.passwordController.text = '';
+              widget.viewModel.getProfile();
+            },
+            borderColor: Colors.white,
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildLoading() {
@@ -165,12 +256,13 @@ class _ProfileViewState extends State<ProfileView> {
                 subtitle: Text('${Constants.USER.userEmail}',
                     style: TextStyle(
                         color: Colors.grey[400], fontSize: SizeConfig.defaultSize! * 1.5, fontWeight: FontWeight.bold)),
-                trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.edit, color: Colors.white)),
-                leading: CircleAvatar(
-                  backgroundColor: Colors.blueGrey,
-                  child: Image.asset('assets/images/default_person.png', scale: 15),
-                  radius: 20,
-                ),
+                trailing: IconButton(
+                    onPressed: () {
+                      widget.viewModel.logOut();
+                      Navigator.pushNamed(context, '/welcome');
+                    },
+                    icon: const Icon(Icons.logout, color: Colors.white)),
+                leading: Image.asset('assets/images/user.png', scale: 12),
               )),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
@@ -180,88 +272,80 @@ class _ProfileViewState extends State<ProfileView> {
                 const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
                 Text('Hesap Ayarlarım',
                     style: TextStyle(
-                        color: Colors.white, fontSize: SizeConfig.defaultSize! * 1.8, fontWeight: FontWeight.bold)),
+                        color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold)),
               ],
             ),
           ),
-          Container(
-              decoration: BoxDecoration(color: const Color(0xff222023), borderRadius: BorderRadius.circular(10)),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    const Icon(Icons.phonelink_lock_outlined),
-                    const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
-                    Text('Şifremi değiştir',
-                        style: TextStyle(
-                            color: Colors.white, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.bold)),
-                    const Spacer(),
-                    IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.white)),
-                  ],
-                ),
-              )),
-          const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
-          Container(
-              decoration: BoxDecoration(color: const Color(0xff222023), borderRadius: BorderRadius.circular(10)),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.translate_outlined,
-                    ),
-                    const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
-                    Text('Uygulama dilini değiştir',
-                        style: TextStyle(
-                            color: Colors.white, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.bold)),
-                    const Spacer(),
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_forward_ios_rounded)),
-                  ],
-                ),
-              )),
+          TextButton(
+            onPressed: () {
+              widget.viewModel.goPasswordPage();
+            },
+            child: Row(
+              children: [
+                const Icon(Icons.phonelink_lock_outlined, color: Colors.white),
+                const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
+                Text('Şifremi değiştir',
+                    style: TextStyle(
+                        color: Colors.white, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.bold)),
+                const Spacer(),
+                Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
+              ],
+            ),
+          ),
+          Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
+          TextButton(
+            onPressed: () {},
+            child: Row(
+              children: [
+                const Icon(Icons.translate_outlined, color: Colors.white),
+                const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
+                Text('Uygulama dilini değiştir',
+                    style: TextStyle(
+                        color: Colors.white, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.bold)),
+                const Spacer(),
+                Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
+              ],
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
             child: Row(
               children: [
                 const Icon(Icons.notifications),
-                const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
-                Text('Bildirimlerim',
+                const Box(size: BoxSize.SMALL, type: BoxType.HORIZONTAL),
+                Text('Servis Bildirimlerim',
                     style: TextStyle(
-                        color: Colors.white, fontSize: SizeConfig.defaultSize! * 1.8, fontWeight: FontWeight.bold)),
+                        color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold)),
               ],
             ),
           ),
-          notificationContainer('Hizmet Bildirimleri'),
+          notificationContainer('Yeni servis bildirimi'),
           const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
-          notificationContainer('Haber Bildirimleri'),
+          notificationContainer('Servis yenileme bildirimi'),
         ],
       ),
     );
   }
 
-  Container notificationContainer(String title) {
-    return Container(
-        decoration: BoxDecoration(color: const Color(0xff222023), borderRadius: BorderRadius.circular(10)),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              const Icon(Icons.notifications_active, color: Colors.white),
-              const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
-              Text(title,
-                  style: TextStyle(
-                      color: Colors.white, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.bold)),
-              const Spacer(),
-              CupertinoSwitch(
-                  value: _isNotificationsActive,
-                  onChanged: ((value) {
-                    setState(() {
-                      _isNotificationsActive = value;
-                    });
-                  })),
-            ],
-          ),
-        ));
+  Widget notificationContainer(String title) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          CupertinoSwitch(
+              activeColor: CustomColors.bwyGreen,
+              value: _isNotificationsActive,
+              onChanged: ((value) {
+                setState(() {
+                  _isNotificationsActive = value;
+                });
+              })),
+          Box(type: BoxType.HORIZONTAL, size: BoxSize.EXTRASMALL),
+          Text(title,
+              style:
+                  TextStyle(color: Colors.white, fontSize: SizeConfig.defaultSize! * 1.8, fontWeight: FontWeight.bold)),
+        ],
+      ),
+    );
   }
 }

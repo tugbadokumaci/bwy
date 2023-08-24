@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../models/user_model.dart';
 import '../../shared_preferences_service.dart';
-import '../../utils/constants.dart';
+import '../../constants/constants.dart';
 import '../../utils/resource.dart';
 import '../../utils/utils.dart';
 import 'login_repository.dart';
@@ -44,13 +44,13 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> login(BuildContext context) async {
     if (getEmailController.text == '') {
       Fluttertoast.showToast(
-        msg: 'email field cant be null',
+        msg: 'email alanı boş olamaz',
         backgroundColor: Colors.redAccent,
         gravity: ToastGravity.TOP,
       );
     } else if (getPasswordController.text == '') {
       Fluttertoast.showToast(
-        msg: 'password field cant be null',
+        msg: 'şifre alanı boş olamaz',
         backgroundColor: Colors.redAccent,
         gravity: ToastGravity.TOP,
       );
@@ -64,17 +64,18 @@ class LoginCubit extends Cubit<LoginState> {
       if (resource.status == Status.SUCCESS) {
         Constants.USER = resource.data!;
         await SharedPreferencesService.setStringPreference(email, password);
-        emit(LoginSuccess());
+
         Fluttertoast.showToast(
-          msg: 'Log in Success',
+          msg: 'Giriş Başarılı',
           backgroundColor: Colors.green,
           gravity: ToastGravity.TOP,
         );
-        Navigator.pushReplacementNamed(context, homeRoute);
+        emit(LoginSuccess());
+        // Navigator.pushNamed(context, '/home');
       } else {
         Utils.showCustomDialog(
           context: context,
-          title: 'Log in Error',
+          title: 'Giriş Başarısız',
           content: resource.errorMessage ?? '',
           onTap: () {
             Navigator.of(context).pop();

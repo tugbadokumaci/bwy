@@ -71,7 +71,7 @@ class LoginView extends StatelessWidget {
             MyTextFieldWidget(
                 validatorCallback: ((value) {
                   if (value!.isEmpty) {
-                    return "email can't be null";
+                    return "email alanı boş olamaz";
                   } else {}
                   return null;
                 }),
@@ -81,15 +81,15 @@ class LoginView extends StatelessWidget {
             MyTextFieldWidget(
               validatorCallback: ((value) {
                 if (value!.isEmpty) {
-                  return "password can't be null";
+                  return "şifre alanı boş olamaz";
                 } else {}
                 return null;
               }),
               controller: viewModel.getPasswordController,
-              labelText: 'Password',
+              labelText: 'Şifre',
               isSecure: true,
             ),
-            const Box(size: BoxSize.LARGE, type: BoxType.VERTICAL),
+            const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
             MyButtonWidget(
                 context: context,
                 height: 50,
@@ -107,22 +107,18 @@ class LoginView extends StatelessWidget {
               size: BoxSize.SMALL,
               type: BoxType.VERTICAL,
             ),
-            MyButtonWidget(
-              context: context,
-              height: 50,
-              width: 350,
-              buttonColor: Colors.black,
-              content: const Text('Forgot Password?'),
-              onPressed: () {},
-              borderColor: Colors.white,
-            ),
-            const Box(
-              size: BoxSize.MEDIUM,
-              type: BoxType.VERTICAL,
-            ),
+            // MyButtonWidget(
+            //   context: context,
+            //   height: 50,
+            //   width: 350,
+            //   buttonColor: Colors.black,
+            //   content: const Text('Forgot Password?'),
+            //   onPressed: () {},
+            //   borderColor: Colors.white,
+            // ),
             Row(
               children: [
-                Text('Henüz bir hesabın yok mu?',
+                Text('Henüz bir hesabınız yok mu?',
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.lightGray)),
                 TextButton(
                   child: Text('Kaydol',

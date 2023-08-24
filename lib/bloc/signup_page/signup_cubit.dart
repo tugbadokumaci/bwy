@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../models/user_model.dart';
 import '../../shared_preferences_service.dart';
-import '../../utils/constants.dart';
+import '../../constants/constants.dart';
 import '../../utils/resource.dart';
 import '../../utils/utils.dart';
 
@@ -26,25 +26,25 @@ class SignupCubit extends Cubit<SignupState> {
   Future<void> signup(BuildContext context) async {
     if (getNameController.text == '') {
       Fluttertoast.showToast(
-        msg: 'name field cant be null',
+        msg: 'isim alanı boş olamaz',
         backgroundColor: Colors.redAccent,
         gravity: ToastGravity.TOP,
       );
     } else if (getSurnameController.text == '') {
       Fluttertoast.showToast(
-        msg: 'surname field cant be null',
+        msg: 'soyisim alanı boş olamaz',
         backgroundColor: Colors.redAccent,
         gravity: ToastGravity.TOP,
       );
     } else if (getEmailController.text == '') {
       Fluttertoast.showToast(
-        msg: 'email field cant be null',
+        msg: 'email alanı boş olamaz',
         backgroundColor: Colors.redAccent,
         gravity: ToastGravity.TOP,
       );
     } else if (getPasswordController.text == '') {
       Fluttertoast.showToast(
-        msg: 'password field cant be null',
+        msg: 'şifre alanı boş olamaz',
         backgroundColor: Colors.redAccent,
         gravity: ToastGravity.TOP,
       );
@@ -62,7 +62,7 @@ class SignupCubit extends Cubit<SignupState> {
           backgroundColor: Colors.green,
           gravity: ToastGravity.TOP,
         );
-        Navigator.pushReplacementNamed(context, homeRoute);
+        // Navigator.pushReplacementNamed(context, homeRoute);
       } else {
         Utils.showCustomDialog(
           context: context,

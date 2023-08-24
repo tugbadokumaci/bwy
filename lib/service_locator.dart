@@ -22,6 +22,6 @@ class DependencyInjection {
     locator.registerFactory<HomeRepository>(() => HomeRepository(locator<RestClient>()));
     locator.registerFactory<LoginRepository>(() => LoginRepository(locator<RestClient>()));
     locator.registerFactory<SignupRepository>(() => SignupRepository(locator<RestClient>()));
-    locator.registerFactory<ProfileRepository>(() => ProfileRepository());
+    locator.registerFactory<ProfileRepository>(() => ProfileRepository(locator<RestClient>()));
   }
 }

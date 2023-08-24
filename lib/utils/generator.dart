@@ -7,7 +7,7 @@ import 'package:retrofit/retrofit.dart';
 
 import '../models/service_model.dart';
 import '../models/user_model.dart';
-import 'constants.dart';
+import '../constants/constants.dart';
 
 part 'generator.g.dart';
 
@@ -48,6 +48,13 @@ abstract class RestClient {
     "charset": "utf-8",
   })
   Future<Resource<List<ServiceModel>>> getServices(@Body() Map<String, dynamic> user);
+
+  @POST('/codeocean/changepassword.php')
+  @Headers(<String, dynamic>{
+    "Content-Type": "application/json",
+    "charset": "utf-8",
+  })
+  Future<Resource<bool>> changePassword(@Body() Map<String, dynamic> newPassword);
 
   static void debugHttpInterceptors(Dio dio) {
     dio.interceptors.add(InterceptorsWrapper(

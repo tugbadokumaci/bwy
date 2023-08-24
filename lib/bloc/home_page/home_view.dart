@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:bwy/utils/box_constants.dart';
-import 'package:bwy/utils/constants.dart';
+import 'package:bwy/constants/constants.dart';
 import 'package:bwy/utils/custom_text_styles.dart';
 import 'package:bwy/widget/fabs.dart';
 import 'package:bwy/widget/tagContainer.dart';
@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import '../../models/service_model.dart';
 import '../../size_config.dart';
 import '../../utils/custom_colors.dart';
@@ -69,6 +70,7 @@ class _HomeViewState extends State<HomeView> {
           if (state is HomeInitial) {
             // widget.viewModel.getData();
             widget.viewModel.getServices();
+            return Container();
           } else if (state is HomeLoading) {
             return _buildLoading();
           } else if (state is HomeSuccess) {
@@ -134,7 +136,7 @@ class _HomeViewState extends State<HomeView> {
                 case 0:
                   Navigator.pushNamed(context, '/home');
                 case 1:
-                  Navigator.pushNamed(context, '/bwy');
+                  Navigator.pushNamed(context, '/bwy', arguments: -1);
                 case 2:
                   Navigator.pushNamed(context, '/contact');
                 case 3:
@@ -153,39 +155,37 @@ class _HomeViewState extends State<HomeView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            child: Text('Merhaba, Hoşgeldiniz!', style: CustomTextStyles().titleTextStyle()),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
-            child: MyContainer(
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.blueGrey,
-                    child: Image.asset('assets/images/default_person.png', scale: 15),
-                    radius: 20,
-                  ),
-                  const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
-                  Text('${Constants.USER.userName} ${Constants.USER.userSurname}',
-                      style: TextStyle(fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.bold)),
-                  const Spacer(),
-                  IconButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/profile');
-                      },
-                      icon: const Icon(Icons.arrow_forward_ios_rounded))
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: Text('Bizi Tanıyın',
-                style: TextStyle(
-                    color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold)),
-          ),
+          _profileHeader(),
+          Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(vertical: 20),
+          //   child: Text('Merhaba, Hoşgeldiniz!', style: CustomTextStyles().titleTextStyle()),
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.only(bottom: 16.0),
+          //   child: MyContainer(
+          //     child: Row(
+          //       children: [
+          //         Image.asset('assets/images/user.png', scale: 15),
+          //         const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
+          //         Text('${Constants.USER.userName} ${Constants.USER.userSurname}',
+          //             style: TextStyle(fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.bold)),
+          //         const Spacer(),
+          //         IconButton(
+          //             onPressed: () {
+          //               Navigator.pushNamed(context, '/profile');
+          //             },
+          //             icon: const Icon(Icons.arrow_forward_ios_rounded))
+          //       ],
+          //     ),
+          //   ),
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.only(bottom: 20),
+          //   child: Text('Bizi Tanıyın',
+          //       style: TextStyle(
+          //           color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold)),
+          // ),
           Padding(
             padding: const EdgeInsets.only(bottom: 16.0),
             child: _headerContainer(),
@@ -209,6 +209,33 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
+  Row _profileHeader() {
+    return Row(
+      children: [
+        Image.asset('assets/images/user.png', height: 40),
+        TextButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/profile');
+            },
+            child: Text('${Constants.USER.userName} ${Constants.USER.userSurname}',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: SizeConfig.defaultSize! * 2,
+                  fontWeight: FontWeight.bold,
+                ))),
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        //   child: Text('${Constants.USER.userName} ${Constants.USER.userSurname}',
+        //       style: TextStyle(
+        //         fontSize: SizeConfig.defaultSize! * 2,
+        //         fontWeight: FontWeight.bold,
+        //       )),
+        // ),
+        // IconButton(onPressed: () {}, icon: Icon(Icons.arrow_right_rounded)),
+      ],
+    );
+  }
+
   Widget _headerContainer() {
     return Stack(
       // alignment: Alignment.topLeft,
@@ -222,7 +249,7 @@ class _HomeViewState extends State<HomeView> {
             right: 24,
             child: IconButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/bwy');
+                  Navigator.pushNamed(context, '/bwy', arguments: -1);
                 },
                 icon: const Icon(Icons.arrow_circle_right, size: 40))),
       ],
@@ -235,26 +262,21 @@ class _HomeViewState extends State<HomeView> {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          _serviceTile(Image.asset(
-            'assets/images/2.png',
-            fit: BoxFit.scaleDown,
-          )),
+          _serviceTile(Image.asset('assets/images/sil1.png', fit: BoxFit.scaleDown), 0),
           const Box(size: BoxSize.SMALL, type: BoxType.HORIZONTAL),
-          _serviceTile(Image.asset(
-            'assets/images/3.png',
-            fit: BoxFit.scaleDown,
-          )),
+          _serviceTile(Image.asset('assets/images/sil5.png', fit: BoxFit.scaleDown), 1),
           const Box(size: BoxSize.SMALL, type: BoxType.HORIZONTAL),
-          _serviceTile(Image.asset(
-            'assets/images/4.png',
-            fit: BoxFit.scaleDown,
-          )),
+          _serviceTile(Image.asset('assets/images/sil3.png', fit: BoxFit.scaleDown), 2),
+          const Box(size: BoxSize.SMALL, type: BoxType.HORIZONTAL),
+          _serviceTile(Image.asset('assets/images/sil2.png', fit: BoxFit.scaleDown), 3),
+          const Box(size: BoxSize.SMALL, type: BoxType.HORIZONTAL),
+          _serviceTile(Image.asset('assets/images/sil4.png', fit: BoxFit.scaleDown), 4),
         ],
       ),
     );
   }
 
-  Stack _serviceTile(Image image) {
+  Stack _serviceTile(Image image, int focusIndex) {
     return Stack(
       // alignment: Alignment.topLeft,
       children: [
@@ -263,9 +285,9 @@ class _HomeViewState extends State<HomeView> {
           child: Container(height: 180, width: 250, child: image),
         ),
         Positioned(
-            top: 16,
+            top: 20,
             left: 16,
-            child: Text('Hizmetimizi \ngörüntüleyin',
+            child: Text('Hizmetlerimiz',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: SizeConfig.defaultSize! * 2.5,
@@ -274,12 +296,27 @@ class _HomeViewState extends State<HomeView> {
         Positioned(
             top: 8,
             right: 24,
-            child: IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_circle_right, size: 40))),
+            child: IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/bwy', arguments: focusIndex);
+                },
+                icon: const Icon(Icons.arrow_circle_right, size: 40))),
       ],
     );
   }
 
   Widget _historyTile(List<ServiceModel> services) {
+    if (services.isEmpty) {
+      return Column(
+        children: [
+          Icon(Icons.error_outline, color: CustomColors.bwyYellow),
+          Box(size: BoxSize.EXTRASMALL, type: BoxType.VERTICAL),
+          Text('Satın alınmış hizmetiniz bulunmamaktadır.',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.grey, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.bold))
+        ],
+      );
+    }
     return ListView.builder(
       scrollDirection: Axis.vertical,
       physics: const NeverScrollableScrollPhysics(),
@@ -288,6 +325,7 @@ class _HomeViewState extends State<HomeView> {
       itemBuilder: (context, index) {
         final service = services[index];
         bool isActive = DateTime.now().compareTo(service.finishDate) < 0;
+
         return Padding(
           padding: const EdgeInsets.only(bottom: 20),
           child: MyContainer(
@@ -399,8 +437,26 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget _buildError() {
-    return const Column(
-      children: [Text('Home Error')],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text('Hata ile karşılaşıldı',
+            style: TextStyle(
+                color: CustomColors.bwyYellow, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold)),
+        Container(
+            color: Colors.black,
+            child: Align(
+              alignment: Alignment.center,
+              child: Lottie.asset(
+                'animations/error_animation.json',
+                height: 200,
+                reverse: false,
+                // repeat: true,
+                // fit: BoxFit.cover,
+              ),
+            )),
+      ],
     );
   }
 }

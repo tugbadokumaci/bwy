@@ -10,4 +10,6 @@ class ProfileSuccess extends ProfileState {
 //   ProfileSuccess({required this.fetchResource});
 }
 
+class ProfilePasswordChange extends ProfileState {}
+
 class ProfileError extends ProfileState {}

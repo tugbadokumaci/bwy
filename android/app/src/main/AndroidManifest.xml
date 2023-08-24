@@ -32,6 +32,7 @@
             <!-- Provide required visibility configuration for API level 30 and above -->
            <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyBuqpVE5wMhXR29mitzgRzJMC8LnZQtQAI"/>
+<!-- Provide required visibility configuration for API level 30 and above -->
 <queries>
   <!-- If your app checks for SMS support -->
   <intent>

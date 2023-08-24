@@ -1,9 +1,8 @@
-import 'package:bwy/size_config.dart';
 import 'package:bwy/widget/chat_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../utils/constants.dart';
+import '../constants/constants.dart';
 import '../utils/custom_colors.dart';
 
 class FABs {
@@ -11,7 +10,7 @@ class FABs {
     return FloatingActionButton(
         heroTag: 'messageButton',
         tooltip: 'Start the chat',
-        backgroundColor: CustomColors.bwyYellow,
+        backgroundColor: Color(0xffFF7D00),
         onPressed: () {
           showModalBottomSheet<void>(
             isScrollControlled: true,
@@ -42,24 +41,37 @@ class FABs {
   }
 
   static FloatingActionButton buildCallFab(BuildContext context) {
+    Future<void> _makePhoneCall() async {
+      // final Uri launchUri = Uri(
+      //   scheme: 'tel',
+      //   path: '+1-555-010-9999',
+      // );
+      Uri launchUri = Uri.parse('tel:+1-555-010-9999');
+
+      await launchUrl(launchUri);
+    }
+    // final Uri _url = Uri(scheme: 'tel', path: '+1-555-010-9999');
+    // Future<void> openDialer(String phoneNumber) async {
+    //   Uri callUrl = Uri.parse('tel:$phoneNumber');
+    //   await launchUrl(callUrl);
+    //   debugPrint('2');
+    // }
+
+    // dynamic makeCall() async {
+    //   Uri phone = Uri(
+    //     scheme: 'tel',
+    //     path: '+1-555-010-9999',
+    //   );
+
+    //   await launchUrl(phone);
+    // }
+
     return FloatingActionButton(
       heroTag: 'callButton',
       backgroundColor: CustomColors.bwyRed,
       tooltip: 'Ara $phoneNumber',
       onPressed: () {
-        debugPrint('must start call');
-        dynamic launchTel() async {
-          try {
-            Uri phone = Uri(
-              scheme: 'tel',
-              path: '+90 532 44 99 224',
-            );
-
-            await launchUrl(phone);
-          } catch (e) {
-            debugPrint(e.toString());
-          }
-        }
+        _makePhoneCall();
       },
       child: Icon(Icons.call, color: Colors.white),
     );

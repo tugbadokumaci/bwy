@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:bwy/service_locator.dart';
-import 'package:bwy/utils/constants.dart';
+import 'package:bwy/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 import 'bloc/bwy_page/bwy_view.dart';

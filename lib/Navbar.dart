@@ -1,6 +1,6 @@
 import 'package:bwy/shared_preferences_service.dart';
 import 'package:bwy/utils/box_constants.dart';
-import 'package:bwy/utils/constants.dart';
+import 'package:bwy/constants/constants.dart';
 import 'package:bwy/utils/custom_colors.dart';
 import 'package:bwy/widget/box.dart';
 import 'package:bwy/widget/circle_avatar.dart';

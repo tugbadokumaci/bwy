@@ -52,101 +52,100 @@ class SignupView extends StatelessWidget {
         // title: const Text('Merhaba'),
       ),
       backgroundColor: Colors.black,
-      body: Column(
-        children: [
-          Text('Hesap oluşturun',
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium!
-                  .copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
-          const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
-          Text('Lütfen aşağıdaki bilgileri eksiksiz doldurun.'),
-          const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
-          _nameField(),
-          const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
-          _surnameField(),
-          const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
-          _emailField(),
-          const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
-          _passwordField(),
-          const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
-          SizedBox(
-            width: 350,
-            child: MyButtonWidget(
-              context: context,
-              height: 50,
-              width: 350,
-              content: Text('Kayıt ol', style: CustomTextStyles2.buttonTextStyle(context, Colors.black)),
-              onPressed: () {
-                viewModel.signup(context);
-              },
-              buttonColor: Colors.white,
-              // borderColor: Colors.wite,
+      body: Padding(
+        padding: const EdgeInsets.all(50.0),
+        child: LayoutBuilder(builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: IntrinsicHeight(
+                child: Column(
+                  children: [
+                    Text('Hesap oluşturun',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+                    const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
+                    Text('Lütfen aşağıdaki bilgileri eksiksiz doldurun.'),
+                    const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
+                    _nameField(),
+                    const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
+                    _surnameField(),
+                    const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
+                    _emailField(),
+                    const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
+                    _passwordField(),
+                    const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
+                    MyButtonWidget(
+                      context: context,
+                      height: 50,
+                      width: 350,
+                      content: Text('Kayıt ol', style: CustomTextStyles2.buttonTextStyle(context, Colors.black)),
+                      onPressed: () {
+                        viewModel.signup(context);
+                      },
+                      buttonColor: Colors.white,
+                      // borderColor: Colors.wite,
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
-        ],
+          );
+        }),
       ),
     );
   }
 
   Widget _passwordField() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-      child: MyTextFieldWidget(
-          validatorCallback: ((value) {
-            if (value!.isEmpty) {
-              return "password can't be null";
-            } else {}
-            return null;
-          }),
-          controller: viewModel.getPasswordController,
-          labelText: 'Password'),
+    return MyTextFieldWidget(
+      validatorCallback: ((value) {
+        if (value!.isEmpty) {
+          return "password can't be null";
+        } else {}
+        return null;
+      }),
+      controller: viewModel.getPasswordController,
+      labelText: 'Password',
+      isSecure: true,
     );
   }
 
   Widget _emailField() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-      child: MyTextFieldWidget(
-          validatorCallback: ((value) {
-            if (value!.isEmpty) {
-              return "email can't be null";
-            } else {}
-            return null;
-          }),
-          controller: viewModel.getEmailController,
-          labelText: 'Email'),
-    );
+    return MyTextFieldWidget(
+        validatorCallback: ((value) {
+          if (value!.isEmpty) {
+            return "email can't be null";
+          } else {}
+          return null;
+        }),
+        controller: viewModel.getEmailController,
+        labelText: 'Email');
   }
 
   Widget _surnameField() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-      child: MyTextFieldWidget(
-          validatorCallback: ((value) {
-            if (value!.isEmpty) {
-              return "surname can't be null";
-            } else {}
-            return null;
-          }),
-          controller: viewModel.getSurnameController,
-          labelText: 'Soyisim'),
-    );
+    return MyTextFieldWidget(
+        validatorCallback: ((value) {
+          if (value!.isEmpty) {
+            return "surname can't be null";
+          } else {}
+          return null;
+        }),
+        controller: viewModel.getSurnameController,
+        labelText: 'Soyisim');
   }
 
   Widget _nameField() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-      child: MyTextFieldWidget(
-          validatorCallback: ((value) {
-            if (value!.isEmpty) {
-              return "name can't be null";
-            } else {}
-            return null;
-          }),
-          controller: viewModel.getNameController,
-          labelText: 'İsim'),
-    );
+    return MyTextFieldWidget(
+        validatorCallback: ((value) {
+          if (value!.isEmpty) {
+            return "name can't be null";
+          } else {}
+          return null;
+        }),
+        controller: viewModel.getNameController,
+        labelText: 'İsim');
   }
 
   Center _buildLoading(BuildContext context) {
