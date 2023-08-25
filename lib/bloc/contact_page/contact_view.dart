@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:bwy/constants/constants.dart';
+import 'package:bwy/extension/string_extension.dart';
 import 'package:bwy/utils/custom_text_styles.dart';
 import 'package:bwy/widget/container.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'dart:ui' as ui;
 
+import '../../lang/locale_keys.g.dart';
 import '../../size_config.dart';
 import '../../utils/box_constants.dart';
 import '../../widget/box.dart';
@@ -29,11 +31,11 @@ class _ContactViewState extends State<ContactView> {
   Map<String, Marker> _markers = {};
   int _selectedIndex = Pages.CONTACTUS.index;
   static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.w600, color: Colors.white);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Ana Sayfa', style: optionStyle),
-    Text('Hakkımızda', style: optionStyle),
-    Text('İletişim', style: optionStyle),
-    Text('Hesabım', style: optionStyle),
+  static List<Widget> _widgetOptions = <Widget>[
+    Text(LocaleKeys.home_appBarTitle.locale, style: optionStyle),
+    Text(LocaleKeys.about_us_appBarTitle.locale, style: optionStyle),
+    Text(LocaleKeys.contact_appBarTitle.locale, style: optionStyle),
+    Text(LocaleKeys.profile_appBarTitle.locale, style: optionStyle),
   ];
   @override
   void initState() {
@@ -50,7 +52,7 @@ class _ContactViewState extends State<ContactView> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Text('İletişim',
+        title: Text(LocaleKeys.contact_appBarTitle.locale,
             style: TextStyle(
                 fontFamily: 'REM',
                 color: Colors.white,
@@ -190,22 +192,22 @@ class _ContactViewState extends State<ContactView> {
             duration: const Duration(milliseconds: 400),
             tabBackgroundColor: const Color(0xff222023),
             color: Colors.grey,
-            tabs: const [
+            tabs: [
               GButton(
                 icon: Icons.dashboard_outlined,
-                text: 'Ana Sayfa',
+                text: LocaleKeys.home_appBarTitle.locale,
               ),
               GButton(
                 icon: Icons.computer_outlined,
-                text: 'Hakkımızda',
+                text: LocaleKeys.about_us_appBarTitle.locale,
               ),
               GButton(
                 icon: Icons.phone_outlined,
-                text: 'İletişim',
+                text: LocaleKeys.contact_appBarTitle.locale,
               ),
               GButton(
                 icon: Icons.person_outline,
-                text: 'Hesabım',
+                text: LocaleKeys.profile_appBarTitle.locale,
               ),
             ],
             selectedIndex: _selectedIndex,

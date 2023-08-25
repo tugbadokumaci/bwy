@@ -1,0 +1,46 @@
+{
+    "home": {
+        "appBarTitle": "Startseite",
+        "servicesTitle": "Alle Dienstleistungen",
+        "ourServices": "Unsere \nDienstleistungen",
+        "myServicesTitle": "Details zu meinen Dienstleistungen",
+        "active": "Aktiv",
+        "inactive": "Passiv",
+        "serviceNo": "Service Nummer: #",
+        "license": "Jahreslizenz",
+        "endingTime": "Endtermin"
+    },
+    "about_us": {
+        "appBarTitle": "Über uns",
+        "headerTitle": "Als Bursa Web Yazılım bieten wir den Unternehmen, mit denen wir seit 1997 zusammenarbeiten, nahtlose und integrierte Webdesign-, SEO- und Softwarelösungsprodukte an.",
+        "headerSubTitle": "Wir sind mit unserem Team und unserer Erfahrung startklar.",
+        "button": "Beginnen Sie noch heute mit uns",
+        "services": "Unsere Dienstleistungen",
+        "service1Title": "Webdesign",
+        "service2Title": "Social-Media-Management",
+        "service3Title": "Entwicklung mobiler Anwendungen",
+        "service4Title": "Software-Entwicklung",
+        "service5Title": "Seo",
+        "service1Description": "Wir entwerfen mit unserem Expertenteam die besten Websites mit den neuesten Techniken. Mit unseren Webdesign-Lösungen erhöhen wir Ihre Sichtbarkeit im Internet.",
+        "service2Description": "Mit unserem Social Media Management verdoppeln wir Ihre Power. Das richtige Management Ihrer Social Media ist ein wichtiger Faktor zur Stärkung Ihrer Marke.",
+        "service3Description": "Wir bieten Dienstleistungen zur Entwicklung mobiler Anwendungen für IOS und Android an. Wir entwerfen spezielle mobile Anwendungen, die Ihren Bekanntheitsgrad steigern.",
+        "service4Description": "Wir entwickeln für unsere Kunden spezielle Software nach ihren Bedürfnissen. ",
+        "service5Description": "Als Bursa Web Yazılım arbeiten wir daran, mit unserer SEO-Arbeit mehr Besucher auf Ihre Websites zu bringen. Mit unserer Erfahrung und Liebe zu unserem Job prägen wir die besten Werke."
+    },
+    "contact": {
+        "appBarTitle": "Kontakt"
+    },
+    "profile": {
+        "appBarTitle": "Mein Konto",
+        "accountSettingsTitle": "Meine Kontoeinstellungen",
+        "changePassword": "ändere mein Passwort",
+        "changePasswordSubTitle": "Bitte füllen Sie die folgenden Informationen aus.",
+        "servicesnotificationsTitle": "Servicehinweise",
+        "newServicesToggle": "Für neuen Service",
+        "updateServicesToggle": "Für Service-Updates",
+        "saveChangesButton": "Änderungen speichern",
+        "goBackButton": "Aufgeben",
+        "newPassword": "Neues Kennwort",
+        "newPasswordAgain": "Neues Passwort wiederholen"
+    }
+}

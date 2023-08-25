@@ -10,13 +10,23 @@ import '../../utils/custom_text_styles.dart';
 import '../../widget/box.dart';
 import '../../widget/button.dart';
 
-class SignupView extends StatelessWidget {
+class SignupView extends StatefulWidget {
   final SignupCubit viewModel;
   const SignupView({super.key, required this.viewModel});
 
   @override
+  State<SignupView> createState() => _SignupViewState();
+}
+
+class _SignupViewState extends State<SignupView> {
+  late bool _passwordVisible;
+  void initState() {
+    _passwordVisible = true;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider<SignupCubit>(create: (_) => viewModel, child: _buildScaffold(context));
+    return BlocProvider<SignupCubit>(create: (_) => widget.viewModel, child: _buildScaffold(context));
   }
 
   Widget _buildScaffold(BuildContext context) {
@@ -83,7 +93,7 @@ class SignupView extends StatelessWidget {
                       width: 350,
                       content: Text('Kayıt ol', style: CustomTextStyles2.buttonTextStyle(context, Colors.black)),
                       onPressed: () {
-                        viewModel.signup(context);
+                        widget.viewModel.signup(context);
                       },
                       buttonColor: Colors.white,
                       // borderColor: Colors.wite,
@@ -106,9 +116,9 @@ class SignupView extends StatelessWidget {
         } else {}
         return null;
       }),
-      controller: viewModel.getPasswordController,
+      controller: widget.viewModel.getPasswordController,
       labelText: 'Password',
-      isSecure: true,
+      isSecure: _passwordVisible,
     );
   }
 
@@ -120,7 +130,7 @@ class SignupView extends StatelessWidget {
           } else {}
           return null;
         }),
-        controller: viewModel.getEmailController,
+        controller: widget.viewModel.getEmailController,
         labelText: 'Email');
   }
 
@@ -132,7 +142,7 @@ class SignupView extends StatelessWidget {
           } else {}
           return null;
         }),
-        controller: viewModel.getSurnameController,
+        controller: widget.viewModel.getSurnameController,
         labelText: 'Soyisim');
   }
 
@@ -144,7 +154,7 @@ class SignupView extends StatelessWidget {
           } else {}
           return null;
         }),
-        controller: viewModel.getNameController,
+        controller: widget.viewModel.getNameController,
         labelText: 'İsim');
   }
 

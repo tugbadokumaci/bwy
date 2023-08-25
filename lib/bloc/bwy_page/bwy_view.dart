@@ -1,6 +1,9 @@
+import 'package:bwy/extension/string_extension.dart';
+import 'package:bwy/lang/locale_keys.g.dart';
 import 'package:bwy/utils/box_constants.dart';
 import 'package:bwy/utils/custom_colors.dart';
 import 'package:bwy/widget/box.dart';
+import 'package:bwy/widget/text/locale_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -21,43 +24,20 @@ class _BwyViewState extends State<BwyView> {
   List<bool> expansionStates = List.generate(5, (index) => false);
   int _selectedIndex = Pages.ABOUTUS.index;
   static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.w600, color: Colors.white);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Ana Sayfa', style: optionStyle),
-    Text('Hakkımızda', style: optionStyle),
-    Text('İletişim', style: optionStyle),
-    Text('Hesabım', style: optionStyle),
+  static List<Widget> _widgetOptions = <Widget>[
+    Text(LocaleKeys.home_appBarTitle.locale, style: optionStyle),
+    Text(LocaleKeys.about_us_appBarTitle.locale, style: optionStyle),
+    Text(LocaleKeys.contact_appBarTitle.locale, style: optionStyle),
+    Text(LocaleKeys.profile_appBarTitle.locale, style: optionStyle),
   ];
 
   // final Text _headerTitle =
   //     Text('Bursa Web Yazılım olarak 1997 yılından beri birlikte çalıştığımız işletmelere kesintisiz ve entegre web tasarım, SEO ve yazılım çözüm ürünleri sunuyoruz. ');
 
-  final Text _headerTitle = Text(
-      'Bursa Web Yazılım olarak 1997 yılından beri birlikte çalıştığımız işletmelere kesintisiz ve entegre web tasarım, SEO ve yazılım çözüm ürünleri sunuyoruz.',
-      style: TextStyle(color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.w400));
-  final Text _headerSubTitle = Text('Ekibimiz ve tecrübemizle başlamaya hazırız.',
-      style: TextStyle(
-          color: Colors.white,
-          fontSize: SizeConfig.defaultSize! * 2.2,
-          fontWeight: FontWeight.w400)); // final RichText _headerTitle = RichText(
-  //   text: TextSpan(
-  //     style: const TextStyle(
-  //       fontSize: 14.0,
-  //       color: Colors.black,
-  //     ),
-  //     children: <TextSpan>[
-  //       TextSpan(
-  //           text:
-  //               'Bursa Web Yazılım olarak 1997 yılından beri birlikte çalıştığımız işletmelere kesintisiz ve entegre ',
-  //           style: CustomTextStyles().titleTextStyle()),
-  //       TextSpan(text: 'web tasarım', style: CustomTextStyles(isBold: true).titleTextStyle()),
-  //       TextSpan(text: ', ', style: CustomTextStyles().titleTextStyle()),
-  //       TextSpan(text: 'SEO', style: CustomTextStyles(isBold: true).titleTextStyle()),
-  //       TextSpan(text: ' ve ', style: CustomTextStyles().titleTextStyle()),
-  //       TextSpan(text: 'yazılım', style: CustomTextStyles(isBold: true).titleTextStyle()),
-  //       TextSpan(text: ' çözüm ürünleri sunuyoruz.', style: CustomTextStyles().titleTextStyle()),
-  //     ],
-  //   ),
-  // );
+  final Text _headerTitle = Text(LocaleKeys.about_us_headerTitle.locale,
+      style: TextStyle(color: Colors.white, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.w400));
+  final Text _headerSubTitle = Text(LocaleKeys.about_us_headerSubTitle.locale,
+      style: TextStyle(color: Colors.white, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.w400));
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +51,7 @@ class _BwyViewState extends State<BwyView> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Text('Hakkımızda',
+        title: Text(LocaleKeys.about_us_appBarTitle.locale,
             style: TextStyle(
                 fontFamily: 'REM',
                 color: Colors.white,
@@ -114,22 +94,22 @@ class _BwyViewState extends State<BwyView> {
             duration: const Duration(milliseconds: 400),
             tabBackgroundColor: const Color(0xff222023),
             color: Colors.grey,
-            tabs: const [
+            tabs: [
               GButton(
                 icon: Icons.dashboard_outlined,
-                text: 'Ana Sayfa',
+                text: LocaleKeys.home_appBarTitle.locale,
               ),
               GButton(
                 icon: Icons.computer_outlined,
-                text: 'Hakkımızda',
+                text: LocaleKeys.about_us_appBarTitle.locale,
               ),
               GButton(
                 icon: Icons.phone_outlined,
-                text: 'İletişim',
+                text: LocaleKeys.contact_appBarTitle.locale,
               ),
               GButton(
                 icon: Icons.person_outline,
-                text: 'Hesabım',
+                text: LocaleKeys.profile_appBarTitle.locale,
               ),
             ],
             selectedIndex: _selectedIndex,
@@ -164,7 +144,7 @@ class _BwyViewState extends State<BwyView> {
           _headerContainer(),
           Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Text('Hizmetlerimiz',
+              child: Text(LocaleKeys.about_us_services.locale,
                   style: TextStyle(
                       color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold))),
           serviceExpansionTile(
@@ -244,29 +224,21 @@ class _BwyViewState extends State<BwyView> {
             bottom: 50,
             left: 24,
             child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/contact');
+                },
                 style: TextButton.styleFrom(
                     backgroundColor: Color(0xff47A979),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
                 child: Row(
                   children: [
                     SizedBox(width: 3),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/contact');
-                      },
-                      child: Text('Bizimle Bugün Başlayın',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: SizeConfig.defaultSize! * 1.8,
-                            fontWeight: FontWeight.bold,
-                          )),
-                      style: TextButton.styleFrom(
-                        minimumSize: Size.zero,
-                        padding: EdgeInsets.zero,
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-                    ),
+                    Text(LocaleKeys.about_us_button.locale,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: SizeConfig.defaultSize! * 1.8,
+                          fontWeight: FontWeight.bold,
+                        )),
                     SizedBox(width: 3),
                     Icon(Icons.arrow_circle_right, size: 30, color: Colors.white)
                   ],

@@ -1,0 +1,46 @@
+{
+    "home": {
+        "appBarTitle": "Ana Sayfa",
+        "servicesTitle": "Tüm Hizmetler",
+        "ourServices": "Hizmetlerimiz",
+        "myServicesTitle": "Hizmet detaylarım",
+        "active": "Aktif",
+        "inactive": "Pasif",
+        "serviceNo": "Hizmet No: #",
+        "license": "Yıllık Lisans",
+        "endingTime": "Bitiş Tarihi"
+    },
+    "about_us": {
+        "appBarTitle": "Hakkımızda",
+        "headerTitle": "Bursa Web Yazılım olarak 1997 yılından beri birlikte çalıştığımız işletmelere kesintisiz ve entegre web tasarım, SEO ve yazılım çözüm ürünleri sunuyoruz.",
+        "headerSubTitle": "Ekibimiz ve tecrübemizle başlamaya hazırız.",
+        "button": "Bizimle Bugün Başlayın",
+        "services": "Hizmetlerimiz",
+        "service1Title": "Web Tasarımı",
+        "service2Title": "Sosyal Medya Yönetimi",
+        "service3Title": "Mobil Uygulama Geliştirme",
+        "service4Title": "Yazılım Geliştirme",
+        "service5Title": "SEO",
+        "service1Description": "Uzman ekibimizle en yeni teknikleri kullanarak en iyi web sitelerini tasarlıyoruz. Web Tasarımı çözümlerimiz ile internetteki görünürlüğünüzü arttırıyoruz.",
+        "service2Description": "Sosyal medya yönetimimiz ile gücünüzü katlıyoruz. Sosyal medyalarınız doğru yönetilmesi markanızın güçlenmesi için önemli bir faktördür.",
+        "service3Description": "IOS ve Android için mobil uygulama geliştirme hizmeti sunuyoruz. Bilinirliğinizi arttıracak size özel mobil uygulamalar tasarlıyoruz.",
+        "service4Description": "Müşterilerimiz için ihtiyaçları doğrultusunda özel yazılımlar geliştiriyoruz. ",
+        "service5Description": "Bursa Web Yazılım olarak SEO çalışmalarımız ile web sitelerinizin daha fazla ziyaretçi alması için çalışmalar yürütüyoruz. Tecrübemiz ve işimize olan sevgimizle en iyi çalışmalara imza atıyoruz."
+    },
+    "contact": {
+        "appBarTitle": "İletişim"
+    },
+    "profile": {
+        "appBarTitle": "Hesabım",
+        "accountSettingsTitle": "Hesap Ayarlarım",
+        "changePassword": "Şifremi değiştir",
+        "changePasswordSubTitle": "Lütfen aşağıdaki bilgileri eksiksiz doldurun.",
+        "servicesnotificationsTitle": "Servis Bildirimleri",
+        "newServicesToggle": "Yeni Servis İçin",
+        "updateServicesToggle": "Servis Yenileme İçin",
+        "saveChangesButton": "Değişiklikleri Kaydet",
+        "goBackButton": "Vazgeç",
+        "newPassword": "Yeni Şifre",
+        "newPasswordAgain": "Yeni Şifre Tekrarı"
+    }
+}

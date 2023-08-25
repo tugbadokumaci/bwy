@@ -10,6 +10,7 @@ class MyTextFieldWidget extends StatelessWidget {
   bool isSecure;
   int? maxLength;
   bool? isEnable;
+  bool? displayEye;
   void Function(String)? onChanged;
 
   MyTextFieldWidget({
@@ -21,6 +22,7 @@ class MyTextFieldWidget extends StatelessWidget {
     this.maxLength,
     this.isEnable = true,
     this.onChanged,
+    this.displayEye = false,
   });
 
   @override
@@ -42,6 +44,7 @@ class MyTextFieldWidget extends StatelessWidget {
         obscureText: isSecure,
         enabled: isEnable,
         decoration: InputDecoration(
+          // suffixIcon: displayEye,
           filled: true,
           fillColor: Colors.white12,
           labelText: labelText,

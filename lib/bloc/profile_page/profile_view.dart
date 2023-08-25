@@ -1,6 +1,7 @@
 import 'package:bwy/bloc/profile_page/profile_cubit.dart';
 import 'package:bwy/bloc/profile_page/profile_state.dart';
 import 'package:bwy/constants/constants.dart';
+import 'package:bwy/extension/string_extension.dart';
 import 'package:bwy/utils/custom_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../lang/locale_keys.g.dart';
 import '../../size_config.dart';
 import '../../utils/box_constants.dart';
 import '../../widget/box.dart';
@@ -27,11 +29,11 @@ class _ProfileViewState extends State<ProfileView> {
   bool _isNotificationsActive = true;
   int _selectedIndex = Pages.PROFILE.index;
   static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.w600, color: Colors.white);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Ana Sayfa', style: optionStyle),
-    Text('Hakkımızda', style: optionStyle),
-    Text('İletişim', style: optionStyle),
-    Text('Hesabım', style: optionStyle),
+  static List<Widget> _widgetOptions = <Widget>[
+    Text(LocaleKeys.home_appBarTitle.locale, style: optionStyle),
+    Text(LocaleKeys.about_us_appBarTitle.locale, style: optionStyle),
+    Text(LocaleKeys.contact_appBarTitle.locale, style: optionStyle),
+    Text(LocaleKeys.profile_appBarTitle.locale, style: optionStyle),
   ];
 
   @override
@@ -45,7 +47,7 @@ class _ProfileViewState extends State<ProfileView> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Text('Hesabım',
+        title: Text(LocaleKeys.profile_appBarTitle.locale,
             style: TextStyle(
                 fontFamily: 'REM',
                 color: Colors.white,
@@ -98,22 +100,22 @@ class _ProfileViewState extends State<ProfileView> {
               duration: const Duration(milliseconds: 400),
               tabBackgroundColor: const Color(0xff222023),
               color: Colors.grey,
-              tabs: const [
+              tabs: [
                 GButton(
                   icon: Icons.dashboard_outlined,
-                  text: 'Panelim',
+                  text: LocaleKeys.home_appBarTitle.locale,
                 ),
                 GButton(
                   icon: Icons.computer_outlined,
-                  text: 'Likes',
+                  text: LocaleKeys.about_us_appBarTitle.locale,
                 ),
                 GButton(
                   icon: Icons.phone_outlined,
-                  text: 'İLetişim',
+                  text: LocaleKeys.contact_appBarTitle.locale,
                 ),
                 GButton(
                   icon: Icons.person_outline,
-                  text: 'Hesabım',
+                  text: LocaleKeys.profile_appBarTitle.locale,
                 ),
               ],
               selectedIndex: _selectedIndex,
@@ -162,13 +164,13 @@ class _ProfileViewState extends State<ProfileView> {
       padding: const EdgeInsets.all(50.0),
       child: Column(
         children: [
-          Text('Şifremi Değiştir',
+          Text(LocaleKeys.profile_changePassword.locale,
               style: Theme.of(context)
                   .textTheme
                   .headlineMedium!
                   .copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
           const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
-          Text('Lütfen aşağıdaki bilgileri eksiksiz doldurun.'),
+          Text(LocaleKeys.profile_changePasswordSubTitle.locale),
           const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
           MyTextFieldWidget(
               validatorCallback: ((value) {
@@ -178,7 +180,7 @@ class _ProfileViewState extends State<ProfileView> {
                 return null;
               }),
               controller: widget.viewModel.passwordController,
-              labelText: 'Yeni şifre',
+              labelText: LocaleKeys.profile_newPassword.locale,
               isSecure: true),
           const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
           MyTextFieldWidget(
@@ -189,7 +191,7 @@ class _ProfileViewState extends State<ProfileView> {
               return null;
             }),
             controller: widget.viewModel.passwordAgainController,
-            labelText: 'Yeni şifre Tekrar',
+            labelText: LocaleKeys.profile_newPasswordAgain.locale,
             isSecure: true,
           ),
           const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
@@ -198,7 +200,7 @@ class _ProfileViewState extends State<ProfileView> {
               height: 50,
               width: 350,
               buttonColor: Colors.white,
-              content: Text('Değişiklikleri Kaydet',
+              content: Text(LocaleKeys.profile_saveChangesButton.locale,
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!
@@ -216,7 +218,7 @@ class _ProfileViewState extends State<ProfileView> {
             height: 50,
             width: 350,
             buttonColor: Colors.black,
-            content: const Text('Vazgeç'),
+            content: Text(LocaleKeys.profile_goBackButton.locale),
             onPressed: () {
               widget.viewModel.passwordAgainController.text = '';
               widget.viewModel.passwordController.text = '';
@@ -270,7 +272,7 @@ class _ProfileViewState extends State<ProfileView> {
               children: [
                 const Icon(Icons.settings, color: Colors.white),
                 const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
-                Text('Hesap Ayarlarım',
+                Text(LocaleKeys.profile_accountSettingsTitle.locale,
                     style: TextStyle(
                         color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold)),
               ],
@@ -284,22 +286,7 @@ class _ProfileViewState extends State<ProfileView> {
               children: [
                 const Icon(Icons.phonelink_lock_outlined, color: Colors.white),
                 const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
-                Text('Şifremi değiştir',
-                    style: TextStyle(
-                        color: Colors.white, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.bold)),
-                const Spacer(),
-                Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
-              ],
-            ),
-          ),
-          Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
-          TextButton(
-            onPressed: () {},
-            child: Row(
-              children: [
-                const Icon(Icons.translate_outlined, color: Colors.white),
-                const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
-                Text('Uygulama dilini değiştir',
+                Text(LocaleKeys.profile_changePassword.locale,
                     style: TextStyle(
                         color: Colors.white, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.bold)),
                 const Spacer(),
@@ -313,15 +300,15 @@ class _ProfileViewState extends State<ProfileView> {
               children: [
                 const Icon(Icons.notifications),
                 const Box(size: BoxSize.SMALL, type: BoxType.HORIZONTAL),
-                Text('Servis Bildirimlerim',
+                Text(LocaleKeys.profile_servicesnotificationsTitle.locale,
                     style: TextStyle(
                         color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold)),
               ],
             ),
           ),
-          notificationContainer('Yeni servis bildirimi'),
+          notificationContainer(LocaleKeys.profile_newServicesToggle.locale),
           const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
-          notificationContainer('Servis yenileme bildirimi'),
+          notificationContainer(LocaleKeys.profile_updateServicesToggle.locale),
         ],
       ),
     );

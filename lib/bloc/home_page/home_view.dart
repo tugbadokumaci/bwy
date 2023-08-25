@@ -1,15 +1,15 @@
-// ignore_for_file: must_be_immutable
-
+import 'package:bwy/extension/string_extension.dart';
 import 'package:bwy/utils/box_constants.dart';
 import 'package:bwy/constants/constants.dart';
 import 'package:bwy/utils/custom_text_styles.dart';
 import 'package:bwy/widget/fabs.dart';
 import 'package:bwy/widget/tagContainer.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
+import '../../lang/locale_keys.g.dart';
 import '../../models/service_model.dart';
 import '../../size_config.dart';
 import '../../utils/custom_colors.dart';
@@ -27,14 +27,29 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
+List<Image> images = [
+  Image.asset('assets/images/turkish.png', height: 50, width: 50),
+  Image.asset('assets/images/english.png', height: 50, width: 50),
+  Image.asset('assets/images/german.png', height: 50, width: 50)
+];
+
+List<String> languages = ["Türkçe", "English", "Deutch"];
+// List<Map<String, dynamic>> languages = [
+//   {'image': Image.asset('assets/images/turkish.png', height: 50, width: 50), 'name': "Türkçe"},
+//   {'image': Image.asset('assets/images/english.png', height: 50, width: 50), 'name': "English"},
+//   {'image': Image.asset('assets/images/german.png', height: 50, width: 50), 'name': "Deutsch"},
+// ];
+
+int dropdownIndex = 0; // otherwise will be assign to the index 0 after clicks
+
 class _HomeViewState extends State<HomeView> {
   int _selectedIndex = Pages.HOME.index; // creating index field for our state
   static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.w600, color: Colors.white);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Ana Sayfa', style: optionStyle),
-    Text('Hakkımızda', style: optionStyle),
-    Text('İletişim', style: optionStyle),
-    Text('Hesabım', style: optionStyle),
+  static List<Widget> _widgetOptions = <Widget>[
+    Text(LocaleKeys.home_appBarTitle.locale, style: optionStyle),
+    Text(LocaleKeys.about_us_appBarTitle.locale, style: optionStyle),
+    Text(LocaleKeys.contact_appBarTitle.locale, style: optionStyle),
+    Text(LocaleKeys.profile_appBarTitle.locale, style: optionStyle),
   ];
 
   @override
@@ -43,11 +58,12 @@ class _HomeViewState extends State<HomeView> {
   }
 
   SafeArea _buildScaffold(BuildContext context) {
+    debugPrint("important: ${context.locale}");
     SizeConfig().init(context);
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Text('Ana Sayfa',
+        title: Text(LocaleKeys.home_appBarTitle.locale,
             style: TextStyle(
                 fontFamily: 'REM',
                 color: Colors.white,
@@ -109,22 +125,22 @@ class _HomeViewState extends State<HomeView> {
             duration: const Duration(milliseconds: 400),
             tabBackgroundColor: const Color(0xff222023),
             color: Colors.grey,
-            tabs: const [
+            tabs: [
               GButton(
                 icon: Icons.dashboard_outlined,
-                text: 'Ana Sayfa',
+                text: LocaleKeys.home_appBarTitle.locale,
               ),
               GButton(
                 icon: Icons.computer_outlined,
-                text: 'Hakkımızda',
+                text: LocaleKeys.about_us_appBarTitle.locale,
               ),
               GButton(
                 icon: Icons.phone_outlined,
-                text: 'İletişim',
+                text: LocaleKeys.contact_appBarTitle.locale,
               ),
               GButton(
                 icon: Icons.person_outline,
-                text: 'Hesabım',
+                text: LocaleKeys.profile_appBarTitle.locale,
               ),
             ],
             selectedIndex: _selectedIndex,
@@ -192,14 +208,14 @@ class _HomeViewState extends State<HomeView> {
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 20),
-            child: Text('Tüm Hizmetler',
+            child: Text(LocaleKeys.home_servicesTitle.locale,
                 style: TextStyle(
                     color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold)),
           ),
           _servicesBuilder(),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
-            child: Text('Hizmet Detaylarım',
+            child: Text(LocaleKeys.home_myServicesTitle.locale,
                 style: TextStyle(
                     color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold)),
           ),
@@ -223,15 +239,33 @@ class _HomeViewState extends State<HomeView> {
                   fontSize: SizeConfig.defaultSize! * 2,
                   fontWeight: FontWeight.bold,
                 ))),
-        // Padding(
-        //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        //   child: Text('${Constants.USER.userName} ${Constants.USER.userSurname}',
-        //       style: TextStyle(
-        //         fontSize: SizeConfig.defaultSize! * 2,
-        //         fontWeight: FontWeight.bold,
-        //       )),
-        // ),
-        // IconButton(onPressed: () {}, icon: Icon(Icons.arrow_right_rounded)),
+        Spacer(),
+        DropdownButton<Image>(
+          value: images[dropdownIndex],
+          dropdownColor: Colors.black,
+          onChanged: (Image? value) {
+            setState(() {
+              dropdownIndex = images.indexOf(value!);
+              context.setLocale(Localization.SUPPORTED_LANGUAGES[dropdownIndex]);
+            });
+          },
+          items: images.map<DropdownMenuItem<Image>>((Image value) {
+            return DropdownMenuItem<Image>(
+              value: value,
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Row(
+                  children: [
+                    value,
+                    // Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
+                    // Text(languages[images.indexOf(value)],
+                    //     style: TextStyle(fontSize: SizeConfig.defaultSize! * 1.7, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ),
+            );
+          }).toList(),
+        )
       ],
     );
   }
@@ -287,7 +321,7 @@ class _HomeViewState extends State<HomeView> {
         Positioned(
             top: 20,
             left: 16,
-            child: Text('Hizmetlerimiz',
+            child: Text(LocaleKeys.home_ourServices.locale,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: SizeConfig.defaultSize! * 2.5,
@@ -342,7 +376,7 @@ class _HomeViewState extends State<HomeView> {
                             fontWeight: FontWeight.bold)),
                     subtitle: Row(
                       children: [
-                        Text('Hizmet No: #${service.productId}'),
+                        Text('${LocaleKeys.home_serviceNo.locale}${service.productId}'),
                         isActive ? isActiveTrueRow() : isActiveFalseRow()
                       ],
                     )),
@@ -353,7 +387,8 @@ class _HomeViewState extends State<HomeView> {
                     children: [
                       MyTagContainer(tagTitle: service.productType),
                       const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
-                      MyTagContainer(tagTitle: '${service.cycle} Lisans'),
+                      // MyTagContainer(tagTitle: '${service.cycle} ${LocaleKeys.home_license.locale}'),
+                      MyTagContainer(tagTitle: LocaleKeys.home_license.locale),
                     ],
                   ),
                 ),
@@ -361,7 +396,8 @@ class _HomeViewState extends State<HomeView> {
                   padding: const EdgeInsets.only(left: 16, bottom: 16),
                   child: Row(
                     children: [
-                      Text('Bitiş Tarihi: ${DateFormat('dd.MM.yyyy').format(service.finishDate)}',
+                      Text(
+                          '${LocaleKeys.home_endingTime.locale}: ${DateFormat('dd.MM.yyyy').format(service.finishDate)}',
                           style: TextStyle(
                               color: const Color.fromARGB(255, 193, 193, 193),
                               fontSize: SizeConfig.defaultSize! * 1.5,
@@ -390,7 +426,7 @@ class _HomeViewState extends State<HomeView> {
               backgroundColor: Color(0xff60C289),
               child: Icon(Icons.check_rounded, size: 20)),
         ),
-        Text('Aktif',
+        Text(LocaleKeys.home_active.locale,
             style: TextStyle(
               // color: CustomColors.bwyGreenPastel,
               color: const Color(0xff60C289),
@@ -414,7 +450,7 @@ class _HomeViewState extends State<HomeView> {
               backgroundColor: Color.fromARGB(255, 212, 84, 84),
               child: Icon(Icons.close_rounded, size: 20)),
         ),
-        Text('Pasif',
+        Text(LocaleKeys.home_inactive.locale,
             style: TextStyle(
                 // color: CustomColors.bwyRedPastel,
                 color: const Color.fromARGB(255, 234, 99, 99),

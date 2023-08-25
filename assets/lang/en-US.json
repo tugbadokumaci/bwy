@@ -1,0 +1,46 @@
+{
+    "home": {
+        "appBarTitle": "Home Page",
+        "servicesTitle": "All Services",
+        "ourServices": "Our Services",
+        "myServicesTitle": "My Services Details",
+        "active": "Active",
+        "inactive": "Passive",
+        "serviceNo": "Service Number: #",
+        "license": "Annual License",
+        "endingTime": "End Date"
+    },
+    "about_us": {
+        "appBarTitle": "About Us",
+        "headerTitle": "As Bursa Web Yazılım, we have been offering seamless and integrated web design, SEO and software solution products to the businesses we have been working with since 1997.",
+        "headerSubTitle": "We are ready to start with our team and experience.",
+        "button": "Get Started With Us Today",
+        "services": "Our services",
+        "service1Title": "Web designing",
+        "service2Title": "Social media management",
+        "service3Title": "Mobile Application Development",
+        "service4Title": "Software development",
+        "service5Title": "Seo",
+        "service1Description": "We design the best websites using the latest techniques with our expert team.We increase your visibility on the internet with our Web Design solutions.",
+        "service2Description": "We double your power with our social media management.Proper management of your social media is an important factor to strengthen your brand.",
+        "service3Description": "We offer mobile application development services for IOS and Android.We design special mobile applications that will increase your awareness.",
+        "service4Description": "We develop special software for our customers in line with their needs. ",
+        "service5Description": "As Bursa Web Yazılım, we are working on getting more visitors to your websites with our SEO work.We put our signature under the best works with our experience and love for our job."
+    },
+    "contact": {
+        "appBarTitle": "Contact"
+    },
+    "profile": {
+        "appBarTitle": "My account",
+        "accountSettingsTitle": "My Account Settings",
+        "changePassword": "Change my password",
+        "changePasswordSubTitle": "Please fill out the information below completely.",
+        "servicesnotificationsTitle": "Service Notices",
+        "newServicesToggle": "For New Services",
+        "updateServicesToggle": "For Services Updates",
+        "saveChangesButton": "Save Changes",
+        "goBackButton": "Go Back",
+        "newPassword": "New Password",
+        "newPasswordAgain": "New Password Repeat"
+    }
+}

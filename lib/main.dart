@@ -2,16 +2,25 @@ import 'package:bwy/routes.dart';
 import 'package:bwy/service_locator.dart';
 import 'package:bwy/shared_preferences_service.dart';
 import 'package:bwy/constants/constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   DependencyInjection();
   await SharedPreferencesService.initialize();
+  await EasyLocalization.ensureInitialized();
+  initializeDateFormatting();
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
-  runApp(const MyApp());
+  runApp(EasyLocalization(
+    supportedLocales: Localization.SUPPORTED_LANGUAGES,
+    path: Localization.LANG_PATH,
+    fallbackLocale: Localization.SUPPORTED_LANGUAGES[0],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -20,6 +29,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: context.locale,
+      supportedLocales: context.supportedLocales,
+      localizationsDelegates: context.localizationDelegates,
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
         appBarTheme: const AppBarTheme(

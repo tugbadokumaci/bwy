@@ -52,5 +52,12 @@
   <string>sms</string>
   <string>tel</string>
 </array>
+<key>CFBundleLocalizations</key>
+<array>
+	<string>en</string>
+	<string>de</string>
+	<string>tr</string>
+</array>
+
 </dict>
 </plist>
