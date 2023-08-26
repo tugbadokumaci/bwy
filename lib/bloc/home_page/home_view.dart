@@ -363,8 +363,8 @@ class _HomeViewState extends State<HomeView> {
         return Padding(
           padding: const EdgeInsets.only(bottom: 20),
           child: MyContainer(
-            backgroundColor: Colors.transparent,
-            backgroundImage: Image.asset('assets/images/bwy_history_tile_5.png', height: 200, fit: BoxFit.fitHeight),
+            // backgroundColor: Colors.transparent,
+            // backgroundImage: Image.asset('assets/images/bwy_history_tile_5.png', height: 200, fit: BoxFit.fitHeight),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -376,8 +376,14 @@ class _HomeViewState extends State<HomeView> {
                             fontWeight: FontWeight.bold)),
                     subtitle: Row(
                       children: [
+                        Text(service.productType,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: SizeConfig.defaultSize! * 2,
+                                fontWeight: FontWeight.bold)),
+                        isActive ? isActiveTrueRow() : isActiveFalseRow(),
+                        const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
                         Text('${LocaleKeys.home_serviceNo.locale}${service.productId}'),
-                        isActive ? isActiveTrueRow() : isActiveFalseRow()
                       ],
                     )),
                 // subtitle: Text('Hizmet No: #${service.productId}')),
@@ -385,10 +391,12 @@ class _HomeViewState extends State<HomeView> {
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: Row(
                     children: [
-                      MyTagContainer(tagTitle: service.productType),
-                      const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
-                      // MyTagContainer(tagTitle: '${service.cycle} ${LocaleKeys.home_license.locale}'),
                       MyTagContainer(tagTitle: LocaleKeys.home_license.locale),
+                      const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
+                      MyTagContainer(
+                          tagTitle: 'son 114 gün',
+                          borderColor: CustomColors.bwyYellow,
+                          textColor: CustomColors.bwyYellow),
                     ],
                   ),
                 ),
@@ -404,7 +412,20 @@ class _HomeViewState extends State<HomeView> {
                               fontWeight: FontWeight.bold)),
                     ],
                   ),
-                )
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  child: Row(
+                    children: [
+                      Text('Yenileme Ücreti : 400 ₺',
+                          style: TextStyle(
+                              // color: CustomColors.bwyRedPastel,
+                              color: Colors.white,
+                              fontSize: SizeConfig.defaultSize! * 2,
+                              fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
