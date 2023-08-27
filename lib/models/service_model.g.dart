@@ -13,6 +13,7 @@ ServiceModel _$ServiceModelFromJson(Map<String, dynamic> json) => ServiceModel(
       productType: json['productType'] as String,
       cycle: json['cycle'] as String,
       finishDate: DateTime.parse(json['finishDate'] as String),
+      price: json['price'] as int,
     );
 
 Map<String, dynamic> _$ServiceModelToJson(ServiceModel instance) => <String, dynamic>{
@@ -22,4 +23,5 @@ Map<String, dynamic> _$ServiceModelToJson(ServiceModel instance) => <String, dyn
       'productType': instance.productType,
       'cycle': instance.cycle,
       'finishDate': instance.finishDate.toIso8601String(),
+      'price': instance.price,
     };

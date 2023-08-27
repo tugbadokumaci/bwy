@@ -4,6 +4,6 @@ class SignupInitial extends SignupState {}
 
 class SignupLoading extends SignupState {}
 
-class SignupForm extends SignupState {}
+class SignupValidate extends SignupState {}
 
 class SignupSuccess extends SignupState {}

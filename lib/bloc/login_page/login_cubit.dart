@@ -73,8 +73,8 @@ class LoginCubit extends Cubit<LoginState> {
         emit(LoginSuccess());
         // Navigator.pushNamed(context, '/home');
       } else {
-        Utils.showCustomDialog(
-          context: context,
+        Utils.showCustomDialogDialog(
+          // context: context,
           title: 'Giriş Başarısız',
           content: resource.errorMessage ?? '',
           onTap: () {

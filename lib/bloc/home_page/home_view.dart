@@ -393,10 +393,7 @@ class _HomeViewState extends State<HomeView> {
                     children: [
                       MyTagContainer(tagTitle: LocaleKeys.home_license.locale),
                       const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
-                      MyTagContainer(
-                          tagTitle: 'son 114 gün',
-                          borderColor: CustomColors.bwyYellow,
-                          textColor: CustomColors.bwyYellow),
+                      _daysLeftTagContainer(service),
                     ],
                   ),
                 ),
@@ -417,7 +414,7 @@ class _HomeViewState extends State<HomeView> {
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: Row(
                     children: [
-                      Text('Yenileme Ücreti : 400 ₺',
+                      Text('Yenileme Ücreti : ${service.price}₺',
                           style: TextStyle(
                               // color: CustomColors.bwyRedPastel,
                               color: Colors.white,
@@ -433,6 +430,29 @@ class _HomeViewState extends State<HomeView> {
       },
     );
   }
+
+  MyTagContainer _daysLeftTagContainer(ServiceModel service) {
+    int diff = daysBetween(DateTime.now(), service.finishDate);
+    if (diff > 0) {
+      return MyTagContainer(tagTitle: 'Kalan $diff gün', borderColor: Colors.green, textColor: Colors.green);
+    }
+    return MyTagContainer(tagTitle: '${diff * -1} gün geçti', borderColor: Colors.red, textColor: Colors.red);
+  }
+
+  int daysBetween(DateTime from, DateTime to) {
+    from = DateTime(from.year, from.month, from.day);
+    to = DateTime(to.year, to.month, to.day);
+    return (to.difference(from).inHours / 24).round();
+  }
+  // String daysBetween(DateTime from, DateTime to) {
+  //   from = DateTime(from.year, from.month, from.day);
+  //   to = DateTime(to.year, to.month, to.day);
+  //   int diff = (to.difference(from).inHours / 24).round();
+  //   if (diff > 0) {
+  //     return 'Son $diff gün';
+  //   }
+  //   return '${diff * -1} gün geçti';
+  // }
 
   Row isActiveTrueRow() {
     return Row(

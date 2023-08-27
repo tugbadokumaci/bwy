@@ -1,19 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../navigator_key.dart';
 import 'custom_colors.dart';
 
 class Utils {
   Utils._();
 
-  static void showCustomDialog({
-    required BuildContext context,
+  Utils.showCustomDialogDialog({
+    // required BuildContext context,
     required String title,
     required String content,
     required Function onTap,
   }) {
     showCupertinoDialog(
-      context: context,
+      context: navigatorKey.currentContext!,
       builder: (BuildContext context) {
         return CupertinoAlertDialog(
           title: Text(title),
@@ -31,7 +32,7 @@ class Utils {
     );
   }
 
-  static void showCustomSnackbar({
+  Utils.showCustomDialogSnackbar({
     required BuildContext context,
     required String content,
   }) {

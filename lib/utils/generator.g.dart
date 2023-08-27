@@ -183,7 +183,7 @@ class _RestClient implements RestClient {
         if (e.response?.statusCode == 401) {
           return Resource.error(e.response?.statusMessage ?? 'UNAUTHORIZAİED');
         } else if (e.response?.statusCode == 400) {
-          return Resource.error(e.response?.statusMessage ?? ' WRONG METHOD');
+          return Resource.error(json.decode(e.response!.data.toString())['message'] ?? ' WRONG METHOD');
         }
       }
       // Hata durumunda boş bir ServiceModel döndürebilirsiniz veya isteğe göre yönetebilirsiniz.

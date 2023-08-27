@@ -10,6 +10,7 @@ class ServiceModel {
   String productType;
   String cycle;
   DateTime finishDate;
+  int price;
 
   ServiceModel(
       {required this.productId,
@@ -17,7 +18,8 @@ class ServiceModel {
       required this.domainName,
       required this.productType,
       required this.cycle,
-      required this.finishDate});
+      required this.finishDate,
+      required this.price});
 
   factory ServiceModel.fromJson(Map<String, dynamic> json) => _$ServiceModelFromJson(json);
   Map<String, dynamic> toJson() => _$ServiceModelToJson(this);
