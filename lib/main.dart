@@ -21,7 +21,7 @@ void main() async {
     supportedLocales: Localization.SUPPORTED_LANGUAGES,
     path: Localization.LANG_PATH,
     fallbackLocale: Localization.SUPPORTED_LANGUAGES[0],
-    child: const MyApp(),
+    child: MyApp(),
   ));
 }
 

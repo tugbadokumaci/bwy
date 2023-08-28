@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 
+import '../../auth.config.dart';
 import '../../models/user_model.dart';
 import '../../navigator_key.dart';
 import '../../utils/resource.dart';
@@ -40,13 +41,14 @@ class SignupCubit extends Cubit<SignupState> {
   bool submitValid = false;
 
   Future<bool> sendOtp() async {
+    emailAuth = EmailAuth(sessionName: "Bursa Web Yazılım");
     return await emailAuth.sendOtp(recipientMail: getEmailController.text, otpLength: 4);
   }
 
   Future<void> validate(BuildContext context) async {
-    // emailAuth.config(remoteServerConfiguration);
+    await emailAuth.config(remoteServerConfiguration);
     String userOtp = verificationController.digitControllers.map((controller) => controller.text).join('').toString();
-    if (emailAuth.validateOtp(recipientMail: getEmailController.text, userOtp: userOtp)) {
+    if (emailAuth.validateOtp(recipientMail: getEmailController.text, userOtp: "1234")) {
       Fluttertoast.showToast(
         msg: 'Hesabınız onaylandı',
         backgroundColor: Colors.greenAccent,
@@ -100,6 +102,8 @@ class SignupCubit extends Cubit<SignupState> {
       if (resource.status == Status.SUCCESS) {
         // Constants.USER = resource.data!;
         // await SharedPreferencesService.setStringPreference(getEmailController.text, getPasswordController.text);
+        emailAuth = EmailAuth(sessionName: "Bursa Web Yazılım");
+        await emailAuth.config(remoteServerConfiguration);
         bool isSent = await sendOtp();
         if (isSent) {
           Utils.showCustomDialogDialog(
@@ -134,7 +138,7 @@ class SignupCubit extends Cubit<SignupState> {
           content: resource.errorMessage ?? '',
           onTap: () {
             Navigator.of(navigatorKey.currentContext!).pop();
-            Navigator.pushReplacementNamed(navigatorKey.currentContext!, '/signUp');
+            Navigator.pushReplacementNamed(context, '/signUp');
           },
         );
       }

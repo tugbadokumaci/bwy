@@ -24,7 +24,10 @@ class SignupView extends StatefulWidget {
 
 class _SignupViewState extends State<SignupView> {
   late bool _passwordVisible;
+
+  @override
   void initState() {
+    super.initState();
     _passwordVisible = true;
   }
 
