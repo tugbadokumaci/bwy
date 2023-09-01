@@ -1,24 +1,16 @@
 import 'package:bwy/bloc/signup_page/signup_repository.dart';
 import 'package:bwy/bloc/signup_page/signup_state.dart';
-import 'package:email_auth/email_auth.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 
-import '../../auth.config.dart';
+import '../../constants/constants.dart';
 import '../../models/user_model.dart';
 import '../../navigator_key.dart';
 import '../../utils/resource.dart';
 import '../../utils/utils.dart';
-
-class VerificationCodeController {
-  final List<TextEditingController> digitControllers = List.generate(
-    4,
-    (_) => TextEditingController(),
-  );
-}
 
 class SignupCubit extends Cubit<SignupState> {
   final SignupRepository _repo;
@@ -29,39 +21,9 @@ class SignupCubit extends Cubit<SignupState> {
 
   TextEditingController getNameController = TextEditingController();
   TextEditingController getSurnameController = TextEditingController();
-
   TextEditingController getPhoneController = TextEditingController();
-
   TextEditingController getEmailController = TextEditingController();
   TextEditingController getPasswordController = TextEditingController();
-
-  final VerificationCodeController verificationController = VerificationCodeController();
-
-  EmailAuth emailAuth = EmailAuth(sessionName: "Bursa Web Yazılım");
-  bool submitValid = false;
-
-  Future<bool> sendOtp() async {
-    emailAuth = EmailAuth(sessionName: "Bursa Web Yazılım");
-    return await emailAuth.sendOtp(recipientMail: getEmailController.text, otpLength: 4);
-  }
-
-  Future<void> validate(BuildContext context) async {
-    await emailAuth.config(remoteServerConfiguration);
-    String userOtp = verificationController.digitControllers.map((controller) => controller.text).join('').toString();
-    if (emailAuth.validateOtp(recipientMail: getEmailController.text, userOtp: "1234")) {
-      Fluttertoast.showToast(
-        msg: 'Hesabınız onaylandı',
-        backgroundColor: Colors.greenAccent,
-        gravity: ToastGravity.TOP,
-      );
-    } else {
-      Fluttertoast.showToast(
-        msg: 'Hatalı onay kodu',
-        backgroundColor: Colors.redAccent,
-        gravity: ToastGravity.TOP,
-      );
-    }
-  }
 
   Future<void> signup(BuildContext context) async {
     if (getNameController.text.length < 3) {
@@ -100,39 +62,15 @@ class SignupCubit extends Cubit<SignupState> {
           getNameController.text, getSurnameController.text, 0, getEmailController.text, getPasswordController.text);
 
       if (resource.status == Status.SUCCESS) {
-        // Constants.USER = resource.data!;
-        // await SharedPreferencesService.setStringPreference(getEmailController.text, getPasswordController.text);
-        emailAuth = EmailAuth(sessionName: "Bursa Web Yazılım");
-        await emailAuth.config(remoteServerConfiguration);
-        bool isSent = await sendOtp();
-        if (isSent) {
-          Utils.showCustomDialogDialog(
-            // context: context,
-            title: 'Hesabınızı doğrulayın',
-            content: 'Hesabınızı aktifleştirmek için email adresinizi doğrulayın.',
-            onTap: () {
-              Navigator.of(navigatorKey.currentContext!).pop();
-            },
-          );
-        } else {
-          Utils.showCustomDialogDialog(
-            // context: context,
-            title: 'Hata',
-            content: 'Kayıt işlemi sırasında hata gerçekleşti',
-            onTap: () {
-              Navigator.of(navigatorKey.currentContext!).pop();
-              Navigator.pushNamed(navigatorKey.currentContext!, '/welcome');
-            },
-          );
-        }
-        emit(SignupValidate());
+        // Constants.USER = resource.data!; // KULLANICI UYE OLDUGUNDA CONST KAYDEDİYOR
+        emit(SignupSuccess());
         // Fluttertoast.showToast(
         //   msg: 'Signup Success',
         //   backgroundColor: Colors.green,
         //   gravity: ToastGravity.TOP,
         // );
       } else {
-        Utils.showCustomDialogDialog(
+        Utils.showCustomDialog(
           // context: context,
           title: 'Sign upError',
           content: resource.errorMessage ?? '',

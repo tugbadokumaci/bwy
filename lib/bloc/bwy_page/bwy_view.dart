@@ -2,11 +2,13 @@ import 'package:bwy/extension/string_extension.dart';
 import 'package:bwy/lang/locale_keys.g.dart';
 import 'package:bwy/utils/box_constants.dart';
 import 'package:bwy/utils/custom_colors.dart';
+import 'package:bwy/utils/custom_text_styles.dart';
 import 'package:bwy/widget/box.dart';
 import 'package:bwy/widget/text/locale_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
+import '../../BottomNavBar.dart';
 import '../../constants/strings.dart';
 import '../../size_config.dart';
 import '../../widget/container.dart';
@@ -35,9 +37,9 @@ class _BwyViewState extends State<BwyView> {
   //     Text('Bursa Web Yazılım olarak 1997 yılından beri birlikte çalıştığımız işletmelere kesintisiz ve entegre web tasarım, SEO ve yazılım çözüm ürünleri sunuyoruz. ');
 
   final Text _headerTitle = Text(LocaleKeys.about_us_headerTitle.locale,
-      style: TextStyle(color: Colors.white, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.w400));
+      style: CustomTextStyles.titleSmallTextStyle().copyWith(fontWeight: FontWeight.w400));
   final Text _headerSubTitle = Text(LocaleKeys.about_us_headerSubTitle.locale,
-      style: TextStyle(color: Colors.white, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.w400));
+      style: CustomTextStyles.titleSmallTextStyle().copyWith(fontWeight: FontWeight.w400));
 
   @override
   Widget build(BuildContext context) {
@@ -51,12 +53,7 @@ class _BwyViewState extends State<BwyView> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Text(LocaleKeys.about_us_appBarTitle.locale,
-            style: TextStyle(
-                fontFamily: 'REM',
-                color: Colors.white,
-                fontSize: SizeConfig.defaultSize! * 2.4,
-                fontWeight: FontWeight.bold)),
+        title: Text(LocaleKeys.about_us_appBarTitle.locale, style: CustomTextStyles.appBarTitleTextStyle()),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
@@ -66,72 +63,25 @@ class _BwyViewState extends State<BwyView> {
       body: SingleChildScrollView(
         child: _buildBody(context, focusIndex),
       ),
-      bottomNavigationBar: _bottomNavigationBar(context),
+      bottomNavigationBar: CustomBottomNavigationBar(
+        onTabChange: (int index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+          switch (index) {
+            case 0:
+              Navigator.pushNamed(context, '/home');
+            case 1:
+              Navigator.pushNamed(context, '/bwy', arguments: -1);
+            case 2:
+              Navigator.pushNamed(context, '/contact');
+            case 3:
+              Navigator.pushNamed(context, '/profile');
+          }
+        },
+        selectedIndex: _selectedIndex,
+      ),
     ));
-  }
-
-  Container _bottomNavigationBar(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 20,
-            color: Colors.white.withOpacity(.1), // beyaza cevir
-          )
-        ],
-      ),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-          child: GNav(
-            rippleColor: Colors.grey[300]!,
-            hoverColor: Colors.grey[100]!,
-            gap: 8,
-            activeColor: Colors.white,
-            iconSize: 24,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            duration: const Duration(milliseconds: 400),
-            tabBackgroundColor: const Color(0xff222023),
-            color: Colors.grey,
-            tabs: [
-              GButton(
-                icon: Icons.dashboard_outlined,
-                text: LocaleKeys.home_appBarTitle.locale,
-              ),
-              GButton(
-                icon: Icons.computer_outlined,
-                text: LocaleKeys.about_us_appBarTitle.locale,
-              ),
-              GButton(
-                icon: Icons.phone_outlined,
-                text: LocaleKeys.contact_appBarTitle.locale,
-              ),
-              GButton(
-                icon: Icons.person_outline,
-                text: LocaleKeys.profile_appBarTitle.locale,
-              ),
-            ],
-            selectedIndex: _selectedIndex,
-            onTabChange: (index) {
-              setState(() {
-                _selectedIndex = index;
-              });
-              switch (index) {
-                case 0:
-                  Navigator.pushNamed(context, '/home');
-                case 1:
-                  Navigator.pushNamed(context, '/bwy', arguments: -1);
-                case 2:
-                  Navigator.pushNamed(context, '/contact');
-                case 3:
-                  Navigator.pushNamed(context, '/profile');
-              }
-            },
-          ),
-        ),
-      ),
-    );
   }
 
   Widget _buildBody(BuildContext context, int focusIndex) {
@@ -144,9 +94,7 @@ class _BwyViewState extends State<BwyView> {
           _headerContainer(),
           Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Text(LocaleKeys.about_us_services.locale,
-                  style: TextStyle(
-                      color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold))),
+              child: Text(LocaleKeys.about_us_services.locale, style: CustomTextStyles.titleMediumTextStyle())),
           serviceExpansionTile(
               Strings.service1Title, Strings.service1Description, 0, 0 == focusIndex, Color(0xff88B14B)),
           Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
@@ -175,20 +123,13 @@ class _BwyViewState extends State<BwyView> {
         initiallyExpanded: isInitiallyExpanded,
         title: Text(
           title,
-          style: TextStyle(
-              // color: expansionStates[index] ? activeColor : Colors.white,
-              color: Colors.white,
-              fontSize: SizeConfig.defaultSize! * 2,
-              fontWeight: FontWeight.bold),
+          style: CustomTextStyles.titleSmallTextStyle(),
         ),
         children: [
           ListTile(
               title: Text(
             description,
-            style: TextStyle(
-                // color: Color(0xffa6a6a6),
-                fontSize: SizeConfig.defaultSize! * 1.7,
-                fontWeight: FontWeight.bold),
+            style: CustomTextStyles.titleExtraSmallTextStyle(),
           ))
         ],
         trailing: expansionStates[index]

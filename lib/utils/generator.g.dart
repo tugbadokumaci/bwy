@@ -86,12 +86,14 @@ class _RestClient implements RestClient {
     } catch (e) {
       if (e is DioException) {
         if (e.response?.statusCode == 400) {
-          return Resource.error(e.response?.statusMessage ?? 'hint: This mail address already in use ');
+          return Resource.error(
+              e.response?.statusMessage ?? 'hint: This mail address already in use ', e.response?.statusCode);
         } else if (e.response?.statusCode == 500) {
-          return Resource.error(e.response?.statusMessage ?? 'hint: Kullanici eklenirken bir hata oluştu');
+          return Resource.error(
+              e.response?.statusMessage ?? 'hint: Kullanici eklenirken bir hata oluştu', e.response?.statusCode);
         }
       }
-      return Resource.error('NOT DioException ERROR !!!!');
+      return Resource.error('NOT DioException ERROR !!!!', null);
     }
   }
 
@@ -132,13 +134,15 @@ class _RestClient implements RestClient {
       print(e);
       if (e is DioException) {
         if (e.response?.statusCode == 401) {
-          return Resource.error('Email veya şifreniz hatalı');
+          return Resource.error('Email veya şifreniz hatalı', e.response?.statusCode);
         } else if (e.response?.statusCode == 400) {
-          return Resource.error(e.response?.statusMessage ?? ' WRONG METHOD');
+          return Resource.error(e.response?.statusMessage ?? ' WRONG METHOD', e.response?.statusCode);
+        } else if (e.response?.statusCode == 403) {
+          return Resource.error(e.response?.statusMessage ?? ' ACCOUNT INACTIVE', e.response?.statusCode);
         }
       }
       // Hata durumunda boş bir UserModel döndürebilirsiniz veya isteğe göre yönetebilirsiniz.
-      return Resource.error('NOT DioException ERROR !!!!');
+      return Resource.error('NOT DioException ERROR !!!!', null);
     }
   }
 
@@ -181,13 +185,14 @@ class _RestClient implements RestClient {
       print(e);
       if (e is DioException) {
         if (e.response?.statusCode == 401) {
-          return Resource.error(e.response?.statusMessage ?? 'UNAUTHORIZAİED');
+          return Resource.error(e.response?.statusMessage ?? 'UNAUTHORIZAİED', e.response?.statusCode);
         } else if (e.response?.statusCode == 400) {
-          return Resource.error(json.decode(e.response!.data.toString())['message'] ?? ' WRONG METHOD');
+          return Resource.error(
+              json.decode(e.response!.data.toString())['message'] ?? ' WRONG METHOD', e.response?.statusCode);
         }
       }
       // Hata durumunda boş bir ServiceModel döndürebilirsiniz veya isteğe göre yönetebilirsiniz.
-      return Resource.error('NOT DioException ERROR !!!!');
+      return Resource.error('NOT DioException ERROR !!!!', null);
     }
   }
 
@@ -224,13 +229,101 @@ class _RestClient implements RestClient {
       print(e);
       if (e is DioException) {
         if (e.response?.statusCode == 405) {
-          return Resource.error(e.response?.statusMessage ?? 'Geçersiz istek metodu');
+          return Resource.error(e.response?.statusMessage ?? 'Geçersiz istek metodu', e.response?.statusCode);
         } else if (e.response?.statusCode == 400) {
-          return Resource.error(e.response?.statusMessage ?? ' Eksik veya hatalı veri gönderildi');
+          return Resource.error(
+              e.response?.statusMessage ?? ' Eksik veya hatalı veri gönderildi', e.response?.statusCode);
         }
       }
       // Hata durumunda boş bir ServiceModel döndürebilirsiniz veya isteğe göre yönetebilirsiniz.
-      return Resource.error('NOT DioException ERROR !!!!');
+      return Resource.error('NOT DioException ERROR !!!!', null);
+    }
+  }
+
+  @override
+  Future<Resource<bool>> sendOtp(Map<String, dynamic> emailInfo) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json', r'charset': 'utf-8'};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(emailInfo);
+
+    try {
+      Response<String> _result = await _dio.fetch<String>(
+        _setStreamType<String>(
+          Options(
+            method: 'POST',
+            headers: _headers,
+            extra: _extra,
+            contentType: 'application/json',
+          )
+              .compose(
+                _dio.options,
+                '/codeocean/sendotp.php',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl),
+        ),
+      );
+
+      return Resource.success(true);
+    } catch (e) {
+      print(e);
+      if (e is DioException) {
+        if (e.response?.statusCode == 400) {
+          return Resource.error(e.response?.statusMessage ?? 'Geçersiz istek metodu', e.response?.statusCode);
+        } else if (e.response?.statusCode == 421) {
+          return Resource.error(
+              e.response?.statusMessage ?? 'E-posta gönderilirken bir hata oluştu', e.response?.statusCode);
+        }
+      }
+      // Hata durumunda boş bir ServiceModel döndürebilirsiniz veya isteğe göre yönetebilirsiniz.
+      return Resource.error('NOT DioException ERROR !!!!', null);
+    }
+  }
+
+  @override
+  Future<Resource<bool>> validateOtp(Map<String, dynamic> emailInfo) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json', r'charset': 'utf-8'};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(emailInfo);
+
+    try {
+      Response<String> _result = await _dio.fetch<String>(
+        _setStreamType<String>(
+          Options(
+            method: 'POST',
+            headers: _headers,
+            extra: _extra,
+            contentType: 'application/json',
+          )
+              .compose(
+                _dio.options,
+                '/codeocean/validateotp.php',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl),
+        ),
+      );
+
+      return Resource.success(true);
+    } catch (e) {
+      print(e);
+      if (e is DioException) {
+        if (e.response?.statusCode == 400) {
+          return Resource.error(e.response?.statusMessage ?? 'Geçersiz istek metodu', e.response?.statusCode);
+        } else if (e.response?.statusCode == 404) {
+          return Resource.error(e.response?.statusMessage ?? 'Kullanıcı bulunamadı', e.response?.statusCode);
+        }
+      }
+      // Hata durumunda boş bir ServiceModel döndürebilirsiniz veya isteğe göre yönetebilirsiniz.
+      return Resource.error('NOT DioException ERROR !!!!', null);
     }
   }
 

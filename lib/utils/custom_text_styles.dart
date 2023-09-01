@@ -3,13 +3,26 @@ import 'package:flutter/material.dart';
 import '../size_config.dart';
 
 class CustomTextStyles {
-  Color? textColor;
+  CustomTextStyles();
+  static TextStyle appBarTitleTextStyle() {
+    return TextStyle(
+        fontFamily: 'REM', color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.4, fontWeight: FontWeight.bold);
+  }
 
-  CustomTextStyles({this.textColor});
+  static TextStyle titleLargeTextStyle() {
+    return TextStyle(color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.5, fontWeight: FontWeight.bold);
+  }
 
-  TextStyle titleTextStyle() {
-    Color color = textColor ?? Colors.white;
-    return TextStyle(color: color, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold);
+  static TextStyle titleMediumTextStyle() {
+    return TextStyle(color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold);
+  }
+
+  static TextStyle titleSmallTextStyle() {
+    return TextStyle(color: Colors.white, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.bold);
+  }
+
+  static TextStyle titleExtraSmallTextStyle() {
+    return TextStyle(color: Colors.white, fontSize: SizeConfig.defaultSize! * 1.8, fontWeight: FontWeight.bold);
   }
 }
 

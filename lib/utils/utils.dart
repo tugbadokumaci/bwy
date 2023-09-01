@@ -7,7 +7,7 @@ import 'custom_colors.dart';
 class Utils {
   Utils._();
 
-  Utils.showCustomDialogDialog({
+  Utils.showCustomDialog({
     // required BuildContext context,
     required String title,
     required String content,

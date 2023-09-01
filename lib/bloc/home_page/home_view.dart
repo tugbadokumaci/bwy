@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:lottie/lottie.dart';
+import '../../bottomNavBar.dart';
 import '../../lang/locale_keys.g.dart';
 import '../../models/service_model.dart';
 import '../../size_config.dart';
@@ -63,12 +64,7 @@ class _HomeViewState extends State<HomeView> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Text(LocaleKeys.home_appBarTitle.locale,
-            style: TextStyle(
-                fontFamily: 'REM',
-                color: Colors.white,
-                fontSize: SizeConfig.defaultSize! * 2.4,
-                fontWeight: FontWeight.bold)),
+        title: Text(LocaleKeys.home_appBarTitle.locale, style: CustomTextStyles.appBarTitleTextStyle()),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
@@ -97,82 +93,35 @@ class _HomeViewState extends State<HomeView> {
           return Container();
         },
       )),
-      bottomNavigationBar: _bottomNavigationBar(context),
+      bottomNavigationBar: CustomBottomNavigationBar(
+        onTabChange: (int index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+          switch (index) {
+            case 0:
+              Navigator.pushNamed(context, '/home');
+            case 1:
+              Navigator.pushNamed(context, '/bwy', arguments: -1);
+            case 2:
+              Navigator.pushNamed(context, '/contact');
+            case 3:
+              Navigator.pushNamed(context, '/profile');
+          }
+        },
+        selectedIndex: _selectedIndex,
+      ),
     ));
-  }
-
-  Container _bottomNavigationBar(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 20,
-            color: Colors.white.withOpacity(.1), // beyaza cevir
-          )
-        ],
-      ),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-          child: GNav(
-            rippleColor: Colors.grey[300]!,
-            hoverColor: Colors.grey[100]!,
-            gap: 8,
-            activeColor: Colors.white,
-            iconSize: 24,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            duration: const Duration(milliseconds: 400),
-            tabBackgroundColor: const Color(0xff222023),
-            color: Colors.grey,
-            tabs: [
-              GButton(
-                icon: Icons.dashboard_outlined,
-                text: LocaleKeys.home_appBarTitle.locale,
-              ),
-              GButton(
-                icon: Icons.computer_outlined,
-                text: LocaleKeys.about_us_appBarTitle.locale,
-              ),
-              GButton(
-                icon: Icons.phone_outlined,
-                text: LocaleKeys.contact_appBarTitle.locale,
-              ),
-              GButton(
-                icon: Icons.person_outline,
-                text: LocaleKeys.profile_appBarTitle.locale,
-              ),
-            ],
-            selectedIndex: _selectedIndex,
-            onTabChange: (index) {
-              setState(() {
-                _selectedIndex = index;
-              });
-              switch (index) {
-                case 0:
-                  Navigator.pushNamed(context, '/home');
-                case 1:
-                  Navigator.pushNamed(context, '/bwy', arguments: -1);
-                case 2:
-                  Navigator.pushNamed(context, '/contact');
-                case 3:
-                  Navigator.pushNamed(context, '/profile');
-              }
-            },
-          ),
-        ),
-      ),
-    );
   }
 
   Widget _buildSuccess(BuildContext context, HomeSuccess state) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: kHorizontalPadding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _profileHeader(),
-          Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
+          // Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
           // Padding(
           //   padding: const EdgeInsets.symmetric(vertical: 20),
           //   child: Text('Merhaba, Hoşgeldiniz!', style: CustomTextStyles().titleTextStyle()),
@@ -203,23 +152,19 @@ class _HomeViewState extends State<HomeView> {
           //           color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold)),
           // ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
+            padding: kVerticalPadding,
             child: _headerContainer(),
           ),
+          Text(LocaleKeys.home_servicesTitle.locale, style: CustomTextStyles.titleMediumTextStyle()),
           Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: Text(LocaleKeys.home_servicesTitle.locale,
-                style: TextStyle(
-                    color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold)),
+            padding: kVerticalPadding,
+            child: _servicesBuilder(),
           ),
-          _servicesBuilder(),
+          Text(LocaleKeys.home_myServicesTitle.locale, style: CustomTextStyles.titleMediumTextStyle()),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            child: Text(LocaleKeys.home_myServicesTitle.locale,
-                style: TextStyle(
-                    color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold)),
+            padding: kVerticalPadding,
+            child: _historyTile(state.serviceResource.data!),
           ),
-          _historyTile(state.serviceResource.data!),
         ],
       ),
     );
@@ -234,11 +179,7 @@ class _HomeViewState extends State<HomeView> {
               Navigator.pushNamed(context, '/profile');
             },
             child: Text('${Constants.USER.userName} ${Constants.USER.userSurname}',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: SizeConfig.defaultSize! * 2,
-                  fontWeight: FontWeight.bold,
-                ))),
+                style: CustomTextStyles.titleSmallTextStyle())),
         Spacer(),
         DropdownButton<Image>(
           value: images[dropdownIndex],
@@ -321,12 +262,7 @@ class _HomeViewState extends State<HomeView> {
         Positioned(
             top: 20,
             left: 16,
-            child: Text(LocaleKeys.home_ourServices.locale,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: SizeConfig.defaultSize! * 2.5,
-                  fontWeight: FontWeight.bold,
-                ))),
+            child: Text(LocaleKeys.home_ourServices.locale, style: CustomTextStyles.titleLargeTextStyle())),
         Positioned(
             top: 8,
             right: 24,
@@ -370,17 +306,10 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 ListTile(
                     title: Text(service.domainName,
-                        style: TextStyle(
-                            color: CustomColors.bwyYellow,
-                            fontSize: SizeConfig.defaultSize! * 2.2,
-                            fontWeight: FontWeight.bold)),
+                        style: CustomTextStyles.titleMediumTextStyle().copyWith(color: CustomColors.bwyYellow)),
                     subtitle: Row(
                       children: [
-                        Text(service.productType,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: SizeConfig.defaultSize! * 2,
-                                fontWeight: FontWeight.bold)),
+                        Text(service.productType, style: CustomTextStyles.titleSmallTextStyle()),
                         isActive ? isActiveTrueRow() : isActiveFalseRow(),
                         const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
                         Text('${LocaleKeys.home_serviceNo.locale}${service.productId}'),
@@ -414,12 +343,7 @@ class _HomeViewState extends State<HomeView> {
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: Row(
                     children: [
-                      Text('Yenileme Ücreti : ${service.price}₺',
-                          style: TextStyle(
-                              // color: CustomColors.bwyRedPastel,
-                              color: Colors.white,
-                              fontSize: SizeConfig.defaultSize! * 2,
-                              fontWeight: FontWeight.bold)),
+                      Text('Yenileme Ücreti : ${service.price}₺', style: CustomTextStyles.titleSmallTextStyle()),
                     ],
                   ),
                 ),
@@ -519,8 +443,7 @@ class _HomeViewState extends State<HomeView> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text('Hata ile karşılaşıldı',
-            style: TextStyle(
-                color: CustomColors.bwyYellow, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold)),
+            style: CustomTextStyles.titleMediumTextStyle().copyWith(color: CustomColors.bwyYellow)),
         Container(
             color: Colors.black,
             child: Align(

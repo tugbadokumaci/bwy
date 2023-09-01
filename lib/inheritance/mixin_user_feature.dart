@@ -13,7 +13,7 @@ mixin MixinUserFeature {
       List<UserModel> value = await restClient.getData();
       return Resource.success(value);
     } catch (e) {
-      return Resource.error('Failed to fetch datas: $e');
+      return Resource.error('Failed to fetch datas: $e', null);
     }
   }
 
@@ -24,7 +24,7 @@ mixin MixinUserFeature {
       Constants.USER = value.data!;
       return Resource.success(value.data!);
     } else {
-      return Resource.error(value.errorMessage!);
+      return Resource.error(value.errorMessage!, value.statusCode);
     }
   }
   // Future<Resource<List<UserModel>>> fetchData() async {

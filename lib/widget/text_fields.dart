@@ -10,7 +10,7 @@ class MyTextFieldWidget extends StatelessWidget {
   bool isSecure;
   int? maxLength;
   bool? isEnable;
-  bool? displayEye;
+  TextInputType keyboardType;
   void Function(String)? onChanged;
 
   MyTextFieldWidget({
@@ -18,11 +18,11 @@ class MyTextFieldWidget extends StatelessWidget {
     required this.validatorCallback,
     required this.controller,
     required this.labelText,
+    required this.keyboardType,
     this.isSecure = false,
     this.maxLength,
     this.isEnable = true,
     this.onChanged,
-    this.displayEye = false,
   });
 
   @override
@@ -32,19 +32,19 @@ class MyTextFieldWidget extends StatelessWidget {
       //   FocusScope.of(context).unfocus();
       // },
       child: TextFormField(
-        cursorColor: CustomColors.bwyRed,
+        // cursorColor: CustomColors.bwyRed,
+        cursorColor: Colors.white,
         onTapOutside: (event) {
           FocusScope.of(context).unfocus();
         },
         validator: validatorCallback,
         onChanged: onChanged,
         controller: controller,
-        keyboardType: TextInputType.text,
+        keyboardType: keyboardType,
         style: TextStyle(color: Colors.white),
         obscureText: isSecure,
         enabled: isEnable,
         decoration: InputDecoration(
-          // suffixIcon: displayEye,
           filled: true,
           fillColor: Colors.white12,
           labelText: labelText,
@@ -58,7 +58,8 @@ class MyTextFieldWidget extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
             // Odaklandığında kullanılacak kenar çizgisi
             borderRadius: BorderRadius.circular(15.0),
-            borderSide: BorderSide(color: CustomColors.bwyRed), // Kenar çizgisi rengi
+            // borderSide: BorderSide(color: CustomColors.bwyRed),
+            borderSide: BorderSide(color: CustomColors.lightGray),
           ),
           floatingLabelStyle: TextStyle(color: Colors.white60),
           hintStyle: TextStyle(color: Colors.white10),

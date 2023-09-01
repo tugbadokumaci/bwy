@@ -1,39 +1,23 @@
 import 'package:bwy/bloc/signup_page/signup_cubit.dart';
 import 'package:bwy/bloc/signup_page/signup_state.dart';
 import 'package:bwy/utils/box_constants.dart';
-import 'package:bwy/widget/container.dart';
 import 'package:bwy/widget/text_fields.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../size_config.dart';
-import '../../utils/custom_colors.dart';
 import '../../utils/custom_text_styles.dart';
 import '../../widget/box.dart';
 import '../../widget/button.dart';
 
-class SignupView extends StatefulWidget {
+class SignupView extends StatelessWidget {
   final SignupCubit viewModel;
   const SignupView({super.key, required this.viewModel});
 
   @override
-  State<SignupView> createState() => _SignupViewState();
-}
-
-class _SignupViewState extends State<SignupView> {
-  late bool _passwordVisible;
-
-  @override
-  void initState() {
-    super.initState();
-    _passwordVisible = true;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return BlocProvider<SignupCubit>(create: (_) => widget.viewModel, child: _buildScaffold(context));
+    return BlocProvider<SignupCubit>(create: (_) => viewModel, child: _buildScaffold(context));
   }
 
   Widget _buildScaffold(BuildContext context) {
@@ -41,7 +25,10 @@ class _SignupViewState extends State<SignupView> {
     return BlocConsumer<SignupCubit, SignupState>(
       listener: (context, state) {
         if (state is SignupSuccess) {
-          Navigator.pushReplacementNamed(context, '/home');
+          Navigator.pushReplacementNamed(context, '/validation', arguments: {
+            'email': viewModel.getEmailController.text,
+            'password': viewModel.getPasswordController.text
+          });
         }
       },
       builder: (context, state) {
@@ -50,94 +37,10 @@ class _SignupViewState extends State<SignupView> {
           return _buildInitial(context);
         } else if (state is SignupLoading) {
           return _buildLoading(context);
-        } else if (state is SignupValidate) {
-          return _buildValidate(context);
         }
         return Container();
       },
     );
-  }
-
-  Widget _buildValidate(BuildContext context) {
-    final verificationController = context.read<SignupCubit>().verificationController;
-
-    return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/welcome');
-              },
-              icon: Icon(Icons.close)),
-        ),
-        backgroundColor: Colors.black,
-        body: Padding(
-          padding: const EdgeInsets.all(50.0),
-          child: Column(
-            children: [
-              const Box(size: BoxSize.EXTRASMALL, type: BoxType.VERTICAL),
-              Text('Email Adresinizi Doğrulayın',
-                  style: TextStyle(fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold)),
-              const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
-              Text('Doğrulama kodu bu adrese gönderildi',
-                  style: TextStyle(fontSize: SizeConfig.defaultSize! * 1.5, fontWeight: FontWeight.bold)),
-              Text('${widget.viewModel.getEmailController.text} ',
-                  style: TextStyle(fontSize: SizeConfig.defaultSize! * 1.5, fontWeight: FontWeight.bold)),
-              const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
-              Form(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _digitSizedBox(verificationController.digitControllers[0]),
-                    _digitSizedBox(verificationController.digitControllers[1]),
-                    _digitSizedBox(verificationController.digitControllers[2]),
-                    _digitSizedBox(verificationController.digitControllers[3]),
-                  ],
-                ),
-              ),
-              const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
-              MyButtonWidget(
-                context: context,
-                height: 50,
-                width: 350,
-                buttonColor: Colors.green,
-                content: Text('Doğrula'),
-                onPressed: () {
-                  widget.viewModel.validate(context);
-                },
-              ),
-            ],
-          ),
-        ));
-  }
-
-  SizedBox _digitSizedBox(TextEditingController _controller) {
-    return SizedBox(
-        height: 68,
-        width: 64,
-        child: TextFormField(
-          controller: _controller,
-          cursorColor: Colors.green,
-          onTapOutside: (event) {
-            FocusScope.of(context).unfocus();
-          },
-          onChanged: (value) {
-            if (value.length == 1) {
-              FocusScope.of(context).nextFocus();
-            }
-          },
-          onSaved: (pin1) {},
-          decoration: InputDecoration(
-              hintText: "0",
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.green,
-                ),
-              )),
-          style: TextStyle(color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold),
-          keyboardType: TextInputType.number,
-          textAlign: TextAlign.center,
-          inputFormatters: [LengthLimitingTextInputFormatter(1), FilteringTextInputFormatter.digitsOnly],
-        ));
   }
 
   Widget _buildInitial(BuildContext context) {
@@ -182,7 +85,7 @@ class _SignupViewState extends State<SignupView> {
                   width: 350,
                   content: Text('İlerle', style: CustomTextStyles2.buttonTextStyle(context, Colors.black)),
                   onPressed: () {
-                    widget.viewModel.signup(context);
+                    viewModel.signup(context);
                   },
                   buttonColor: Colors.white,
                   // borderColor: Colors.wite,
@@ -197,14 +100,16 @@ class _SignupViewState extends State<SignupView> {
 
   Widget _phoneField() {
     return MyTextFieldWidget(
-        validatorCallback: ((value) {
-          if (value!.isEmpty) {
-            return "phone number can't be null";
-          } else {}
-          return null;
-        }),
-        controller: widget.viewModel.getPhoneController,
-        labelText: 'Telefon');
+      validatorCallback: ((value) {
+        if (value!.isEmpty) {
+          return "phone number can't be null";
+        } else {}
+        return null;
+      }),
+      controller: viewModel.getPhoneController,
+      labelText: 'Telefon',
+      keyboardType: TextInputType.phone,
+    );
   }
 
   Widget _passwordField() {
@@ -215,22 +120,25 @@ class _SignupViewState extends State<SignupView> {
         } else {}
         return null;
       }),
-      controller: widget.viewModel.getPasswordController,
+      controller: viewModel.getPasswordController,
       labelText: 'Password',
-      isSecure: _passwordVisible,
+      isSecure: true,
+      keyboardType: TextInputType.number,
     );
   }
 
   Widget _emailField() {
     return MyTextFieldWidget(
-        validatorCallback: ((value) {
-          if (value!.isEmpty) {
-            return "email can't be null";
-          } else {}
-          return null;
-        }),
-        controller: widget.viewModel.getEmailController,
-        labelText: 'Email');
+      validatorCallback: ((value) {
+        if (value!.isEmpty) {
+          return "email can't be null";
+        } else {}
+        return null;
+      }),
+      controller: viewModel.getEmailController,
+      labelText: 'Email',
+      keyboardType: TextInputType.emailAddress,
+    );
   }
 
   Widget _surnameField() {
@@ -241,8 +149,9 @@ class _SignupViewState extends State<SignupView> {
           } else {}
           return null;
         }),
-        controller: widget.viewModel.getSurnameController,
-        labelText: 'Soyisim');
+        controller: viewModel.getSurnameController,
+        labelText: 'Soyisim',
+        keyboardType: TextInputType.text);
   }
 
   Widget _nameField() {
@@ -253,8 +162,9 @@ class _SignupViewState extends State<SignupView> {
           } else {}
           return null;
         }),
-        controller: widget.viewModel.getNameController,
-        labelText: 'İsim');
+        controller: viewModel.getNameController,
+        labelText: 'İsim',
+        keyboardType: TextInputType.text);
   }
 
   Center _buildLoading(BuildContext context) {

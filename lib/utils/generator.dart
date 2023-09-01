@@ -56,6 +56,20 @@ abstract class RestClient {
   })
   Future<Resource<bool>> changePassword(@Body() Map<String, dynamic> newPassword);
 
+  @POST('/codeocean/sendotp.php')
+  @Headers(<String, dynamic>{
+    "Content-Type": "application/json",
+    "charset": "utf-8",
+  })
+  Future<Resource<bool>> sendOtp(@Body() Map<String, dynamic> emailInfo);
+
+  @POST('/codeocean/validateotp.php')
+  @Headers(<String, dynamic>{
+    "Content-Type": "application/json",
+    "charset": "utf-8",
+  })
+  Future<Resource<bool>> validateOtp(@Body() Map<String, dynamic> emailInfo);
+
   static void debugHttpInterceptors(Dio dio) {
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {

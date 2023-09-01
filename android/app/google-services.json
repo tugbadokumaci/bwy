@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "178904185828",
+    "project_id": "bwy-app",
+    "storage_bucket": "bwy-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178904185828:android:f27656a7f6914bf83265f1",
+        "android_client_info": {
+          "package_name": "com.example.bwy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "178904185828-pcsvmg65hv0ic9nugusts15l3eurjn84.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3c_pIz5rH5_bozr6AO50JNiGYsPYKDeM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "178904185828-pcsvmg65hv0ic9nugusts15l3eurjn84.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "178904185828-prnjutna3mm54anq9vc193vn96p2h70e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bwy"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

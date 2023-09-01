@@ -1,81 +1,62 @@
-import 'package:bwy/utils/custom_colors.dart';
-import 'package:bwy/utils/navigator_utils.dart';
+import 'package:bwy/extension/string_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
-class CustomBottomNavBar extends StatelessWidget {
-  const CustomBottomNavBar({super.key});
+import 'lang/locale_keys.g.dart';
+
+class CustomBottomNavigationBar extends StatelessWidget {
+  final void Function(int)? onTabChange;
+  int selectedIndex;
+  CustomBottomNavigationBar({super.key, required this.onTabChange, required this.selectedIndex});
 
   @override
   Widget build(BuildContext context) {
-    return BottomAppBar(
-      color: CustomColors.bwyYellow,
-      shape: const CircularNotchedRectangle(),
-      notchMargin: 8,
-      clipBehavior: Clip.antiAlias,
-      child: Container(
-        height: 60,
-        margin: const EdgeInsets.symmetric(horizontal: 12),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              icon: Icon(Icons.home, color: Colors.black),
-              onPressed: () {
-                // Navigator.pushReplacementNamed(context, '/search');
-                navigateToNewRoute(context, '/home', null);
-              },
-              iconSize: 34,
-            ),
-            IconButton(
-              icon: Icon(Icons.dashboard, color: Colors.black),
-              onPressed: () {
-                // Navigator.pushReplacementNamed(context, '/search');
-                navigateToNewRoute(context, '/home', null);
-              },
-              iconSize: 34,
-            ),
-            IconButton(
-              icon: Icon(Icons.person, color: Colors.black),
-              onPressed: () {
-                navigateToNewRoute(context, '/logIn', null);
-                // Navigator.pushReplacementNamed(context, '/logIn');
-                // Navigator.pushReplacementNamed(context, '/settings');
-              },
-              iconSize: 34,
-            ),
-            IconButton(
-              icon: Icon(Icons.settings, color: Colors.black),
-              onPressed: () {
-                navigateToNewRoute(context, '/logIn', null);
-                // Navigator.pushReplacementNamed(context, '/logIn');
-                // Navigator.pushReplacementNamed(context, '/settings');
-              },
-              iconSize: 34,
-            ),
-          ],
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 20,
+            color: Colors.white.withOpacity(.1), // beyaza cevir
+          )
+        ],
+      ),
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+          child: GNav(
+            rippleColor: Colors.grey[300]!,
+            hoverColor: Colors.grey[100]!,
+            gap: 8,
+            activeColor: Colors.white,
+            iconSize: 24,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            duration: const Duration(milliseconds: 400),
+            tabBackgroundColor: const Color(0xff222023),
+            color: Colors.grey,
+            tabs: [
+              GButton(
+                icon: Icons.dashboard_outlined,
+                text: LocaleKeys.home_appBarTitle.locale,
+              ),
+              GButton(
+                icon: Icons.computer_outlined,
+                text: LocaleKeys.about_us_appBarTitle.locale,
+              ),
+              GButton(
+                icon: Icons.phone_outlined,
+                text: LocaleKeys.contact_appBarTitle.locale,
+              ),
+              GButton(
+                icon: Icons.person_outline,
+                text: LocaleKeys.profile_appBarTitle.locale,
+              ),
+            ],
+            selectedIndex: selectedIndex,
+            onTabChange: onTabChange,
+          ),
         ),
       ),
-
-      //     BottomNavigationBar(
-      //   selectedItemColor: CustomColors.white,
-      //   unselectedItemColor: Colors.grey,
-      //   onTap: (int index) {
-      //     if (index == Pages.home.index) {
-      //       Navigator.pushReplacementNamed(context, '/');
-      //     } else if (index == Pages.search.index) {
-      //       Navigator.pushReplacementNamed(context, '/search');
-      //     } else if (index == Pages.favorites.index) {
-      //       Navigator.pushReplacementNamed(context, '/favorites');
-      //     } else {
-      //       Navigator.pushReplacementNamed(context, '/settings');
-      //     }
-      //   },
-      //   items: const [
-      //     BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-      //     BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorites'),
-      //     BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings')
-      //   ],
-      // ),
     );
   }
 }

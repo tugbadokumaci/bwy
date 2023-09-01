@@ -18,6 +18,9 @@ import 'bloc/profile_page/profile_view.dart';
 import 'bloc/signup_page/signup_cubit.dart';
 import 'bloc/signup_page/signup_repository.dart';
 import 'bloc/signup_page/signup_view.dart';
+import 'bloc/validation_page/vaildation_repository.dart';
+import 'bloc/validation_page/validation_cubit.dart';
+import 'bloc/validation_page/validation_view.dart';
 import 'bloc/welcome_page/welcome_cubit.dart';
 import 'bloc/welcome_page/welcome_repository.dart';
 import 'bloc/welcome_page/welcome_view.dart';
@@ -42,6 +45,10 @@ class RouteGenerator {
         return MaterialPageRoute(
             settings: settings,
             builder: (_) => SignupView(viewModel: SignupCubit(repo: locator.get<SignupRepository>())));
+      case validationRoute:
+        return MaterialPageRoute(
+            settings: settings,
+            builder: (_) => ValidationView(viewModel: ValidationCubit(repo: locator.get<ValidationRepository>())));
       case bwyRoute:
         return MaterialPageRoute(settings: settings, builder: (_) => BwyView());
       case contactRoute:

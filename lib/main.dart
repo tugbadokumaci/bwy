@@ -4,7 +4,6 @@ import 'package:bwy/shared_preferences_service.dart';
 import 'package:bwy/constants/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
 import 'navigator_key.dart';
 
@@ -13,15 +12,16 @@ void main() async {
   DependencyInjection();
   await SharedPreferencesService.initialize();
   await EasyLocalization.ensureInitialized();
-  initializeDateFormatting();
+  // initializeDateFormatting();
   // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  //     // options: DefaultFirebaseOptions.currentPlatform,
+  //     );
+  // await FirebaseApi().initNotifications();
   runApp(EasyLocalization(
     supportedLocales: Localization.SUPPORTED_LANGUAGES,
     path: Localization.LANG_PATH,
     fallbackLocale: Localization.SUPPORTED_LANGUAGES[0],
-    child: MyApp(),
+    child: const MyApp(),
   ));
 }
 

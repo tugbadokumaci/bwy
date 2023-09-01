@@ -20,7 +20,7 @@ class SignupRepository with MixinUserFeature {
     if (value.status == Status.SUCCESS) {
       return Resource.success(value.data!);
     } else {
-      return Resource.error(value.errorMessage!);
+      return Resource.error(value.errorMessage!, value.statusCode);
     }
   }
 }

@@ -14,6 +14,9 @@ class Constants {
   );
 }
 
+const EdgeInsets kHorizontalPadding = EdgeInsets.symmetric(horizontal: 8.0);
+const EdgeInsets kVerticalPadding = EdgeInsets.symmetric(vertical: 20.0);
+
 const String homeRoute = '/home';
 const String welcomeRoute = '/welcome';
 const String loginRoute = '/logIn';
@@ -21,6 +24,7 @@ const String signupRoute = '/signUp';
 const String bwyRoute = '/bwy';
 const String contactRoute = '/contact';
 const String profileRoute = '/profile';
+const String validationRoute = '/validation';
 
 class ApiConstants {
   ApiConstants._();

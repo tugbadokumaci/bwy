@@ -62,7 +62,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         // shared preference güncelle
         SharedPreferencesService.setStringPreference(Constants.USER.userEmail, Constants.USER.userPassword);
 
-        Utils.showCustomDialogDialog(
+        Utils.showCustomDialog(
           // context: context,
           title: 'Başarılı',
           content: 'Şifre Güncelleme Başarılı',
@@ -74,7 +74,7 @@ class ProfileCubit extends Cubit<ProfileState> {
           },
         );
       } else {
-        Utils.showCustomDialogDialog(
+        Utils.showCustomDialog(
           // context: context,
           title: 'Şifreyi Güncellerken Hata Oluştu',
           content: resource.errorMessage ?? '',

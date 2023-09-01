@@ -16,17 +16,14 @@ class WelcomeCubit extends Cubit<WelcomeState> {
         super(WelcomeInitial());
 
   Future<void> initialize(BuildContext context) async {
-    print('şimdi yükleniyor');
     emit(WelcomeLoading());
     final email = await SharedPreferencesService.getEmailPreference();
     final password = await SharedPreferencesService.getPasswordPreference();
 
     if (email != '' && password != '') {
-      print('doluymuş');
       Resource<UserModel> resource = await _repo.login(email, password);
       Navigator.pushNamed(context, '/home'); // Otomatik olarak ana sayfaya yönlendir
     } else {
-      print('bosmus');
       emit(WelcomeSuccess());
     }
   }

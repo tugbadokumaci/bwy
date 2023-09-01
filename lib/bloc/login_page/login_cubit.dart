@@ -72,8 +72,20 @@ class LoginCubit extends Cubit<LoginState> {
         );
         emit(LoginSuccess());
         // Navigator.pushNamed(context, '/home');
+      } else if (resource.statusCode == 403) {
+        // inactive account error
+
+        Utils.showCustomDialog(
+          // context: context,
+          title: 'Doğrulanmamış hesap',
+          content: 'Email doğrulamaya yönlendiriliyorsunuz',
+          onTap: () {
+            Navigator.of(context).pop();
+            Navigator.pushReplacementNamed(context, '/validation', arguments: {'email': email, 'password': password});
+          },
+        );
       } else {
-        Utils.showCustomDialogDialog(
+        Utils.showCustomDialog(
           // context: context,
           title: 'Giriş Başarısız',
           content: resource.errorMessage ?? '',

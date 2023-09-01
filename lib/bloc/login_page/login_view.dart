@@ -7,7 +7,6 @@ import 'package:lottie/lottie.dart';
 import '../../utils/box_constants.dart';
 import '../../utils/custom_colors.dart';
 import '../../widget/text_fields.dart';
-import '../../utils/custom_text_styles.dart';
 import '../../widget/box.dart';
 import '../../widget/button.dart';
 import 'login_cubit.dart';
@@ -66,17 +65,19 @@ class LoginView extends StatelessWidget {
                     .headlineMedium!
                     .copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
             const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
-            Text('Lütfen aşağıdaki bilgileri eksiksiz doldurun.'),
+            const Text('Lütfen aşağıdaki bilgileri eksiksiz doldurun.'),
             const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
             MyTextFieldWidget(
-                validatorCallback: ((value) {
-                  if (value!.isEmpty) {
-                    return "email alanı boş olamaz";
-                  } else {}
-                  return null;
-                }),
-                controller: viewModel.getEmailController,
-                labelText: 'Email'),
+              validatorCallback: ((value) {
+                if (value!.isEmpty) {
+                  return "email alanı boş olamaz";
+                } else {}
+                return null;
+              }),
+              controller: viewModel.getEmailController,
+              labelText: 'Email',
+              keyboardType: TextInputType.emailAddress,
+            ),
             const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
             MyTextFieldWidget(
               validatorCallback: ((value) {
@@ -88,6 +89,7 @@ class LoginView extends StatelessWidget {
               controller: viewModel.getPasswordController,
               labelText: 'Şifre',
               isSecure: true,
+              keyboardType: TextInputType.number,
             ),
             const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
             MyButtonWidget(

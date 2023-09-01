@@ -55,7 +55,7 @@ dependencies:
   auto_size_text: ^3.0.0
   email_validator: ^2.1.17
   regexed_validator: ^2.0.0+1
-  email_auth: ^1.0.0
+
 
 dev_dependencies:
   retrofit_generator: '>=5.0.0 <6.0.0'

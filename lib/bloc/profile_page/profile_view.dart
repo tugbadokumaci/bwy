@@ -3,12 +3,14 @@ import 'package:bwy/bloc/profile_page/profile_state.dart';
 import 'package:bwy/constants/constants.dart';
 import 'package:bwy/extension/string_extension.dart';
 import 'package:bwy/utils/custom_colors.dart';
+import 'package:bwy/utils/custom_text_styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../BottomNavBar.dart';
 import '../../lang/locale_keys.g.dart';
 import '../../size_config.dart';
 import '../../utils/box_constants.dart';
@@ -47,12 +49,7 @@ class _ProfileViewState extends State<ProfileView> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Text(LocaleKeys.profile_appBarTitle.locale,
-            style: TextStyle(
-                fontFamily: 'REM',
-                color: Colors.white,
-                fontSize: SizeConfig.defaultSize! * 2.4,
-                fontWeight: FontWeight.bold)),
+        title: Text(LocaleKeys.profile_appBarTitle.locale, style: CustomTextStyles.appBarTitleTextStyle()),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
@@ -77,66 +74,23 @@ class _ProfileViewState extends State<ProfileView> {
           return _buildError(context);
         },
       )),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 20,
-              color: Colors.white.withOpacity(.1), // beyaza cevir
-            )
-          ],
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-            child: GNav(
-              rippleColor: Colors.grey[300]!,
-              hoverColor: Colors.grey[100]!,
-              gap: 8,
-              activeColor: Colors.white,
-              iconSize: 24,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              duration: const Duration(milliseconds: 400),
-              tabBackgroundColor: const Color(0xff222023),
-              color: Colors.grey,
-              tabs: [
-                GButton(
-                  icon: Icons.dashboard_outlined,
-                  text: LocaleKeys.home_appBarTitle.locale,
-                ),
-                GButton(
-                  icon: Icons.computer_outlined,
-                  text: LocaleKeys.about_us_appBarTitle.locale,
-                ),
-                GButton(
-                  icon: Icons.phone_outlined,
-                  text: LocaleKeys.contact_appBarTitle.locale,
-                ),
-                GButton(
-                  icon: Icons.person_outline,
-                  text: LocaleKeys.profile_appBarTitle.locale,
-                ),
-              ],
-              selectedIndex: _selectedIndex,
-              onTabChange: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-                switch (index) {
-                  case 0:
-                    Navigator.pushNamed(context, '/home');
-                  case 1:
-                    Navigator.pushNamed(context, '/bwy', arguments: -1);
-                  case 2:
-                    Navigator.pushNamed(context, '/contact');
-                  case 3:
-                    Navigator.pushNamed(context, '/profile');
-                }
-              },
-            ),
-          ),
-        ),
+      bottomNavigationBar: CustomBottomNavigationBar(
+        onTabChange: (int index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+          switch (index) {
+            case 0:
+              Navigator.pushNamed(context, '/home');
+            case 1:
+              Navigator.pushNamed(context, '/bwy', arguments: -1);
+            case 2:
+              Navigator.pushNamed(context, '/contact');
+            case 3:
+              Navigator.pushNamed(context, '/profile');
+          }
+        },
+        selectedIndex: _selectedIndex,
       ),
     ));
   }
@@ -173,15 +127,17 @@ class _ProfileViewState extends State<ProfileView> {
           Text(LocaleKeys.profile_changePasswordSubTitle.locale),
           const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
           MyTextFieldWidget(
-              validatorCallback: ((value) {
-                if (value!.isEmpty) {
-                  return "new password can't be null";
-                } else {}
-                return null;
-              }),
-              controller: widget.viewModel.passwordController,
-              labelText: LocaleKeys.profile_newPassword.locale,
-              isSecure: true),
+            validatorCallback: ((value) {
+              if (value!.isEmpty) {
+                return "new password can't be null";
+              } else {}
+              return null;
+            }),
+            controller: widget.viewModel.passwordController,
+            labelText: LocaleKeys.profile_newPassword.locale,
+            isSecure: true,
+            keyboardType: TextInputType.number,
+          ),
           const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
           MyTextFieldWidget(
             validatorCallback: ((value) {
@@ -193,6 +149,7 @@ class _ProfileViewState extends State<ProfileView> {
             controller: widget.viewModel.passwordAgainController,
             labelText: LocaleKeys.profile_newPasswordAgain.locale,
             isSecure: true,
+            keyboardType: TextInputType.number,
           ),
           const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
           MyButtonWidget(
@@ -253,8 +210,7 @@ class _ProfileViewState extends State<ProfileView> {
               decoration: BoxDecoration(color: const Color(0xff222023), borderRadius: BorderRadius.circular(10)),
               child: ListTile(
                 title: Text('${Constants.USER.userName} ${Constants.USER.userSurname}',
-                    style: TextStyle(
-                        color: Colors.white, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.bold)),
+                    style: CustomTextStyles.titleSmallTextStyle()),
                 subtitle: Text('${Constants.USER.userEmail}',
                     style: TextStyle(
                         color: Colors.grey[400], fontSize: SizeConfig.defaultSize! * 1.5, fontWeight: FontWeight.bold)),
@@ -272,9 +228,7 @@ class _ProfileViewState extends State<ProfileView> {
               children: [
                 const Icon(Icons.settings, color: Colors.white),
                 const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
-                Text(LocaleKeys.profile_accountSettingsTitle.locale,
-                    style: TextStyle(
-                        color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold)),
+                Text(LocaleKeys.profile_accountSettingsTitle.locale, style: CustomTextStyles.titleMediumTextStyle()),
               ],
             ),
           ),
@@ -286,9 +240,7 @@ class _ProfileViewState extends State<ProfileView> {
               children: [
                 const Icon(Icons.phonelink_lock_outlined, color: Colors.white),
                 const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
-                Text(LocaleKeys.profile_changePassword.locale,
-                    style: TextStyle(
-                        color: Colors.white, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.bold)),
+                Text(LocaleKeys.profile_changePassword.locale, style: CustomTextStyles.titleSmallTextStyle()),
                 const Spacer(),
                 Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
               ],
@@ -301,8 +253,7 @@ class _ProfileViewState extends State<ProfileView> {
                 const Icon(Icons.notifications),
                 const Box(size: BoxSize.SMALL, type: BoxType.HORIZONTAL),
                 Text(LocaleKeys.profile_servicesnotificationsTitle.locale,
-                    style: TextStyle(
-                        color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold)),
+                    style: CustomTextStyles.titleMediumTextStyle()),
               ],
             ),
           ),
@@ -328,9 +279,7 @@ class _ProfileViewState extends State<ProfileView> {
                 });
               })),
           Box(type: BoxType.HORIZONTAL, size: BoxSize.EXTRASMALL),
-          Text(title,
-              style:
-                  TextStyle(color: Colors.white, fontSize: SizeConfig.defaultSize! * 1.8, fontWeight: FontWeight.bold)),
+          Text(title, style: CustomTextStyles.titleExtraSmallTextStyle()),
         ],
       ),
     );
