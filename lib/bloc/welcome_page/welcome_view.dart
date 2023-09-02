@@ -63,12 +63,11 @@ class WelcomeView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 18.0),
-                child: Image.asset(
-                  'assets/images/bwy_logo.png',
-                  width: 150,
-                ),
+              const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
+
+              Image.asset(
+                'assets/images/bwy_logo.png',
+                width: 150,
               ),
 
               // Text(
@@ -150,7 +149,7 @@ class WelcomeView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 18.0),
                 child: Text(
-                  'Kaydolarak, Çerez Kullanımı da dahil olmak üzere Hizmet Şartları ve Gizlilik Politikasını kabul etmiş olursunuz.',
+                  'Kaydolarak, KVKK Aydınlatma Metnini kabul etmiş olursunuz.',
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
               ),

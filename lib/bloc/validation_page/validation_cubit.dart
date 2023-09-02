@@ -24,7 +24,6 @@ class ValidationCubit extends Cubit<ValidationState> {
 
   final VerificationCodeController verificationController = VerificationCodeController();
 
-  // validation açıldığında çalışacak
   Future<void> sendOtp(String emailTo) async {
     final isSent = await _repo.sendOtp(emailTo);
     if (isSent.status == Status.SUCCESS) {

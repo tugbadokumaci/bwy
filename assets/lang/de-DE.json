@@ -8,7 +8,11 @@
         "inactive": "Passiv",
         "serviceNo": "Service Nummer: #",
         "license": "Jahreslizenz",
-        "endingTime": "Endtermin"
+        "endingTime": "Endtermin",
+        "noServiceFound": "Sie haben keinen Service gekauft.",
+        "refreshingFee": "Renovierungsgebühr",
+        "daysLefting": "Restliche Tage",
+        "daysPassed": "Letzter Tag"
     },
     "about_us": {
         "appBarTitle": "Über uns",
@@ -34,6 +38,7 @@
         "appBarTitle": "Mein Konto",
         "accountSettingsTitle": "Meine Kontoeinstellungen",
         "changePassword": "ändere mein Passwort",
+        "deleteAccount": "Schalten Sie mein Konto aus",
         "changePasswordSubTitle": "Bitte füllen Sie die folgenden Informationen aus.",
         "servicesnotificationsTitle": "Servicehinweise",
         "newServicesToggle": "Für neuen Service",

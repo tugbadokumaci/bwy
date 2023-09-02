@@ -7,7 +7,6 @@ import 'package:bwy/widget/tagContainer.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:lottie/lottie.dart';
 import '../../bottomNavBar.dart';
 import '../../lang/locale_keys.g.dart';
@@ -281,7 +280,7 @@ class _HomeViewState extends State<HomeView> {
         children: [
           Icon(Icons.error_outline, color: CustomColors.bwyYellow),
           Box(size: BoxSize.EXTRASMALL, type: BoxType.VERTICAL),
-          Text('Satın alınmış hizmetiniz bulunmamaktadır.',
+          Text(LocaleKeys.home_noServiceFound.locale,
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.grey, fontSize: SizeConfig.defaultSize! * 2, fontWeight: FontWeight.bold))
         ],
@@ -343,7 +342,8 @@ class _HomeViewState extends State<HomeView> {
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: Row(
                     children: [
-                      Text('Yenileme Ücreti : ${service.price}₺', style: CustomTextStyles.titleSmallTextStyle()),
+                      Text('${LocaleKeys.home_refreshingFee.locale}: ${service.price}₺',
+                          style: CustomTextStyles.titleSmallTextStyle()),
                     ],
                   ),
                 ),
@@ -358,9 +358,11 @@ class _HomeViewState extends State<HomeView> {
   MyTagContainer _daysLeftTagContainer(ServiceModel service) {
     int diff = daysBetween(DateTime.now(), service.finishDate);
     if (diff > 0) {
-      return MyTagContainer(tagTitle: 'Kalan $diff gün', borderColor: Colors.green, textColor: Colors.green);
+      return MyTagContainer(
+          tagTitle: '${LocaleKeys.home_daysLefting.locale}: $diff', borderColor: Colors.green, textColor: Colors.green);
     }
-    return MyTagContainer(tagTitle: '${diff * -1} gün geçti', borderColor: Colors.red, textColor: Colors.red);
+    return MyTagContainer(
+        tagTitle: '${LocaleKeys.home_daysPassed.locale}: ${diff * -1}', borderColor: Colors.red, textColor: Colors.red);
   }
 
   int daysBetween(DateTime from, DateTime to) {

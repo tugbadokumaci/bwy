@@ -8,7 +8,11 @@
         "inactive": "Passive",
         "serviceNo": "Service Number: #",
         "license": "Annual License",
-        "endingTime": "End Date"
+        "endingTime": "End Date",
+        "noServiceFound": "You do not have purchased service.",
+        "refreshingFee": "Renovation fee",
+        "daysLefting": "Days left",
+        "daysPassed": "Days passed"
     },
     "about_us": {
         "appBarTitle": "About Us",
@@ -34,6 +38,7 @@
         "appBarTitle": "My account",
         "accountSettingsTitle": "My Account Settings",
         "changePassword": "Change my password",
+        "deleteAccount": "Delete my account",
         "changePasswordSubTitle": "Please fill out the information below completely.",
         "servicesnotificationsTitle": "Service Notices",
         "newServicesToggle": "For New Services",

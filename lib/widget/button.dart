@@ -23,23 +23,23 @@ class MyButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: enabled ? onPressed : null,
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(buttonColor),
-        shape: MaterialStateProperty.all<OutlinedBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25),
-            side: BorderSide(
-              color: (borderColor == null) ? buttonColor : borderColor!,
-              width: 1.0,
+    return SizedBox(
+      height: height,
+      width: width,
+      child: ElevatedButton(
+        onPressed: enabled ? onPressed : null,
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(buttonColor),
+          shape: MaterialStateProperty.all<OutlinedBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25),
+              side: BorderSide(
+                color: (borderColor == null) ? buttonColor : borderColor!,
+                width: 1.0,
+              ),
             ),
           ),
         ),
-      ),
-      child: Container(
-        height: height,
-        width: width,
         child: Center(
           child: content,
         ),

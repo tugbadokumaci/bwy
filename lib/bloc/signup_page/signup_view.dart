@@ -1,23 +1,30 @@
 import 'package:bwy/bloc/signup_page/signup_cubit.dart';
 import 'package:bwy/bloc/signup_page/signup_state.dart';
+import 'package:bwy/constants/constants.dart';
 import 'package:bwy/utils/box_constants.dart';
 import 'package:bwy/widget/text_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../constants/strings.dart';
 import '../../size_config.dart';
 import '../../utils/custom_text_styles.dart';
 import '../../widget/box.dart';
 import '../../widget/button.dart';
 
-class SignupView extends StatelessWidget {
+class SignupView extends StatefulWidget {
   final SignupCubit viewModel;
   const SignupView({super.key, required this.viewModel});
 
   @override
+  State<SignupView> createState() => _SignupViewState();
+}
+
+class _SignupViewState extends State<SignupView> {
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider<SignupCubit>(create: (_) => viewModel, child: _buildScaffold(context));
+    return BlocProvider<SignupCubit>(create: (_) => widget.viewModel, child: _buildScaffold(context));
   }
 
   Widget _buildScaffold(BuildContext context) {
@@ -26,8 +33,8 @@ class SignupView extends StatelessWidget {
       listener: (context, state) {
         if (state is SignupSuccess) {
           Navigator.pushReplacementNamed(context, '/validation', arguments: {
-            'email': viewModel.getEmailController.text,
-            'password': viewModel.getPasswordController.text
+            'email': widget.viewModel.getEmailController.text,
+            'password': widget.viewModel.getPasswordController.text
           });
         }
       },
@@ -59,6 +66,8 @@ class SignupView extends StatelessWidget {
         child: LayoutBuilder(builder: (context, constraints) {
           return SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
                 Text('Hesap oluşturun',
@@ -68,7 +77,7 @@ class SignupView extends StatelessWidget {
                         .copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
                 const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
                 Text('Lütfen aşağıdaki bilgileri eksiksiz doldurun.'),
-                const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
+                const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
                 _nameField(),
                 const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
                 _surnameField(),
@@ -78,14 +87,16 @@ class SignupView extends StatelessWidget {
                 _emailField(),
                 const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
                 _passwordField(),
-                const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
+                const Box(size: BoxSize.EXTRASMALL, type: BoxType.VERTICAL),
+                _checkField(),
+                const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
                 MyButtonWidget(
                   context: context,
                   height: 50,
                   width: 350,
                   content: Text('İlerle', style: CustomTextStyles2.buttonTextStyle(context, Colors.black)),
                   onPressed: () {
-                    viewModel.signup(context);
+                    widget.viewModel.signup(context);
                   },
                   buttonColor: Colors.white,
                   // borderColor: Colors.wite,
@@ -98,6 +109,46 @@ class SignupView extends StatelessWidget {
     );
   }
 
+  Widget _checkField() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Checkbox(
+            value: widget.viewModel.isChecked,
+            activeColor: Colors.white,
+            checkColor: Colors.black,
+            onChanged: (bool? newValue) {
+              setState(() {
+                widget.viewModel.isChecked = !widget.viewModel.isChecked;
+              });
+            }),
+        TextButton(
+          child: Text('KVKK Metnini kabul ediyorum', style: TextStyle(color: Colors.white)),
+          onPressed: () {
+            showModalBottomSheet<void>(
+              isScrollControlled: true,
+              useSafeArea: true,
+              backgroundColor: Colors.grey[900],
+              context: context,
+              builder: (BuildContext context) {
+                return SizedBox(
+                    height: SizeConfig.screenHeight! * 0.8,
+                    child: ListView(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Text(Strings.kvkkMetni),
+                        ),
+                      ],
+                    ));
+              },
+            );
+          },
+        )
+      ],
+    );
+  }
+
   Widget _phoneField() {
     return MyTextFieldWidget(
       validatorCallback: ((value) {
@@ -106,7 +157,7 @@ class SignupView extends StatelessWidget {
         } else {}
         return null;
       }),
-      controller: viewModel.getPhoneController,
+      controller: widget.viewModel.getPhoneController,
       labelText: 'Telefon',
       keyboardType: TextInputType.phone,
     );
@@ -120,7 +171,7 @@ class SignupView extends StatelessWidget {
         } else {}
         return null;
       }),
-      controller: viewModel.getPasswordController,
+      controller: widget.viewModel.getPasswordController,
       labelText: 'Password',
       isSecure: true,
       keyboardType: TextInputType.number,
@@ -135,7 +186,7 @@ class SignupView extends StatelessWidget {
         } else {}
         return null;
       }),
-      controller: viewModel.getEmailController,
+      controller: widget.viewModel.getEmailController,
       labelText: 'Email',
       keyboardType: TextInputType.emailAddress,
     );
@@ -149,7 +200,7 @@ class SignupView extends StatelessWidget {
           } else {}
           return null;
         }),
-        controller: viewModel.getSurnameController,
+        controller: widget.viewModel.getSurnameController,
         labelText: 'Soyisim',
         keyboardType: TextInputType.text);
   }
@@ -162,7 +213,7 @@ class SignupView extends StatelessWidget {
           } else {}
           return null;
         }),
-        controller: viewModel.getNameController,
+        controller: widget.viewModel.getNameController,
         labelText: 'İsim',
         keyboardType: TextInputType.text);
   }

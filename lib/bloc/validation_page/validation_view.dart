@@ -1,6 +1,5 @@
 import 'package:bwy/bloc/validation_page/validation_cubit.dart';
 import 'package:bwy/bloc/validation_page/validation_state.dart';
-import 'package:bwy/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +21,7 @@ class ValidationView extends StatefulWidget {
 class _ValidationViewState extends State<ValidationView> {
   late String emailToVerify;
   late String passwordToVerify;
+  bool _isSend = false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,10 @@ class _ValidationViewState extends State<ValidationView> {
     emailToVerify = arguments['email'];
     passwordToVerify = arguments['password'];
     Future.delayed(Duration.zero, () async {
-      widget.viewModel.sendOtp(emailToVerify);
+      if (!_isSend) {
+        widget.viewModel.sendOtp(emailToVerify);
+        _isSend = !_isSend;
+      }
     });
 
     return BlocProvider<ValidationCubit>(create: (_) => widget.viewModel, child: _buildScaffold(context));
@@ -72,6 +75,7 @@ class _ValidationViewState extends State<ValidationView> {
         body: Padding(
           padding: const EdgeInsets.all(50.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Box(size: BoxSize.EXTRASMALL, type: BoxType.VERTICAL),
               Text('Email Adresinizi Doğrulayın',

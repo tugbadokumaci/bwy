@@ -246,6 +246,20 @@ class _ProfileViewState extends State<ProfileView> {
               ],
             ),
           ),
+          TextButton(
+            onPressed: () {
+              widget.viewModel.deleteAccount(context);
+            },
+            child: Row(
+              children: [
+                const Icon(Icons.delete, color: Colors.white),
+                const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
+                Text(LocaleKeys.profile_deleteAccount.locale, style: CustomTextStyles.titleSmallTextStyle()),
+                const Spacer(),
+                Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
+              ],
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
             child: Row(
@@ -270,14 +284,12 @@ class _ProfileViewState extends State<ProfileView> {
       padding: const EdgeInsets.all(8.0),
       child: Row(
         children: [
-          CupertinoSwitch(
-              activeColor: CustomColors.bwyGreen,
-              value: _isNotificationsActive,
-              onChanged: ((value) {
-                setState(() {
-                  _isNotificationsActive = value;
-                });
-              })),
+          CupertinoSwitch(activeColor: CustomColors.bwyGreen, value: _isNotificationsActive, onChanged: null),
+          // ((value) {
+          //   setState(() {
+          //     _isNotificationsActive = value;
+          //   });
+          // })),
           Box(type: BoxType.HORIZONTAL, size: BoxSize.EXTRASMALL),
           Text(title, style: CustomTextStyles.titleExtraSmallTextStyle()),
         ],

@@ -119,6 +119,7 @@ class LoginView extends StatelessWidget {
             //   borderColor: Colors.white,
             // ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('Henüz bir hesabınız yok mu?',
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.lightGray)),

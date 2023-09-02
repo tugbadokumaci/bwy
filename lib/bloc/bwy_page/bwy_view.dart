@@ -1,12 +1,9 @@
 import 'package:bwy/extension/string_extension.dart';
 import 'package:bwy/lang/locale_keys.g.dart';
 import 'package:bwy/utils/box_constants.dart';
-import 'package:bwy/utils/custom_colors.dart';
 import 'package:bwy/utils/custom_text_styles.dart';
 import 'package:bwy/widget/box.dart';
-import 'package:bwy/widget/text/locale_text.dart';
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 
 import '../../BottomNavBar.dart';
 import '../../constants/strings.dart';

@@ -10,6 +10,10 @@ abstract class  LocaleKeys {
   static const home_serviceNo = 'home.serviceNo';
   static const home_license = 'home.license';
   static const home_endingTime = 'home.endingTime';
+  static const home_noServiceFound = 'home.noServiceFound';
+  static const home_refreshingFee = 'home.refreshingFee';
+  static const home_daysLefting = 'home.daysLefting';
+  static const home_daysPassed = 'home.daysPassed';
   static const home = 'home';
   static const about_us_appBarTitle = 'about_us.appBarTitle';
   static const about_us_headerTitle = 'about_us.headerTitle';
@@ -32,6 +36,7 @@ abstract class  LocaleKeys {
   static const profile_appBarTitle = 'profile.appBarTitle';
   static const profile_accountSettingsTitle = 'profile.accountSettingsTitle';
   static const profile_changePassword = 'profile.changePassword';
+  static const profile_deleteAccount = 'profile.deleteAccount';
   static const profile_changePasswordSubTitle = 'profile.changePasswordSubTitle';
   static const profile_servicesnotificationsTitle = 'profile.servicesnotificationsTitle';
   static const profile_newServicesToggle = 'profile.newServicesToggle';

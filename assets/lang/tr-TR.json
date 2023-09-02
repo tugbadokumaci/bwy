@@ -8,7 +8,11 @@
         "inactive": "Pasif",
         "serviceNo": "Hizmet No: #",
         "license": "Yıllık Lisans",
-        "endingTime": "Bitiş Tarihi"
+        "endingTime": "Bitiş Tarihi",
+        "noServiceFound": "Satın alınmış hizmetiniz bulunmamaktadır.",
+        "refreshingFee": "Yenileme Ücreti",
+        "daysLefting": "Kalan gün",
+        "daysPassed": "Geçen gün"
     },
     "about_us": {
         "appBarTitle": "Hakkımızda",
@@ -34,6 +38,7 @@
         "appBarTitle": "Hesabım",
         "accountSettingsTitle": "Hesap Ayarlarım",
         "changePassword": "Şifremi değiştir",
+        "deleteAccount": "Hesabımı kapat",
         "changePasswordSubTitle": "Lütfen aşağıdaki bilgileri eksiksiz doldurun.",
         "servicesnotificationsTitle": "Servis Bildirimleri",
         "newServicesToggle": "Yeni Servis İçin",

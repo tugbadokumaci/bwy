@@ -70,6 +70,13 @@ abstract class RestClient {
   })
   Future<Resource<bool>> validateOtp(@Body() Map<String, dynamic> emailInfo);
 
+  @POST('/codeocean/deleteaccount.php')
+  @Headers(<String, dynamic>{
+    "Content-Type": "application/json",
+    "charset": "utf-8",
+  })
+  Future<Resource<bool>> deleteAccount(@Body() Map<String, dynamic> userEmail);
+
   static void debugHttpInterceptors(Dio dio) {
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {

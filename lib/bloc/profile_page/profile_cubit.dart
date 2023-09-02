@@ -28,6 +28,34 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(ProfilePasswordChange());
   }
 
+  Future<void> deleteAccount(BuildContext context) async {
+    Resource<bool> resource = await _repo.deleteAccount();
+    if (resource.status == Status.SUCCESS) {
+      Utils.showCustomDialog(
+        // context: context,
+        title: 'Başarılı',
+        content: 'Hesabınız silindi',
+        onTap: () async {
+          await SharedPreferencesService.clearLocalStorage();
+          Navigator.of(context).pop();
+          Navigator.pushNamed(context, '/welcome');
+        },
+      );
+    } else {
+      Utils.showCustomDialog(
+        // context: context,
+        title: 'Başarısız',
+        content: 'Hesabınız silinirken hata gerçekleşti',
+        onTap: () {
+          passwordAgainController.text == '';
+          passwordController.text = '';
+          emit(ProfileSuccess());
+          Navigator.of(context).pop();
+        },
+      );
+    }
+  }
+
   Future<void> changePassword(BuildContext context) async {
     if (passwordController.text == '') {
       Fluttertoast.showToast(
