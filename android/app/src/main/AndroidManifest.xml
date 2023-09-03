@@ -1,4 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Provide required visibility configuration for API level 30 and above -->
+    <queries>
+      <!-- If your app checks for SMS support -->
+      <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="sms" />
+      </intent>
+      <!-- If your app checks for call support -->
+      <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="tel" />
+      </intent>
+    </queries>
+
+
     <application
         android:label="bwy"
         android:name="${applicationName}"
@@ -32,18 +47,6 @@
             <!-- Provide required visibility configuration for API level 30 and above -->
            <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyBuqpVE5wMhXR29mitzgRzJMC8LnZQtQAI"/>
-<!-- Provide required visibility configuration for API level 30 and above -->
-<queries>
-  <!-- If your app checks for SMS support -->
-  <intent>
-    <action android:name="android.intent.action.VIEW" />
-    <data android:scheme="sms" />
-  </intent>
-  <!-- If your app checks for call support -->
-  <intent>
-    <action android:name="android.intent.action.VIEW" />
-    <data android:scheme="tel" />
-  </intent>
-</queries>
+
     </application>
 </manifest>

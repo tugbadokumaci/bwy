@@ -93,7 +93,7 @@ class _RestClient implements RestClient {
               e.response?.statusMessage ?? 'hint: Kullanici eklenirken bir hata oluştu', e.response?.statusCode);
         }
       }
-      return Resource.error('NOT DioException ERROR !!!!', null);
+      return Resource.error('Lütfen internet bağlantınızı kontrol edin', null);
     }
   }
 
@@ -142,7 +142,7 @@ class _RestClient implements RestClient {
         }
       }
       // Hata durumunda boş bir UserModel döndürebilirsiniz veya isteğe göre yönetebilirsiniz.
-      return Resource.error('NOT DioException ERROR !!!!', null);
+      return Resource.error('Lütfen internet bağlantınızı kontrol edin', null);
     }
   }
 
@@ -192,7 +192,7 @@ class _RestClient implements RestClient {
         }
       }
       // Hata durumunda boş bir ServiceModel döndürebilirsiniz veya isteğe göre yönetebilirsiniz.
-      return Resource.error('NOT DioException ERROR !!!!', null);
+      return Resource.error('Lütfen internet bağlantınızı kontrol edin', null);
     }
   }
 
@@ -236,7 +236,7 @@ class _RestClient implements RestClient {
         }
       }
       // Hata durumunda boş bir ServiceModel döndürebilirsiniz veya isteğe göre yönetebilirsiniz.
-      return Resource.error('NOT DioException ERROR !!!!', null);
+      return Resource.error('Lütfen internet bağlantınızı kontrol edin', null);
     }
   }
 
@@ -280,7 +280,7 @@ class _RestClient implements RestClient {
         }
       }
       // Hata durumunda boş bir ServiceModel döndürebilirsiniz veya isteğe göre yönetebilirsiniz.
-      return Resource.error('NOT DioException ERROR !!!!', null);
+      return Resource.error('Lütfen internet bağlantınızı kontrol edin', null);
     }
   }
 
@@ -323,7 +323,7 @@ class _RestClient implements RestClient {
         }
       }
       // Hata durumunda boş bir ServiceModel döndürebilirsiniz veya isteğe göre yönetebilirsiniz.
-      return Resource.error('NOT DioException ERROR !!!!', null);
+      return Resource.error('Lütfen internet bağlantınızı kontrol edin', null);
     }
   }
 
@@ -366,7 +366,7 @@ class _RestClient implements RestClient {
         }
       }
       // Hata durumunda boş bir ServiceModel döndürebilirsiniz veya isteğe göre yönetebilirsiniz.
-      return Resource.error('NOT DioException ERROR !!!!', null);
+      return Resource.error('Lütfen internet bağlantınızı kontrol edin', null);
     }
   }
 

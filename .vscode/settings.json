@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "/Users/tugbadokumaci/Desktop/bwy/linux"
+    "cmake.sourceDirectory": "/Users/tugbadokumaci/Desktop/bwy/linux",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
