@@ -60,120 +60,123 @@ class WelcomeView extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Padding(
         padding: context.paddingAllLarge,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
 
-              Image.asset(
-                'assets/images/bwy_logo.png',
-                width: 150,
-              ),
+                Image.asset(
+                  'assets/images/bwy_logo.png',
+                  width: 150,
+                ),
 
-              // Text(
-              //   " Bursa Web Tasarım",
-              //   style: Theme.of(context)
-              //       .textTheme
-              //       .headlineSmall!
-              //       .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-              // ),
-              const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
-              Text('25 yıldır sizler için sunduğumuz hizmetimiz şimdi cepte.',
-                  style: context.theme.textTheme.headlineMedium!
-                      .copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25)),
-              const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
+                // Text(
+                //   " Bursa Web Tasarım",
+                //   style: Theme.of(context)
+                //       .textTheme
+                //       .headlineSmall!
+                //       .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                // ),
+                const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
+                Text('25 yıldır sizler için sunduğumuz hizmetimiz şimdi cepte.',
+                    style: context.theme.textTheme.headlineMedium!
+                        .copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25)),
+                const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
 
-              // MyButtonWidget(
-              //   context: context,
-              //   height: 50,
-              //   width: 350,
-              //   content: Row(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: [
-              //       Text('Oturum açın', style: CustomTextStyles.buttonTextStyle(context, Colors.black)),
-              //     ],
-              //   ),
-              //   buttonColor: Colors.white,
-              //   onPressed: () {},
-              // ),
-              // const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
-              // MyButtonWidget(
-              //   context: context,
-              //   height: 50,
-              //   width: 350,
-              //   content: Row(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: [
-              //       Text('Kaydolun', style: CustomTextStyles.buttonTextStyle(context, Colors.black)),
-              //     ],
-              //   ),
-              //   onPressed: () {},
-              //   buttonColor: Colors.white,
-              // ),
-              // Row(
-              //   children: <Widget>[
-              //     Expanded(
-              //       child: Container(
-              //         margin: const EdgeInsets.only(left: 10.0, right: 15.0),
-              //         child: Divider(
-              //           color: CustomColors.lightGray,
-              //           height: 50,
-              //         ),
-              //       ),
-              //     ),
-              //     const Text("veya"),
-              //     Expanded(
-              //       child: Container(
-              //         margin: const EdgeInsets.only(left: 15.0, right: 10.0),
-              //         child: Divider(
-              //           color: CustomColors.lightGray,
-              //           height: 50,
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
+                // MyButtonWidget(
+                //   context: context,
+                //   height: 50,
+                //   width: 350,
+                //   content: Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       Text('Oturum açın', style: CustomTextStyles.buttonTextStyle(context, Colors.black)),
+                //     ],
+                //   ),
+                //   buttonColor: Colors.white,
+                //   onPressed: () {},
+                // ),
+                // const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
+                // MyButtonWidget(
+                //   context: context,
+                //   height: 50,
+                //   width: 350,
+                //   content: Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       Text('Kaydolun', style: CustomTextStyles.buttonTextStyle(context, Colors.black)),
+                //     ],
+                //   ),
+                //   onPressed: () {},
+                //   buttonColor: Colors.white,
+                // ),
+                // Row(
+                //   children: <Widget>[
+                //     Expanded(
+                //       child: Container(
+                //         margin: const EdgeInsets.only(left: 10.0, right: 15.0),
+                //         child: Divider(
+                //           color: CustomColors.lightGray,
+                //           height: 50,
+                //         ),
+                //       ),
+                //     ),
+                //     const Text("veya"),
+                //     Expanded(
+                //       child: Container(
+                //         margin: const EdgeInsets.only(left: 15.0, right: 10.0),
+                //         child: Divider(
+                //           color: CustomColors.lightGray,
+                //           height: 50,
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
 
-              MyButtonWidget(
-                context: context,
-                content: Text('Hesap oluştur', style: CustomTextStyles2.buttonTextStyle(context, Colors.white)),
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/signUp');
-                },
-                buttonColor: CustomColors.bwyRed,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 18.0),
-                child: Text(
-                  'Kaydolarak, KVKK Aydınlatma Metnini kabul etmiş olursunuz.',
+                MyButtonWidget(
+                  context: context,
+                  content: Text('Hesap oluştur', style: CustomTextStyles2.buttonTextStyle(context, Colors.white)),
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, '/signUp');
+                  },
+                  buttonColor: CustomColors.bwyRed,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 18.0),
+                  child: Text(
+                    'Kaydolarak, KVKK Aydınlatma Metnini kabul etmiş olursunuz.',
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                ),
+                const Box(size: BoxSize.LARGE, type: BoxType.VERTICAL),
+                Text(
+                  'Zaten bir hesabın var mı?',
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
-              ),
-              const Box(size: BoxSize.LARGE, type: BoxType.VERTICAL),
-              Text(
-                'Zaten bir hesabın var mı?',
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-              const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
-              MyButtonWidget(
-                context: context,
-                content: Text('Giriş yap', style: CustomTextStyles2.buttonTextStyle(context, Colors.black)),
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/logIn');
-                },
-                buttonColor: Colors.white,
-                // borderColor: Colors.wite,
-              ),
-              // const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
-              // Image.asset(
-              //   'assets/images/welcome_page.jpeg',
-              //   // fit: BoxFit.fitWidth,
-              //   height: 500,
-              //   width: MediaQuery.of(context).size.width,
-              // ),
-            ],
+                const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
+                MyButtonWidget(
+                  context: context,
+                  content: Text('Giriş yap', style: CustomTextStyles2.buttonTextStyle(context, Colors.black)),
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, '/logIn');
+                  },
+                  buttonColor: Colors.white,
+                  // borderColor: Colors.wite,
+                ),
+                // const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
+                // Image.asset(
+                //   'assets/images/welcome_page.jpeg',
+                //   // fit: BoxFit.fitWidth,
+                //   height: 500,
+                //   width: MediaQuery.of(context).size.width,
+                // ),
+              ],
+            ),
           ),
         ),
       ),

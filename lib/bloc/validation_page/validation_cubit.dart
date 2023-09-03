@@ -40,7 +40,7 @@ class ValidationCubit extends Cubit<ValidationState> {
         content: isSent.errorMessage ?? 'Kayıt işlemi sırasında hata gerçekleşti',
         onTap: () {
           Navigator.of(navigatorKey.currentContext!).pop();
-          Navigator.pushNamed(navigatorKey.currentContext!, '/welcome');
+          Navigator.pushNamed(navigatorKey.currentContext!, '/');
         },
       );
     }

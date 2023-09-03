@@ -217,7 +217,7 @@ class _ProfileViewState extends State<ProfileView> {
                 trailing: IconButton(
                     onPressed: () {
                       widget.viewModel.logOut();
-                      Navigator.pushNamed(context, '/welcome');
+                      Navigator.pushNamed(context, '/');
                     },
                     icon: const Icon(Icons.logout, color: Colors.white)),
                 leading: Image.asset('assets/images/user.png', scale: 12),

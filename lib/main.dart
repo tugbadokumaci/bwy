@@ -2,6 +2,7 @@ import 'package:bwy/routes.dart';
 import 'package:bwy/service_locator.dart';
 import 'package:bwy/shared_preferences_service.dart';
 import 'package:bwy/constants/constants.dart';
+import 'package:bwy/utils/custom_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -67,6 +68,9 @@ class MyApp extends StatelessWidget {
             TargetPlatform.android: NoAnimationPageTransitionsBuilder(),
             TargetPlatform.iOS: NoAnimationPageTransitionsBuilder(),
           },
+        ),
+        colorScheme: ColorScheme.fromSwatch(
+          accentColor: CustomColors.bwyYellowPastel, // but now it should be declared like this
         ),
       ),
       onGenerateRoute: RouteGenerator.GenerateRoute,

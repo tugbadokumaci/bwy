@@ -56,7 +56,7 @@ class _SignupViewState extends State<SignupView> {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              Navigator.pushReplacementNamed(context, '/welcome');
+              Navigator.pushReplacementNamed(context, '/');
             },
             icon: const Icon(Icons.close, color: Colors.white)),
         // title: const Text('Merhaba'),

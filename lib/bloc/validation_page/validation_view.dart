@@ -69,7 +69,7 @@ class _ValidationViewState extends State<ValidationView> {
         appBar: AppBar(
           leading: IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/welcome');
+                Navigator.pushNamed(context, '/');
               },
               icon: Icon(Icons.close)),
         ),

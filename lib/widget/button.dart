@@ -21,9 +21,9 @@ class MyButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: 50, maxWidth: 350),
+      constraints: BoxConstraints(maxWidth: 350),
       child: SizedBox(
-        height: context.buttonHeight,
+        height: 50,
         width: context.buttonWidth,
         child: ElevatedButton(
           onPressed: enabled ? onPressed : null,

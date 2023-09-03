@@ -38,7 +38,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         onTap: () async {
           await SharedPreferencesService.clearLocalStorage();
           Navigator.of(context).pop();
-          Navigator.pushNamed(context, '/welcome');
+          Navigator.pushNamed(context, '/');
         },
       );
     } else {

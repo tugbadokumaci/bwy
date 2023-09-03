@@ -28,7 +28,7 @@ class LoginView extends StatelessWidget {
           // title: const FaIcon(FontAwesomeIcons.twitter, color: Colors.white),
           leading: IconButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/welcome');
+                Navigator.pushReplacementNamed(context, '/');
               },
               icon: const Icon(Icons.close)),
         ),
