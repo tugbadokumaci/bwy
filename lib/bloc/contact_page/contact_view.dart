@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:bwy/constants/constants.dart';
+import 'package:bwy/extension/context_extension.dart';
 import 'package:bwy/extension/string_extension.dart';
 import 'package:bwy/utils/custom_text_styles.dart';
 import 'package:bwy/widget/container.dart';
@@ -53,7 +54,7 @@ class _ContactViewState extends State<ContactView> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Text(LocaleKeys.contact_appBarTitle.locale, style: CustomTextStyles.appBarTitleTextStyle()),
+        title: Text(LocaleKeys.contact_appBarTitle.locale, style: CustomTextStyles2.appBarTextStyle(context)),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
@@ -65,32 +66,37 @@ class _ContactViewState extends State<ContactView> {
           Positioned(right: 0, bottom: 0, child: FABs.buildCallFab(context)),
         ],
       ),
-      body: _buildBody(context), // single child scroll view was wrapping
-      bottomNavigationBar: CustomBottomNavigationBar(
-        onTabChange: (int index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-          switch (index) {
-            case 0:
-              Navigator.pushNamed(context, '/home');
-            case 1:
-              Navigator.pushNamed(context, '/bwy', arguments: -1);
-            case 2:
-              Navigator.pushNamed(context, '/contact');
-            case 3:
-              Navigator.pushNamed(context, '/profile');
-          }
-        },
-        selectedIndex: _selectedIndex,
-      ),
+      body: SingleChildScrollView(child: _buildBody(context)),
+      bottomNavigationBar: buildBottomNavigationBar,
     ));
+  }
+
+  CustomBottomNavigationBar get buildBottomNavigationBar {
+    return CustomBottomNavigationBar(
+      onTabChange: (int index) {
+        setState(() {
+          _selectedIndex = index;
+        });
+        switch (index) {
+          case 0:
+            Navigator.pushNamed(context, '/home');
+          case 1:
+            Navigator.pushNamed(context, '/bwy', arguments: -1);
+          case 2:
+            Navigator.pushNamed(context, '/contact');
+          case 3:
+            Navigator.pushNamed(context, '/profile');
+        }
+      },
+      selectedIndex: _selectedIndex,
+    );
   }
 
   Widget _buildBody(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
 
@@ -101,7 +107,7 @@ class _ContactViewState extends State<ContactView> {
           //     child: Text('İletişim Bilgilerim',
           //         style: TextStyle(
           //             color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold))),
-          Expanded(child: _googleMapsContainer()),
+          SizedBox(height: context.dynamicHeight(0.5), child: _googleMapsContainer()),
         ],
       ),
     );
@@ -159,24 +165,30 @@ class _ContactViewState extends State<ContactView> {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: Image.asset('assets/images/bwy_header_contact_us1.png', height: 270, fit: BoxFit.fitHeight),
+          child: Image.asset('assets/images/bwy_header_contact_us1.png',
+              width: context.dynamicWidth(1), fit: BoxFit.fitWidth),
         ),
         Positioned(
           top: 24,
           left: 24,
-          child:
-              Container(width: 280, child: Text('+90 224 408 38 48', style: CustomTextStyles.titleMediumTextStyle())),
+          child: Container(
+              width: 280,
+              child: Text('+90 224 408 38 48', style: CustomTextStyles2.titleMediumTextStyle(context, Colors.white))),
         ),
         Positioned(
           left: 24,
           top: 80,
           child: Container(
-              width: 280, child: Text('info@\nbursawebyazilim.com', style: CustomTextStyles.titleMediumTextStyle())),
+              width: 280,
+              child: Text('info@\nbursawebyazilim.com',
+                  style: CustomTextStyles2.titleMediumTextStyle(context, Colors.white))),
         ),
         Positioned(
           left: 24,
-          bottom: 24,
-          child: Container(width: 280, child: Text(officeAddress, style: CustomTextStyles.titleMediumTextStyle())),
+          top: 160,
+          child: Container(
+              width: 280,
+              child: Text(officeAddress, style: CustomTextStyles2.titleMediumTextStyle(context, Colors.white))),
         ),
       ],
     );

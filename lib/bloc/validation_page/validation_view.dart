@@ -1,5 +1,7 @@
 import 'package:bwy/bloc/validation_page/validation_cubit.dart';
 import 'package:bwy/bloc/validation_page/validation_state.dart';
+import 'package:bwy/extension/context_extension.dart';
+import 'package:bwy/utils/custom_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,35 +75,36 @@ class _ValidationViewState extends State<ValidationView> {
         ),
         backgroundColor: Colors.black,
         body: Padding(
-          padding: const EdgeInsets.all(50.0),
+          padding: context.paddingAllLarge,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Box(size: BoxSize.EXTRASMALL, type: BoxType.VERTICAL),
-              Text('Email Adresinizi Doğrulayın',
-                  style: TextStyle(fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold)),
+              Text('Email Adresinizi Doğrulayın', style: CustomTextStyles2.titleMediumTextStyle(context, Colors.white)),
               const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
               Text('Doğrulama kodu bu adrese gönderildi',
-                  style: TextStyle(fontSize: SizeConfig.defaultSize! * 1.5, fontWeight: FontWeight.bold)),
-              Text(emailToVerify,
-                  style: TextStyle(fontSize: SizeConfig.defaultSize! * 1.5, fontWeight: FontWeight.bold)),
+                  style: CustomTextStyles2.textSmallTextStyle(context, Colors.white)),
+              Text(emailToVerify, style: CustomTextStyles2.textSmallTextStyle(context, Colors.white)),
               const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
               Form(
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _digitSizedBox(verificationController.digitControllers[0], context),
-                    _digitSizedBox(verificationController.digitControllers[1], context),
-                    _digitSizedBox(verificationController.digitControllers[2], context),
-                    _digitSizedBox(verificationController.digitControllers[3], context),
+                    Spacer(flex: 2),
+                    Expanded(flex: 4, child: _digitSizedBox(verificationController.digitControllers[0], context)),
+                    Spacer(),
+                    Expanded(flex: 4, child: _digitSizedBox(verificationController.digitControllers[1], context)),
+                    Spacer(),
+                    Expanded(flex: 4, child: _digitSizedBox(verificationController.digitControllers[2], context)),
+                    Spacer(),
+                    Expanded(flex: 4, child: _digitSizedBox(verificationController.digitControllers[3], context)),
+                    Spacer(flex: 2),
                   ],
                 ),
               ),
               const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
               MyButtonWidget(
                 context: context,
-                height: 50,
-                width: 350,
                 buttonColor: Colors.green,
                 content: Text('Doğrula'),
                 onPressed: () {
@@ -113,34 +116,31 @@ class _ValidationViewState extends State<ValidationView> {
         ));
   }
 
-  SizedBox _digitSizedBox(TextEditingController _controller, BuildContext context) {
-    return SizedBox(
-        height: 68,
-        width: 64,
-        child: TextFormField(
-          controller: _controller,
-          cursorColor: Colors.green,
-          onTapOutside: (event) {
-            FocusScope.of(context).unfocus();
-          },
-          onChanged: (value) {
-            if (value.length == 1) {
-              FocusScope.of(context).nextFocus();
-            }
-          },
-          onSaved: (pin1) {},
-          decoration: InputDecoration(
-              hintText: "0",
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.green,
-                ),
-              )),
-          style: TextStyle(color: Colors.white, fontSize: SizeConfig.defaultSize! * 2.2, fontWeight: FontWeight.bold),
-          keyboardType: TextInputType.number,
-          textAlign: TextAlign.center,
-          inputFormatters: [LengthLimitingTextInputFormatter(1), FilteringTextInputFormatter.digitsOnly],
-        ));
+  TextFormField _digitSizedBox(TextEditingController _controller, BuildContext context) {
+    return TextFormField(
+      controller: _controller,
+      cursorColor: Colors.green,
+      onTapOutside: (event) {
+        FocusScope.of(context).unfocus();
+      },
+      onChanged: (value) {
+        if (value.length == 1) {
+          FocusScope.of(context).nextFocus();
+        }
+      },
+      onSaved: (pin1) {},
+      decoration: InputDecoration(
+          hintText: "0",
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.green,
+            ),
+          )),
+      style: CustomTextStyles2.titleMediumTextStyle(context, Colors.white),
+      keyboardType: TextInputType.number,
+      textAlign: TextAlign.center,
+      inputFormatters: [LengthLimitingTextInputFormatter(1), FilteringTextInputFormatter.digitsOnly],
+    );
   }
 
   Center _buildLoading(BuildContext context) {

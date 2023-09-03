@@ -19,7 +19,7 @@ class MyTagContainer extends StatelessWidget {
               style: TextStyle(
                   // color: CustomColors.bwyRedPastel,
                   color: textColor ?? Colors.white,
-                  fontSize: SizeConfig.defaultSize! * 1.7,
+                  fontSize: 17,
                   fontWeight: FontWeight.bold))),
     );
   }

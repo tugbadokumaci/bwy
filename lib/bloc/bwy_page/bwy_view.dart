@@ -1,3 +1,4 @@
+import 'package:bwy/extension/context_extension.dart';
 import 'package:bwy/extension/string_extension.dart';
 import 'package:bwy/lang/locale_keys.g.dart';
 import 'package:bwy/utils/box_constants.dart';
@@ -33,13 +34,13 @@ class _BwyViewState extends State<BwyView> {
   // final Text _headerTitle =
   //     Text('Bursa Web Yazılım olarak 1997 yılından beri birlikte çalıştığımız işletmelere kesintisiz ve entegre web tasarım, SEO ve yazılım çözüm ürünleri sunuyoruz. ');
 
-  final Text _headerTitle = Text(LocaleKeys.about_us_headerTitle.locale,
-      style: CustomTextStyles.titleSmallTextStyle().copyWith(fontWeight: FontWeight.w400));
-  final Text _headerSubTitle = Text(LocaleKeys.about_us_headerSubTitle.locale,
-      style: CustomTextStyles.titleSmallTextStyle().copyWith(fontWeight: FontWeight.w400));
-
   @override
   Widget build(BuildContext context) {
+    // final Text headerTitle = Text(LocaleKeys.about_us_headerTitle.locale,
+    //     style: CustomTextStyles2.titleSmallTextStyle(context, Colors.white).copyWith(fontWeight: FontWeight.w400));
+    // final Text headerSubTitle = Text(LocaleKeys.about_us_headerSubTitle.locale,
+    //     style: CustomTextStyles2.titleSmallTextStyle(context, Colors.white).copyWith(fontWeight: FontWeight.w400));
+
     final int focusIndex = ModalRoute.of(context)!.settings.arguments as int;
 
     return _buildScaffold(context, focusIndex);
@@ -50,7 +51,7 @@ class _BwyViewState extends State<BwyView> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Text(LocaleKeys.about_us_appBarTitle.locale, style: CustomTextStyles.appBarTitleTextStyle()),
+        title: Text(LocaleKeys.about_us_appBarTitle.locale, style: CustomTextStyles2.appBarTextStyle(context)),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
@@ -60,25 +61,29 @@ class _BwyViewState extends State<BwyView> {
       body: SingleChildScrollView(
         child: _buildBody(context, focusIndex),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        onTabChange: (int index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-          switch (index) {
-            case 0:
-              Navigator.pushNamed(context, '/home');
-            case 1:
-              Navigator.pushNamed(context, '/bwy', arguments: -1);
-            case 2:
-              Navigator.pushNamed(context, '/contact');
-            case 3:
-              Navigator.pushNamed(context, '/profile');
-          }
-        },
-        selectedIndex: _selectedIndex,
-      ),
+      bottomNavigationBar: buildBottomNavigationBar,
     ));
+  }
+
+  CustomBottomNavigationBar get buildBottomNavigationBar {
+    return CustomBottomNavigationBar(
+      onTabChange: (int index) {
+        setState(() {
+          _selectedIndex = index;
+        });
+        switch (index) {
+          case 0:
+            Navigator.pushNamed(context, '/home');
+          case 1:
+            Navigator.pushNamed(context, '/bwy', arguments: -1);
+          case 2:
+            Navigator.pushNamed(context, '/contact');
+          case 3:
+            Navigator.pushNamed(context, '/profile');
+        }
+      },
+      selectedIndex: _selectedIndex,
+    );
   }
 
   Widget _buildBody(BuildContext context, int focusIndex) {
@@ -91,7 +96,8 @@ class _BwyViewState extends State<BwyView> {
           _headerContainer(),
           Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Text(LocaleKeys.about_us_services.locale, style: CustomTextStyles.titleMediumTextStyle())),
+              child: Text(LocaleKeys.about_us_services.locale,
+                  style: CustomTextStyles2.titleMediumTextStyle(context, Colors.white))),
           serviceExpansionTile(
               Strings.service1Title, Strings.service1Description, 0, 0 == focusIndex, Color(0xff88B14B)),
           Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
@@ -120,13 +126,13 @@ class _BwyViewState extends State<BwyView> {
         initiallyExpanded: isInitiallyExpanded,
         title: Text(
           title,
-          style: CustomTextStyles.titleSmallTextStyle(),
+          style: CustomTextStyles2.titleSmallTextStyle(context, Colors.white),
         ),
         children: [
           ListTile(
               title: Text(
             description,
-            style: CustomTextStyles.titleExtraSmallTextStyle(),
+            style: CustomTextStyles2.titleExtraSmallTextStyle(context, Colors.white),
           ))
         ],
         trailing: expansionStates[index]
@@ -146,20 +152,29 @@ class _BwyViewState extends State<BwyView> {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: Image.asset('assets/images/bwy_header_about_us1.png', height: 360, fit: BoxFit.fitHeight),
+          child: Image.asset('assets/images/bwy_header_about_us1.png',
+              width: context.dynamicWidth(1), fit: BoxFit.fitWidth),
         ),
         Positioned(
           top: 24,
           left: 24,
-          child: Container(width: 290, child: _headerTitle),
+          child: Container(
+              width: 290,
+              child: Text(LocaleKeys.about_us_headerTitle.locale,
+                  style: CustomTextStyles2.titleSmallTextStyle(context, Colors.white)
+                      .copyWith(fontWeight: FontWeight.w400))),
         ),
         Positioned(
           left: 24,
-          bottom: 120,
-          child: Container(width: 290, child: _headerSubTitle),
+          top: 200,
+          child: Container(
+              width: 290,
+              child: Text(LocaleKeys.about_us_headerSubTitle.locale,
+                  style: CustomTextStyles2.titleSmallTextStyle(context, Colors.white)
+                      .copyWith(fontWeight: FontWeight.w400))),
         ),
         Positioned(
-            bottom: 50,
+            top: 270,
             left: 24,
             child: TextButton(
                 onPressed: () {
@@ -172,11 +187,7 @@ class _BwyViewState extends State<BwyView> {
                   children: [
                     SizedBox(width: 3),
                     Text(LocaleKeys.about_us_button.locale,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: SizeConfig.defaultSize! * 1.8,
-                          fontWeight: FontWeight.bold,
-                        )),
+                        style: CustomTextStyles2.titleExtraSmallTextStyle(context, Colors.white)),
                     SizedBox(width: 3),
                     Icon(Icons.arrow_circle_right, size: 30, color: Colors.white)
                   ],

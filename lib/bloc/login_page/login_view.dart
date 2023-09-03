@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors_in_immutables
 
+import 'package:bwy/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -94,8 +95,6 @@ class LoginView extends StatelessWidget {
             const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
             MyButtonWidget(
                 context: context,
-                height: 50,
-                width: 350,
                 buttonColor: Colors.white,
                 content: Text('Giriş yap',
                     style: Theme.of(context)

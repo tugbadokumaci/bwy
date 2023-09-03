@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bwy/size_config.dart';
+import 'package:bwy/utils/custom_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -47,12 +48,7 @@ class _ChatBottomSheetState extends State<ChatBottomSheet> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Canlı Destek',
-              style: TextStyle(
-                  fontFamily: 'REM',
-                  color: Colors.white,
-                  fontSize: SizeConfig.defaultSize! * 2.4,
-                  fontWeight: FontWeight.bold)),
+          title: Text('Canlı Destek', style: CustomTextStyles2.appBarTextStyle(context)),
           centerTitle: true,
           automaticallyImplyLeading: true,
           backgroundColor: Colors.black,

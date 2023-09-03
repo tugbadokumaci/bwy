@@ -1,5 +1,6 @@
 import 'package:bwy/bloc/welcome_page/welcome_cubit.dart';
 import 'package:bwy/bloc/welcome_page/welcome_state.dart';
+import 'package:bwy/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -58,10 +59,11 @@ class WelcomeView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Padding(
-        padding: const EdgeInsets.all(50.0),
+        padding: context.paddingAllLarge,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
 
@@ -79,9 +81,7 @@ class WelcomeView extends StatelessWidget {
               // ),
               const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
               Text('25 yıldır sizler için sunduğumuz hizmetimiz şimdi cepte.',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineMedium!
+                  style: context.theme.textTheme.headlineMedium!
                       .copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25)),
               const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
 
@@ -138,8 +138,6 @@ class WelcomeView extends StatelessWidget {
 
               MyButtonWidget(
                 context: context,
-                height: 50,
-                width: 350,
                 content: Text('Hesap oluştur', style: CustomTextStyles2.buttonTextStyle(context, Colors.white)),
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, '/signUp');
@@ -161,8 +159,6 @@ class WelcomeView extends StatelessWidget {
               const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
               MyButtonWidget(
                 context: context,
-                height: 50,
-                width: 350,
                 content: Text('Giriş yap', style: CustomTextStyles2.buttonTextStyle(context, Colors.black)),
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, '/logIn');

@@ -1,6 +1,7 @@
 import 'package:bwy/bloc/signup_page/signup_cubit.dart';
 import 'package:bwy/bloc/signup_page/signup_state.dart';
 import 'package:bwy/constants/constants.dart';
+import 'package:bwy/extension/context_extension.dart';
 import 'package:bwy/utils/box_constants.dart';
 import 'package:bwy/widget/text_fields.dart';
 import 'package:flutter/material.dart';
@@ -92,8 +93,6 @@ class _SignupViewState extends State<SignupView> {
                 const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
                 MyButtonWidget(
                   context: context,
-                  height: 50,
-                  width: 350,
                   content: Text('İlerle', style: CustomTextStyles2.buttonTextStyle(context, Colors.black)),
                   onPressed: () {
                     widget.viewModel.signup(context);
@@ -172,7 +171,7 @@ class _SignupViewState extends State<SignupView> {
         return null;
       }),
       controller: widget.viewModel.getPasswordController,
-      labelText: 'Password',
+      labelText: 'Şifre',
       isSecure: true,
       keyboardType: TextInputType.number,
     );

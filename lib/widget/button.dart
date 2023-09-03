@@ -1,9 +1,8 @@
+import 'package:bwy/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 
 class MyButtonWidget extends StatelessWidget {
   final BuildContext context;
-  final double height;
-  final double width;
   final Color buttonColor;
   final Widget content;
   final Color? borderColor;
@@ -12,8 +11,6 @@ class MyButtonWidget extends StatelessWidget {
 
   const MyButtonWidget({
     required this.context,
-    required this.height,
-    required this.width,
     required this.buttonColor,
     required this.content,
     this.borderColor,
@@ -23,25 +20,28 @@ class MyButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: height,
-      width: width,
-      child: ElevatedButton(
-        onPressed: enabled ? onPressed : null,
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(buttonColor),
-          shape: MaterialStateProperty.all<OutlinedBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25),
-              side: BorderSide(
-                color: (borderColor == null) ? buttonColor : borderColor!,
-                width: 1.0,
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: 50, maxWidth: 350),
+      child: SizedBox(
+        height: context.buttonHeight,
+        width: context.buttonWidth,
+        child: ElevatedButton(
+          onPressed: enabled ? onPressed : null,
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(buttonColor),
+            shape: MaterialStateProperty.all<OutlinedBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25),
+                side: BorderSide(
+                  color: (borderColor == null) ? buttonColor : borderColor!,
+                  width: 1.0,
+                ),
               ),
             ),
           ),
-        ),
-        child: Center(
-          child: content,
+          child: Center(
+            child: content,
+          ),
         ),
       ),
     );

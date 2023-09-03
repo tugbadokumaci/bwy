@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:bwy/extension/context_extension.dart';
 import 'package:bwy/utils/custom_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -28,9 +29,7 @@ class MyTextFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxWidth: 350, // Set your maximum width here
-      ),
+      constraints: BoxConstraints(maxWidth: 350),
       child: GestureDetector(
         // onTap: () {
         //   FocusScope.of(context).unfocus();

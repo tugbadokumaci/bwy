@@ -1,6 +1,7 @@
 import 'package:bwy/bloc/profile_page/profile_cubit.dart';
 import 'package:bwy/bloc/profile_page/profile_state.dart';
 import 'package:bwy/constants/constants.dart';
+import 'package:bwy/extension/context_extension.dart';
 import 'package:bwy/extension/string_extension.dart';
 import 'package:bwy/utils/custom_colors.dart';
 import 'package:bwy/utils/custom_text_styles.dart';
@@ -49,7 +50,7 @@ class _ProfileViewState extends State<ProfileView> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Text(LocaleKeys.profile_appBarTitle.locale, style: CustomTextStyles.appBarTitleTextStyle()),
+        title: Text(LocaleKeys.profile_appBarTitle.locale, style: CustomTextStyles2.appBarTextStyle(context)),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
@@ -74,25 +75,29 @@ class _ProfileViewState extends State<ProfileView> {
           return _buildError(context);
         },
       )),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        onTabChange: (int index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-          switch (index) {
-            case 0:
-              Navigator.pushNamed(context, '/home');
-            case 1:
-              Navigator.pushNamed(context, '/bwy', arguments: -1);
-            case 2:
-              Navigator.pushNamed(context, '/contact');
-            case 3:
-              Navigator.pushNamed(context, '/profile');
-          }
-        },
-        selectedIndex: _selectedIndex,
-      ),
+      bottomNavigationBar: buildBottomNavigationBar,
     ));
+  }
+
+  CustomBottomNavigationBar get buildBottomNavigationBar {
+    return CustomBottomNavigationBar(
+      onTabChange: (int index) {
+        setState(() {
+          _selectedIndex = index;
+        });
+        switch (index) {
+          case 0:
+            Navigator.pushNamed(context, '/home');
+          case 1:
+            Navigator.pushNamed(context, '/bwy', arguments: -1);
+          case 2:
+            Navigator.pushNamed(context, '/contact');
+          case 3:
+            Navigator.pushNamed(context, '/profile');
+        }
+      },
+      selectedIndex: _selectedIndex,
+    );
   }
 
   Center _buildError(BuildContext context) {
@@ -154,8 +159,6 @@ class _ProfileViewState extends State<ProfileView> {
           const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
           MyButtonWidget(
               context: context,
-              height: 50,
-              width: 350,
               buttonColor: Colors.white,
               content: Text(LocaleKeys.profile_saveChangesButton.locale,
                   style: Theme.of(context)
@@ -172,8 +175,6 @@ class _ProfileViewState extends State<ProfileView> {
           ),
           MyButtonWidget(
             context: context,
-            height: 50,
-            width: 350,
             buttonColor: Colors.black,
             content: Text(LocaleKeys.profile_goBackButton.locale),
             onPressed: () {
@@ -210,10 +211,9 @@ class _ProfileViewState extends State<ProfileView> {
               decoration: BoxDecoration(color: const Color(0xff222023), borderRadius: BorderRadius.circular(10)),
               child: ListTile(
                 title: Text('${Constants.USER.userName} ${Constants.USER.userSurname}',
-                    style: CustomTextStyles.titleSmallTextStyle()),
+                    style: CustomTextStyles2.titleSmallTextStyle(context, Colors.white)),
                 subtitle: Text('${Constants.USER.userEmail}',
-                    style: TextStyle(
-                        color: Colors.grey[400], fontSize: SizeConfig.defaultSize! * 1.5, fontWeight: FontWeight.bold)),
+                    style: CustomTextStyles2.textSmallTextStyle(context, Colors.grey[400]!)),
                 trailing: IconButton(
                     onPressed: () {
                       widget.viewModel.logOut();
@@ -228,7 +228,8 @@ class _ProfileViewState extends State<ProfileView> {
               children: [
                 const Icon(Icons.settings, color: Colors.white),
                 const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
-                Text(LocaleKeys.profile_accountSettingsTitle.locale, style: CustomTextStyles.titleMediumTextStyle()),
+                Text(LocaleKeys.profile_accountSettingsTitle.locale,
+                    style: CustomTextStyles2.titleMediumTextStyle(context, Colors.white)),
               ],
             ),
           ),
@@ -240,7 +241,8 @@ class _ProfileViewState extends State<ProfileView> {
               children: [
                 const Icon(Icons.phonelink_lock_outlined, color: Colors.white),
                 const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
-                Text(LocaleKeys.profile_changePassword.locale, style: CustomTextStyles.titleSmallTextStyle()),
+                Text(LocaleKeys.profile_changePassword.locale,
+                    style: CustomTextStyles2.titleSmallTextStyle(context, Colors.white)),
                 const Spacer(),
                 Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
               ],
@@ -254,7 +256,8 @@ class _ProfileViewState extends State<ProfileView> {
               children: [
                 const Icon(Icons.delete, color: Colors.white),
                 const Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
-                Text(LocaleKeys.profile_deleteAccount.locale, style: CustomTextStyles.titleSmallTextStyle()),
+                Text(LocaleKeys.profile_deleteAccount.locale,
+                    style: CustomTextStyles2.titleSmallTextStyle(context, Colors.white)),
                 const Spacer(),
                 Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
               ],
@@ -267,7 +270,7 @@ class _ProfileViewState extends State<ProfileView> {
                 const Icon(Icons.notifications),
                 const Box(size: BoxSize.SMALL, type: BoxType.HORIZONTAL),
                 Text(LocaleKeys.profile_servicesnotificationsTitle.locale,
-                    style: CustomTextStyles.titleMediumTextStyle()),
+                    style: CustomTextStyles2.titleMediumTextStyle(context, Colors.white)),
               ],
             ),
           ),
@@ -291,7 +294,7 @@ class _ProfileViewState extends State<ProfileView> {
           //   });
           // })),
           Box(type: BoxType.HORIZONTAL, size: BoxSize.EXTRASMALL),
-          Text(title, style: CustomTextStyles.titleExtraSmallTextStyle()),
+          Text(title, style: CustomTextStyles2.titleExtraSmallTextStyle(context, Colors.white)),
         ],
       ),
     );
