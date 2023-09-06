@@ -101,7 +101,11 @@ class _RestClient implements RestClient {
   Future<Resource<UserModel>> login(Map<String, dynamic> user) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Content-Type': 'application/json', r'charset': 'utf-8'};
+    final _headers = <String, dynamic>{
+      r'Content-Type': 'application/json',
+      r'charset': 'utf-8',
+      r'Access-Control-Allow-Origin': '*'
+    };
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(user);

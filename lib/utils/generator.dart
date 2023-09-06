@@ -36,10 +36,8 @@ abstract class RestClient {
   Future<Resource<UserModel>> signup(@Body() Map<String, dynamic> user);
 
   @POST('/codeocean/login.php')
-  @Headers(<String, dynamic>{
-    "Content-Type": "application/json",
-    "charset": "utf-8",
-  })
+  @Headers(
+      <String, dynamic>{"Content-Type": "application/json", "charset": "utf-8", "Access-Control-Allow-Origin": "*"})
   Future<Resource<UserModel>> login(@Body() Map<String, dynamic> user);
 
   @POST('/codeocean/getservices.php')

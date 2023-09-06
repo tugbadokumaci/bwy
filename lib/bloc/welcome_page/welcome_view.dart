@@ -68,7 +68,7 @@ class WelcomeView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
-
+                Image.network('https://picsum.photos/250?image=9'),
                 Image.asset(
                   'assets/images/bwy_logo.png',
                   width: 150,
