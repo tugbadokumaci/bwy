@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors_in_immutables
 
 import 'package:bwy/extension/context_extension.dart';
+import 'package:bwy/widget/lottie_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -143,65 +144,7 @@ class LoginView extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             child: Align(
               alignment: Alignment.center,
-              child: Lottie.asset(
-                'animations/loading_animation.json',
-                height: 200,
-                reverse: false,
-                // repeat: true,
-                // fit: BoxFit.cover,
-              ),
+              child: LottieWidget(path: 'loading_animation'),
             )));
   }
-
-  // Widget _buildStep2(BuildContext context) {
-  //   return Padding(
-  //     padding: const EdgeInsets.all(50.0),
-  //     child: Column(
-  //       children: [
-  //         Text(
-  //           "Şifrenizi girin",
-  //           style:
-  //               Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-  //         ),
-  //         const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
-  //         MyTextFieldWidget(
-  //           validatorCallback: ((value) {
-  //             if (value!.isEmpty) {
-  //               return "email can't be null";
-  //             } else {}
-  //             return null;
-  //           }),
-  //           controller: viewModel.getEmailController,
-  //           labelText: 'Email',
-  //           isEnable: false,
-  //         ),
-  //         const Box(size: BoxSize.SMALL, type: BoxType.VERTICAL),
-  //         MyTextFieldWidget(
-  //             validatorCallback: ((value) {
-  //               if (value!.isEmpty) {
-  //                 return "password can't be null";
-  //               } else {}
-  //               return null;
-  //             }),
-  //             controller: viewModel.getPasswordController,
-  //             labelText: 'Şifre',
-  //             isSecure: true),
-  //         Spacer(),
-  //         MyButtonWidget(
-  //             context: context,
-  //             height: 50,
-  //             width: 350,
-  //             buttonColor: Colors.white,
-  //             content: Text('Log in',
-  //                 style: Theme.of(context)
-  //                     .textTheme
-  //                     .titleMedium!
-  //                     .copyWith(color: Colors.black, fontWeight: FontWeight.bold)),
-  //             onPressed: () {
-  //               viewModel.login(context);
-  //             })
-  //       ],
-  //     ),
-  //   );
-  // }
 }

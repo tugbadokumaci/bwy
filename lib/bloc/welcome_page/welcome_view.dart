@@ -1,6 +1,7 @@
 import 'package:bwy/bloc/welcome_page/welcome_cubit.dart';
 import 'package:bwy/bloc/welcome_page/welcome_state.dart';
 import 'package:bwy/extension/context_extension.dart';
+import 'package:bwy/widget/lottie_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -44,13 +45,7 @@ class WelcomeView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
-        child: Lottie.asset(
-          'animations/loading_animation.json',
-          height: 200,
-          reverse: false,
-          // repeat: true,
-          // fit: BoxFit.cover,
-        ),
+        child: LottieWidget(path: 'loading_animation'),
       ),
     );
   }
@@ -68,7 +63,6 @@ class WelcomeView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Box(size: BoxSize.MEDIUM, type: BoxType.VERTICAL),
-                Image.network('https://picsum.photos/250?image=9'),
                 Image.asset(
                   'assets/images/bwy_logo.png',
                   width: 150,

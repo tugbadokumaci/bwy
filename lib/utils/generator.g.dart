@@ -284,7 +284,7 @@ class _RestClient implements RestClient {
         }
       }
       // Hata durumunda boş bir ServiceModel döndürebilirsiniz veya isteğe göre yönetebilirsiniz.
-      return Resource.error('Lütfen internet bağlantınızı kontrol edin', null);
+      return Resource.error('Şu anda işleminizi gerçekleştiremiyoruz. Lütfen daha sonra tekrar deneyiniz', null);
     }
   }
 

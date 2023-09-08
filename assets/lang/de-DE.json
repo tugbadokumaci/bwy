@@ -46,6 +46,13 @@
         "saveChangesButton": "Änderungen speichern",
         "goBackButton": "Aufgeben",
         "newPassword": "Neues Kennwort",
-        "newPasswordAgain": "Neues Passwort wiederholen"
+        "newPasswordAgain": "Neues Passwort wiederholen",
+        "ok": "Okay",
+        "success": "Erfolgreich",
+        "deleteSuccess": "Dein Account wurde gelöscht",
+        "fail": "Erfolglos",
+        "deleteFail": "Fehler fand statt, als Ihr Konto gelöscht wurde",
+        "areYouSure": "Bist du sicher?",
+        "areYouSureText": "Sind Sie sicher, dass Sie Ihr Konto löschen möchten?"
     }
 }

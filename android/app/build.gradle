@@ -59,7 +59,7 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 21    // I added
-        targetSdkVersion flutter.targetSdkVersion
+        targetSdkVersion 33 // ı changed this after compileSdkVersion because app crashes when textformfield focus
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -75,6 +75,9 @@ android {
    buildTypes {
        release {
            signingConfig signingConfigs.release
+           // ı added these.... (app exist when textformfield focus)
+           shrinkResources false
+           proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
        }
    }
 
@@ -86,4 +89,6 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.airbnb.android:lottie:3.5.0"
+    implementation "com.android.support.constraint:constraint-layout:2.0.4"
 }

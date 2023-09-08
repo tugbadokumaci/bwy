@@ -46,6 +46,13 @@
         "saveChangesButton": "Save Changes",
         "goBackButton": "Go Back",
         "newPassword": "New Password",
-        "newPasswordAgain": "New Password Repeat"
+        "newPasswordAgain": "New Password Repeat",
+        "ok": "Okay",
+        "success": "Successful",
+        "deleteSuccess": "Your account has been deleted",
+        "fail": "Unsuccessful",
+        "deleteFail": "Errors took place when their account was deleted",
+        "areYouSure": "Are you sure?",
+        "areYouSureText": "Are you sure you want to delete your account?"
     }
 }

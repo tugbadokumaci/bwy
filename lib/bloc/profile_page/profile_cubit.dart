@@ -1,5 +1,7 @@
 import 'package:bwy/bloc/profile_page/profile_repository.dart';
 import 'package:bwy/bloc/profile_page/profile_state.dart';
+import 'package:bwy/extension/string_extension.dart';
+import 'package:bwy/lang/locale_keys.g.dart';
 import 'package:bwy/shared_preferences_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +22,6 @@ class ProfileCubit extends Cubit<ProfileState> {
   TextEditingController passwordAgainController = TextEditingController();
 
   Future<void> getProfile() async {
-    debugPrint('Fonk invoked');
     emit(ProfileSuccess());
   }
 
@@ -33,8 +34,8 @@ class ProfileCubit extends Cubit<ProfileState> {
     if (resource.status == Status.SUCCESS) {
       Utils.showCustomDialog(
         // context: context,
-        title: 'Başarılı',
-        content: 'Hesabınız silindi',
+        title: LocaleKeys.profile_success.locale,
+        content: LocaleKeys.profile_deleteSuccess.locale,
         onTap: () async {
           await SharedPreferencesService.clearLocalStorage();
           Navigator.of(context).pop();
@@ -44,8 +45,8 @@ class ProfileCubit extends Cubit<ProfileState> {
     } else {
       Utils.showCustomDialog(
         // context: context,
-        title: 'Başarısız',
-        content: 'Hesabınız silinirken hata gerçekleşti',
+        title: LocaleKeys.profile_fail.locale,
+        content: LocaleKeys.profile_deleteFail.locale,
         onTap: () {
           passwordAgainController.text == '';
           passwordController.text = '';

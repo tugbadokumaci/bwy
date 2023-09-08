@@ -1,19 +1,17 @@
-import 'dart:typed_data';
-
 import 'package:bwy/constants/constants.dart';
 import 'package:bwy/extension/context_extension.dart';
 import 'package:bwy/extension/string_extension.dart';
 import 'package:bwy/utils/custom_text_styles.dart';
 import 'package:bwy/widget/container.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'dart:ui' as ui;
 
 import '../../BottomNavBar.dart';
 import '../../lang/locale_keys.g.dart';
-import '../../size_config.dart';
 import '../../utils/box_constants.dart';
 import '../../widget/box.dart';
 import '../../widget/fabs.dart';
@@ -32,13 +30,13 @@ class _ContactViewState extends State<ContactView> {
   late GoogleMapController _mapController;
   Map<String, Marker> _markers = {};
   int _selectedIndex = Pages.CONTACTUS.index;
-  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.w600, color: Colors.white);
-  static List<Widget> _widgetOptions = <Widget>[
-    Text(LocaleKeys.home_appBarTitle.locale, style: optionStyle),
-    Text(LocaleKeys.about_us_appBarTitle.locale, style: optionStyle),
-    Text(LocaleKeys.contact_appBarTitle.locale, style: optionStyle),
-    Text(LocaleKeys.profile_appBarTitle.locale, style: optionStyle),
-  ];
+  // static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.w600, color: Colors.white);
+  // static List<Widget> _widgetOptions = <Widget>[
+  //   Text(LocaleKeys.home_appBarTitle.locale, style: optionStyle),
+  //   Text(LocaleKeys.about_us_appBarTitle.locale, style: optionStyle),
+  //   Text(LocaleKeys.contact_appBarTitle.locale, style: optionStyle),
+  //   Text(LocaleKeys.profile_appBarTitle.locale, style: optionStyle),
+  // ];
   @override
   void initState() {
     // addCustomIcon();
@@ -117,17 +115,17 @@ class _ContactViewState extends State<ContactView> {
     return MyContainer(
       backgroundColor: Color(0xffF8F9FA),
       child: GoogleMap(
-        initialCameraPosition: CameraPosition(
-          target: currentLocation,
-          zoom: 17,
-        ),
-        onMapCreated: (controller) {
-          _mapController = controller;
-          addMarker('primary', currentLocation);
-        },
-        markers: _markers.values.toSet(),
-        myLocationButtonEnabled: false,
-      ),
+          initialCameraPosition: CameraPosition(
+            target: currentLocation,
+            zoom: 17,
+          ),
+          onMapCreated: (controller) {
+            _mapController = controller;
+            addMarker('primary', currentLocation);
+          },
+          markers: _markers.values.toSet(),
+          myLocationButtonEnabled: false,
+          gestureRecognizers: Set()..add(Factory<PanGestureRecognizer>(() => PanGestureRecognizer()))),
     );
   }
 

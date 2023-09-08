@@ -23,13 +23,13 @@ class BwyView extends StatefulWidget {
 class _BwyViewState extends State<BwyView> {
   List<bool> expansionStates = List.generate(5, (index) => false);
   int _selectedIndex = Pages.ABOUTUS.index;
-  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.w600, color: Colors.white);
-  static List<Widget> _widgetOptions = <Widget>[
-    Text(LocaleKeys.home_appBarTitle.locale, style: optionStyle),
-    Text(LocaleKeys.about_us_appBarTitle.locale, style: optionStyle),
-    Text(LocaleKeys.contact_appBarTitle.locale, style: optionStyle),
-    Text(LocaleKeys.profile_appBarTitle.locale, style: optionStyle),
-  ];
+  // static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.w600, color: Colors.white);
+  // static List<Widget> _widgetOptions = <Widget>[
+  //   Text(LocaleKeys.home_appBarTitle.locale, style: optionStyle),
+  //   Text(LocaleKeys.about_us_appBarTitle.locale, style: optionStyle),
+  //   Text(LocaleKeys.contact_appBarTitle.locale, style: optionStyle),
+  //   Text(LocaleKeys.profile_appBarTitle.locale, style: optionStyle),
+  // ];
 
   // final Text _headerTitle =
   //     Text('Bursa Web Yazılım olarak 1997 yılından beri birlikte çalıştığımız işletmelere kesintisiz ve entegre web tasarım, SEO ve yazılım çözüm ürünleri sunuyoruz. ');

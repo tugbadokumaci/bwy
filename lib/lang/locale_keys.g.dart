@@ -45,6 +45,13 @@ abstract class  LocaleKeys {
   static const profile_goBackButton = 'profile.goBackButton';
   static const profile_newPassword = 'profile.newPassword';
   static const profile_newPasswordAgain = 'profile.newPasswordAgain';
+  static const profile_ok = 'profile.ok';
+  static const profile_success = 'profile.success';
+  static const profile_deleteSuccess = 'profile.deleteSuccess';
+  static const profile_fail = 'profile.fail';
+  static const profile_deleteFail = 'profile.deleteFail';
+  static const profile_areYouSure = 'profile.areYouSure';
+  static const profile_areYouSureText = 'profile.areYouSureText';
   static const profile = 'profile';
 
 }

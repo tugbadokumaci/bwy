@@ -4,6 +4,7 @@ import 'package:bwy/utils/box_constants.dart';
 import 'package:bwy/constants/constants.dart';
 import 'package:bwy/utils/custom_text_styles.dart';
 import 'package:bwy/widget/fabs.dart';
+import 'package:bwy/widget/lottie_widget.dart';
 import 'package:bwy/widget/tagContainer.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -45,13 +46,13 @@ int dropdownIndex = 0; // otherwise will be assign to the index 0 after clicks
 
 class _HomeViewState extends State<HomeView> {
   int _selectedIndex = Pages.HOME.index; // creating index field for our state
-  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.w600, color: Colors.white);
-  static List<Widget> _widgetOptions = <Widget>[
-    Text(LocaleKeys.home_appBarTitle.locale, style: optionStyle),
-    Text(LocaleKeys.about_us_appBarTitle.locale, style: optionStyle),
-    Text(LocaleKeys.contact_appBarTitle.locale, style: optionStyle),
-    Text(LocaleKeys.profile_appBarTitle.locale, style: optionStyle),
-  ];
+  // static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.w600, color: Colors.white);
+  // static List<Widget> _widgetOptions = <Widget>[
+  //   Text(LocaleKeys.home_appBarTitle.locale, style: optionStyle),
+  //   Text(LocaleKeys.about_us_appBarTitle.locale, style: optionStyle),
+  //   Text(LocaleKeys.contact_appBarTitle.locale, style: optionStyle),
+  //   Text(LocaleKeys.profile_appBarTitle.locale, style: optionStyle),
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -187,31 +188,33 @@ class _HomeViewState extends State<HomeView> {
             child: Text('${Constants.USER.userName} ${Constants.USER.userSurname}',
                 style: CustomTextStyles2.titleSmallTextStyle(context, Colors.white))),
         const Spacer(),
-        DropdownButton<Image>(
-          value: images[dropdownIndex],
-          dropdownColor: Colors.black,
-          onChanged: (Image? value) {
-            setState(() {
-              dropdownIndex = images.indexOf(value!);
-              context.setLocale(Localization.SUPPORTED_LANGUAGES[dropdownIndex]);
-            });
-          },
-          items: images.map<DropdownMenuItem<Image>>((Image value) {
-            return DropdownMenuItem<Image>(
-              value: value,
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Row(
-                  children: [
-                    value,
-                    // Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
-                    // Text(languages[images.indexOf(value)],
-                    //     style: TextStyle(fontSize: SizeConfig.defaultSize! * 1.7, fontWeight: FontWeight.bold)),
-                  ],
+        DropdownButtonHideUnderline(
+          child: DropdownButton<Image>(
+            value: images[dropdownIndex],
+            dropdownColor: Colors.black,
+            onChanged: (Image? value) {
+              setState(() {
+                dropdownIndex = images.indexOf(value!);
+                context.setLocale(Localization.SUPPORTED_LANGUAGES[dropdownIndex]);
+              });
+            },
+            items: images.map<DropdownMenuItem<Image>>((Image value) {
+              return DropdownMenuItem<Image>(
+                value: value,
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Row(
+                    children: [
+                      value,
+                      // Box(size: BoxSize.EXTRASMALL, type: BoxType.HORIZONTAL),
+                      // Text(languages[images.indexOf(value)],
+                      //     style: TextStyle(fontSize: SizeConfig.defaultSize! * 1.7, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          }).toList(),
+              );
+            }).toList(),
+          ),
         )
       ],
     );
@@ -444,13 +447,7 @@ class _HomeViewState extends State<HomeView> {
             color: Colors.black,
             child: Align(
               alignment: Alignment.center,
-              child: Lottie.asset(
-                'animations/error_animation.json',
-                height: 200,
-                reverse: false,
-                // repeat: true,
-                // fit: BoxFit.cover,
-              ),
+              child: LottieWidget(path: 'error_animation'),
             )),
       ],
     );

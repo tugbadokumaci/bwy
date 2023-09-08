@@ -1,15 +1,14 @@
 import 'package:bwy/bloc/profile_page/profile_cubit.dart';
 import 'package:bwy/bloc/profile_page/profile_state.dart';
 import 'package:bwy/constants/constants.dart';
-import 'package:bwy/extension/context_extension.dart';
 import 'package:bwy/extension/string_extension.dart';
 import 'package:bwy/utils/custom_colors.dart';
 import 'package:bwy/utils/custom_text_styles.dart';
+import 'package:bwy/utils/utils.dart';
+import 'package:bwy/widget/lottie_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:lottie/lottie.dart';
 
 import '../../BottomNavBar.dart';
 import '../../lang/locale_keys.g.dart';
@@ -31,17 +30,21 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
   bool _isNotificationsActive = true;
   int _selectedIndex = Pages.PROFILE.index;
-  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.w600, color: Colors.white);
-  static List<Widget> _widgetOptions = <Widget>[
-    Text(LocaleKeys.home_appBarTitle.locale, style: optionStyle),
-    Text(LocaleKeys.about_us_appBarTitle.locale, style: optionStyle),
-    Text(LocaleKeys.contact_appBarTitle.locale, style: optionStyle),
-    Text(LocaleKeys.profile_appBarTitle.locale, style: optionStyle),
-  ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    widget.viewModel.getProfile();
+  }
+  // static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.w600, color: Colors.white);
+  // static List<Widget> _widgetOptions = <Widget>[
+  //   Text(LocaleKeys.home_appBarTitle.locale, style: optionStyle),
+  //   Text(LocaleKeys.about_us_appBarTitle.locale, style: optionStyle),
+  //   Text(LocaleKeys.contact_appBarTitle.locale, style: optionStyle),
+  //   Text(LocaleKeys.profile_appBarTitle.locale, style: optionStyle),
+  // ];
 
   @override
   Widget build(BuildContext context) {
-    widget.viewModel.getProfile();
     return BlocProvider<ProfileCubit>(create: (_) => widget.viewModel, child: _buildScaffold(context));
   }
 
@@ -106,15 +109,9 @@ class _ProfileViewState extends State<ProfileView> {
             color: Colors.black,
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            child: Align(
+            child: const Align(
               alignment: Alignment.center,
-              child: Lottie.asset(
-                'animations/error_animation.json',
-                height: 200,
-                reverse: false,
-                // repeat: true,
-                // fit: BoxFit.cover,
-              ),
+              child: LottieWidget(path: 'error_animation'),
             )));
   }
 
@@ -217,7 +214,7 @@ class _ProfileViewState extends State<ProfileView> {
                 trailing: IconButton(
                     onPressed: () {
                       widget.viewModel.logOut();
-                      Navigator.pushNamed(context, '/');
+                      Navigator.pushReplacementNamed(context, '/');
                     },
                     icon: const Icon(Icons.logout, color: Colors.white)),
                 leading: Image.asset('assets/images/user.png', scale: 12),
@@ -244,13 +241,18 @@ class _ProfileViewState extends State<ProfileView> {
                 Text(LocaleKeys.profile_changePassword.locale,
                     style: CustomTextStyles2.titleSmallTextStyle(context, Colors.white)),
                 const Spacer(),
-                Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
+                const Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
               ],
             ),
           ),
           TextButton(
             onPressed: () {
-              widget.viewModel.deleteAccount(context);
+              Utils.showCustomDialogWithOptions(
+                  title: LocaleKeys.profile_areYouSure.locale,
+                  content: LocaleKeys.profile_areYouSureText.locale,
+                  onTap: () {
+                    widget.viewModel.deleteAccount(context);
+                  });
             },
             child: Row(
               children: [
@@ -259,7 +261,7 @@ class _ProfileViewState extends State<ProfileView> {
                 Text(LocaleKeys.profile_deleteAccount.locale,
                     style: CustomTextStyles2.titleSmallTextStyle(context, Colors.white)),
                 const Spacer(),
-                Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
+                const Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
               ],
             ),
           ),
@@ -293,7 +295,7 @@ class _ProfileViewState extends State<ProfileView> {
           //     _isNotificationsActive = value;
           //   });
           // })),
-          Box(type: BoxType.HORIZONTAL, size: BoxSize.EXTRASMALL),
+          const Box(type: BoxType.HORIZONTAL, size: BoxSize.EXTRASMALL),
           Text(title, style: CustomTextStyles2.titleExtraSmallTextStyle(context, Colors.white)),
         ],
       ),

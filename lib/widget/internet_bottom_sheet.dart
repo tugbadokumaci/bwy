@@ -1,25 +1,26 @@
-import 'dart:async';
-
-import 'package:bwy/size_config.dart';
 import 'package:bwy/utils/custom_text_styles.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../utils/custom_colors.dart';
-
-class ChatBottomSheet extends StatefulWidget {
-  const ChatBottomSheet({super.key});
+class InternetBottomSheet extends StatefulWidget {
+  final String url;
+  final String appBarTitle;
+  const InternetBottomSheet({super.key, required this.url, required this.appBarTitle});
 
   @override
-  State<ChatBottomSheet> createState() => _ChatBottomSheetState();
+  State<InternetBottomSheet> createState() => _InternetBottomSheetState();
 }
 
-class _ChatBottomSheetState extends State<ChatBottomSheet> {
+class _InternetBottomSheetState extends State<InternetBottomSheet> {
   var loadingPercentage = 0;
   late final WebViewController controller;
+  final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers = {Factory(() => EagerGestureRecognizer())};
   @override
   void initState() {
     super.initState();
+
     controller = WebViewController()
       ..setNavigationDelegate(NavigationDelegate(
         onPageStarted: (url) {
@@ -39,7 +40,7 @@ class _ChatBottomSheetState extends State<ChatBottomSheet> {
         },
       ))
       ..loadRequest(
-        Uri.parse('https://tawk.to/chat/59b774864854b82732fef7b8/default'),
+        Uri.parse(widget.url),
       );
   }
 
@@ -48,36 +49,28 @@ class _ChatBottomSheetState extends State<ChatBottomSheet> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Canlı Destek', style: CustomTextStyles2.appBarTextStyle(context)),
+          title: Text(widget.appBarTitle, style: CustomTextStyles2.appBarTextStyle(context)),
           centerTitle: true,
-          automaticallyImplyLeading: true,
           backgroundColor: Colors.black,
         ),
         backgroundColor: Colors.white,
-        resizeToAvoidBottomInset: false,
-        body: SingleChildScrollView(
-          // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
-          child: ConstrainedBox(
-            constraints: BoxConstraints(maxHeight: SizeConfig.screenHeight! * 0.8),
-            child: loadingPercentage < 100
+        body: Column(
+          children: <Widget>[
+            loadingPercentage < 100
                 ? LinearProgressIndicator(
-                    color: CustomColors.bwyYellow,
+                    color: Colors.yellow, // Change to your desired color
                     backgroundColor: Colors.black,
                     value: loadingPercentage / 100.0,
                   )
-                : WebViewWidget(
-                    controller: controller,
-                  ),
-          ),
-          // child: Stack(
-          //   children: [
-          //     Align(
-          //       alignment: Alignment.center,
-          //       child:
-          //     ),
+                : SizedBox(), // Hide the progress bar when not loading
 
-          //   ],
-          // ),
+            Expanded(
+              child: WebViewWidget(
+                controller: controller,
+                gestureRecognizers: gestureRecognizers,
+              ),
+            ),
+          ],
         ),
       ),
     );

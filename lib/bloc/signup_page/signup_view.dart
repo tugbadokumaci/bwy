@@ -1,14 +1,12 @@
 import 'package:bwy/bloc/signup_page/signup_cubit.dart';
 import 'package:bwy/bloc/signup_page/signup_state.dart';
-import 'package:bwy/constants/constants.dart';
-import 'package:bwy/extension/context_extension.dart';
 import 'package:bwy/utils/box_constants.dart';
+import 'package:bwy/widget/internet_bottom_sheet.dart';
+import 'package:bwy/widget/lottie_widget.dart';
 import 'package:bwy/widget/text_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
 
-import '../../constants/strings.dart';
 import '../../size_config.dart';
 import '../../utils/custom_text_styles.dart';
 import '../../widget/box.dart';
@@ -130,16 +128,17 @@ class _SignupViewState extends State<SignupView> {
               backgroundColor: Colors.grey[900],
               context: context,
               builder: (BuildContext context) {
-                return SizedBox(
-                    height: SizeConfig.screenHeight! * 0.8,
-                    child: ListView(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Text(Strings.kvkkMetni),
-                        ),
-                      ],
-                    ));
+                return InternetBottomSheet(url: 'https://bursawebyazilim.com/kvkk/', appBarTitle: 'KVKK');
+                // return SizedBox(
+                //     height: SizeConfig.screenHeight! * 0.8,
+                //     child: ListView(
+                //       children: <Widget>[
+                //         Padding(
+                //           padding: const EdgeInsets.all(20.0),
+                //           child: Text(Strings.kvkkMetni),
+                //         ),
+                //       ],
+                //     ));
               },
             );
           },
@@ -225,13 +224,7 @@ class _SignupViewState extends State<SignupView> {
             width: MediaQuery.of(context).size.width,
             child: Align(
               alignment: Alignment.center,
-              child: Lottie.asset(
-                'animations/loading_animation.json',
-                height: 200,
-                reverse: false,
-                repeat: true,
-                // fit: BoxFit.cover,
-              ),
+              child: LottieWidget(path: 'loading_animation'),
             )));
   }
 }

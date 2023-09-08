@@ -3,7 +3,7 @@
         "appBarTitle": "Ana Sayfa",
         "servicesTitle": "Tüm Hizmetler",
         "ourServices": "Hizmetlerimiz",
-        "myServicesTitle": "Hizmet detaylarım",
+        "myServicesTitle": "Hizmet Detaylarım",
         "active": "Aktif",
         "inactive": "Pasif",
         "serviceNo": "Hizmet No: #",
@@ -46,6 +46,13 @@
         "saveChangesButton": "Değişiklikleri Kaydet",
         "goBackButton": "Vazgeç",
         "newPassword": "Yeni Şifre",
-        "newPasswordAgain": "Yeni Şifre Tekrarı"
+        "newPasswordAgain": "Yeni Şifre Tekrarı",
+        "ok": "Tamam",
+        "success": "Başarılı",
+        "deleteSuccess": "Hesabınız silindi",
+        "fail": "Başarısız",
+        "deleteFail": "Hesabınız silinirken hata gerçekleşti",
+        "areYouSure": "Emin misiniz?",
+        "areYouSureText": "Hesabınızı silmek istediğinize emin misiniz?"
     }
 }

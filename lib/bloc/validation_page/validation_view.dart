@@ -2,6 +2,7 @@ import 'package:bwy/bloc/validation_page/validation_cubit.dart';
 import 'package:bwy/bloc/validation_page/validation_state.dart';
 import 'package:bwy/extension/context_extension.dart';
 import 'package:bwy/utils/custom_text_styles.dart';
+import 'package:bwy/widget/lottie_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -151,13 +152,7 @@ class _ValidationViewState extends State<ValidationView> {
             width: MediaQuery.of(context).size.width,
             child: Align(
               alignment: Alignment.center,
-              child: Lottie.asset(
-                'animations/loading_animation.json',
-                height: 200,
-                reverse: false,
-                repeat: true,
-                // fit: BoxFit.cover,
-              ),
+              child: LottieWidget(path: 'loading_animation'),
             )));
   }
 }

@@ -1,4 +1,4 @@
-import 'package:bwy/widget/chat_bottom_sheet.dart';
+import 'package:bwy/widget/internet_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,7 +17,10 @@ class FABs {
             useSafeArea: true,
             context: context,
             builder: (BuildContext context) {
-              return ChatBottomSheet();
+              // return ChatBottomSheet();
+              return InternetBottomSheet(
+                  url: 'https://tawk.to/chat/59b774864854b82732fef7b8/default', appBarTitle: 'Canlı Destek');
+
               // return SizedBox(
               //   height: SizeConfig.screenHeight! * 0.8,
               //   child: Center(
@@ -46,7 +49,7 @@ class FABs {
       //   scheme: 'tel',
       //   path: '+1-555-010-9999',
       // );
-      Uri launchUri = Uri.parse('tel:+1-555-010-9999');
+      Uri launchUri = Uri.parse('tel:+90-224-408-38-48');
 
       await launchUrl(launchUri);
     }
