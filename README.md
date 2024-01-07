@@ -5,3 +5,5 @@
 ## ⌛ [Now on Play Store](https://play.google.com/store/apps/details?id=com.bursawebyazilim.bwy)
 > Submitted for review for v1.0.0 on 8.09.2023.  
 > Approved on 11.09.2003.
+
+[21290650 BLM4537.pdf](https://github.com/tugbadokumaci/bwy/files/13853469/21290650.BLM4537.pdf)
